@@ -1,0 +1,111 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+@media print {
+    .fi-sidebar,
+    .fi-topbar,
+    .fi-header, 
+    .fi-page-actions,
+    .fi-ta-pagination,
+    .fi-ta-header,
+    .fi-ta-header-toolbar,
+    .fi-icon,
+    .fi-ta-cell:has(.fi-ta-actions),
+    .fi-ta-actions-header-cell,
+    .fi-pagination {
+        display: none !important;
+    }
+    
+    .fi-main {
+        padding: 0 !important;
+    }
+
+    table {
+        table-layout: fixed;;
+    }
+
+    .fi-ta-summary-row { 
+        border-top: 3px solid #000; 
+        
+        background-color: #e8e8e8 !important; 
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .fi-ta-summary-row td {
+        font-weight: 700 !important;
+        font-size: 1.1em;
+    }
+
+    body {
+        margin: 10mm 5mm;
+    }
+
+    body, tr {
+        background-color: white;
+        color: black;
+    }
+    .fi-ta-text, .fi-ta-header-cell {
+        color: black;;
+    }
+
+    table {
+        border: 1px solid black;
+    }
+
+    thead {
+        border-bottom: 1px solid black;
+        tr {
+            background-color: #f3f3f3;
+        }
+    }
+    tbody tr {
+        border-color:black;
+    }
+    .fi-ta-summary-header-row {
+        break-after: avoid;
+        background-color: #f3f3f3;
+        td {
+            color: black;
+        }
+    }
+
+    .fi-ta-summary-row {
+        td {
+            background-color: white;
+            color: black;
+        }
+        .fi-ta-summary-row-heading-cell {
+            background-color: #f3f3f3;
+        }
+        .fi-ta-text-summary,
+        .fi-ta-range-summary,
+        .fi-ta-text-summary-label,
+        .fi-ta-range-summary-label {
+            color: black;
+        }
+    }
+
+    .fi-badge {
+        box-shadow: none;
+        background-color: white;
+        color: black;
+        font-weight: normal;
+    }
+
+    /* View page */
+    dt.fi-in-entry-label,
+    .fi-in-text-item,
+    .fi-in-table-repeatable th {
+        color: black;
+    }
+    .fi-in-table-repeatable th {
+        border-color: black;
+        border-radius: 0;
+    }
+    .fi-grid:not(.fi-grid-direction-col) {
+        grid-template-columns: var(--cols-lg);
+    }
+}
