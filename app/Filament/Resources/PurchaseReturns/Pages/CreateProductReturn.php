@@ -5,7 +5,9 @@ namespace App\Filament\Resources\PurchaseReturns\Pages;
 use App\Filament\Resources\PurchaseReturns\ProductReturnResource;
 use App\Models\Batch;
 use App\Models\ProductReturn;
+use App\Models\Purchase;
 use App\Models\PurchaseItem;
+use App\Models\SupplierAccount;
 use App\Services\InventoryService;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +30,7 @@ class CreateProductReturn extends CreateRecord
 
         $service = app(InventoryService::class);
 
-        $productReturns = DB::transaction(function () use ($returnData, $items, $service) {
+        $productReturns = DB::transaction(function () use ($returnData, $items, $service, $data) {
             $batches = Batch::get();
             $purchaseItems = PurchaseItem::where('purchase_id', $returnData['reference_id'])->get();
 
@@ -65,6 +67,20 @@ class CreateProductReturn extends CreateRecord
             }
 
             $productReturn->update(['total_amount' => $subtotal]);
+
+            // Adjust supplier account
+            $supplierAccount = SupplierAccount::firstWhere('supplier_id', $data['supplier_id']);
+            $purchase = Purchase::find($data['reference_id']);
+
+            if ($supplierAccount && $purchase->payment_status != 'paid') {
+                $supplierAccount->update(['balance' => max($subtotal, 0)]);
+                $supplierAccount->transactions()->create([
+                    'type' => 'payment',
+                    'purchase_id' => $purchase->id,
+                    'amount' => $subtotal,
+                    'description' => 'مرتجع'
+                ]);
+            }
             return $productReturn;
         });
 
