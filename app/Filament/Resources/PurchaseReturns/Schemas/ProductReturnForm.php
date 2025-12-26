@@ -4,6 +4,7 @@ namespace App\Filament\Resources\PurchaseReturns\Schemas;
 
 use App\Models\Batch;
 use App\Models\Purchase;
+use App\Models\PurchaseItem;
 use App\Models\Supplier;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Hidden;
@@ -56,9 +57,12 @@ class ProductReturnForm
                             ->required()
                             ->reactive()
                             ->searchable()
-                            ->options(fn ($get) => Batch::where('product_id', $get('product_id'))
-                                ->where('supplier_id', $get('../../supplier_id'))
-                                ->orderBy('batch_no')->pluck('batch_no', 'id')),
+                            ->options(function ($get) {
+                                $batchIds = PurchaseItem::where('purchase_id', $get('../../reference_id'))
+                                    ->where('product_id', $get('product_id'))->get()->toArray();
+
+                                return Batch::whereIn('id', array_unique(array_column($batchIds, 'batch_id')))->pluck('batch_no', 'id');
+                            }),
                         TextInput::make('quantity')
                             ->label(__('fields.quantity'))
                             ->numeric()
