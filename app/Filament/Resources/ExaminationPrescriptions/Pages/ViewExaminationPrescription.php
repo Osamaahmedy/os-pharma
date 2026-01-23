@@ -2,23 +2,27 @@
 
 namespace App\Filament\Resources\ExaminationPrescriptions\Pages;
 
+use App\Filament\Resources\ExaminationPrescriptions\Schemas\ExaminationPrescriptionInfolist;
 use App\Filament\Resources\ExaminationPrescriptions\ExaminationPrescriptionResource;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\Action;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
+use Filament\Schemas\Schema;
 
-class EditExaminationPrescription extends EditRecord
+class ViewExaminationPrescription extends ViewRecord
 {
     protected static string $resource = ExaminationPrescriptionResource::class;
+
+    public function infolist(Schema $schema): Schema
+    {
+        return ExaminationPrescriptionInfolist::configure($schema);
+    }
 
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
-             Action::make('print')
+            Action::make('print')
                 ->label('طباعة')
                 ->icon('heroicon-o-printer')
-                ->iconButton()
                 ->color('gray')
                 ->alpineClickHandler('window.print()'),
         ];

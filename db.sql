@@ -39,6 +39,109 @@ CREATE TABLE IF NOT EXISTS `activity_log` (
   KEY `activity_log_log_name_index` (`log_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.activity_log: ~101 rows (approximately)
+INSERT INTO `activity_log` (`id`, `log_name`, `description`, `subject_type`, `event`, `subject_id`, `causer_type`, `causer_id`, `properties`, `batch_uuid`, `created_at`, `updated_at`) VALUES
+	(1, 'default', 'انشاء فاتورة', 'App\\Models\\Invoice', NULL, 31, 'App\\Models\\User', 1, '[]', NULL, '2025-11-30 19:42:07', '2025-11-30 19:42:07'),
+	(2, 'user', 'User has been created', 'App\\Models\\User', 'created', 3, 'App\\Models\\User', 1, '{"attributes": {"id": 3, "name": "محمد", "email": "mohammed.salem701@gmail.com", "password": "$2y$12$RfUoTjyD10Ijy4V5TjnZKeAF2uiw85V69ZoS942Bqi7FvjH5vOIOC", "created_at": "2025-12-01T14:23:30.000000Z", "updated_at": "2025-12-01T14:23:30.000000Z", "remember_token": null, "email_verified_at": null}}', NULL, '2025-12-01 11:23:30', '2025-12-01 11:23:30'),
+	(3, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"id": 3, "name": "محمد", "email": "mohammed.salem701@gmail.com", "password": "$2y$12$RfUoTjyD10Ijy4V5TjnZKeAF2uiw85V69ZoS942Bqi7FvjH5vOIOC", "created_at": "2025-12-01T14:23:30.000000Z", "updated_at": "2025-12-01T14:23:30.000000Z", "remember_token": null, "email_verified_at": null}, "attributes": {"id": 3, "name": "محمد سالم", "email": "mohammed.salem701@gmail.com", "password": "$2y$12$RfUoTjyD10Ijy4V5TjnZKeAF2uiw85V69ZoS942Bqi7FvjH5vOIOC", "created_at": "2025-12-01T14:23:30.000000Z", "updated_at": "2025-12-01T14:25:01.000000Z", "remember_token": null, "email_verified_at": null}}', NULL, '2025-12-01 11:25:01', '2025-12-01 11:25:01'),
+	(4, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '[]', NULL, '2025-12-01 11:30:28', '2025-12-01 11:30:28'),
+	(5, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد"}, "attributes": {"name": "محمد سالم"}}', NULL, '2025-12-01 11:37:15', '2025-12-01 11:37:15'),
+	(6, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم"}, "attributes": {"name": "محمد"}}', NULL, '2025-12-01 12:20:59', '2025-12-01 12:20:59'),
+	(7, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد"}, "attributes": {"name": "محمد سالم"}}', NULL, '2025-12-01 12:21:40', '2025-12-01 12:21:40'),
+	(8, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم"}, "attributes": {"name": "محمد "}}', NULL, '2025-12-01 12:26:01', '2025-12-01 12:26:01'),
+	(9, 'user', 'تعديل بيانات المستخدم', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد "}, "attributes": {"name": "محمد سالم"}}', NULL, '2025-12-01 12:30:30', '2025-12-01 12:30:30'),
+	(10, 'user', 'حذف المستخدم', 'App\\Models\\User', 'deleted', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم", "email": "mohammed.salem701@gmail.com"}}', NULL, '2025-12-01 12:30:44', '2025-12-01 12:30:44'),
+	(11, 'user', 'إضافة مستخدم جديد', 'App\\Models\\User', 'created', 4, 'App\\Models\\User', 1, '{"attributes": {"name": "محمد سالم", "email": "mohammed.salem701@gmail.com"}}', NULL, '2025-12-01 12:31:32', '2025-12-01 12:31:32'),
+	(12, 'customer', 'تعديل بيانات العميل', 'App\\Models\\Customer', 'updated', 1, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم", "phone": "736903344", "address": "ADen"}, "attributes": {"name": "محمد ", "phone": "736903345", "address": "Aden"}}', NULL, '2025-12-02 11:20:37', '2025-12-02 11:20:37'),
+	(21, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 36, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-31", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
+	(22, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 26, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
+	(23, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 36, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
+	(42, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 43, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-09", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
+	(43, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 33, 'App\\Models\\User', 1, '{"attributes": {"quantity": 5, "unit_price": "100.00", "total_price": "500.00"}}', NULL, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
+	(44, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 43, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "500.00"}}', NULL, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
+	(61, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 52, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2026-01-03", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
+	(62, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 42, 'App\\Models\\User', 1, '{"attributes": {"quantity": 2, "unit_price": "100.00", "total_price": "200.00"}}', NULL, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
+	(63, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 52, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "200.00"}}', NULL, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
+	(79, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 65, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-16", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
+	(80, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 46, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
+	(81, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 65, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
+	(82, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 66, 'App\\Models\\User', 1, '{"attributes": {"paid": "300.00", "discount": "0.00", "invoice_date": "2025-12-09", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
+	(83, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 47, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
+	(84, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 66, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
+	(85, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 67, 'App\\Models\\User', 1, '{"attributes": {"paid": "300.00", "discount": "0.00", "invoice_date": "2025-12-17", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
+	(86, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 48, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
+	(87, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 67, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
+	(88, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 68, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "100.00", "invoice_date": "2025-12-18", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
+	(89, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 49, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
+	(90, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 68, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
+	(91, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 69, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "100.00", "invoice_date": "2026-01-06", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
+	(92, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 50, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
+	(93, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 69, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
+	(94, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 70, 'App\\Models\\User', 1, '{"attributes": {"paid": "100.00", "discount": "100.00", "invoice_date": "2025-12-23", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:53:55', '2025-12-03 17:53:55'),
+	(95, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 51, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:53:56', '2025-12-03 17:53:56'),
+	(96, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 70, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:53:56', '2025-12-03 17:53:56'),
+	(97, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 71, 'App\\Models\\User', 1, '{"attributes": {"paid": "100.00", "discount": "100.00", "invoice_date": "2025-12-30", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
+	(98, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 52, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
+	(99, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 71, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
+	(100, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 72, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "300.00", "invoice_date": "2025-12-17", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
+	(101, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 53, 'App\\Models\\User', 1, '{"attributes": {"quantity": 5, "unit_price": "100.00", "total_price": "500.00"}}', NULL, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
+	(102, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 72, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "500.00"}}', NULL, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
+	(103, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 73, 'App\\Models\\User', 1, '{"attributes": {"paid": "100.00", "discount": "300.00", "invoice_date": "2025-12-09", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
+	(104, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 54, 'App\\Models\\User', 1, '{"attributes": {"quantity": 5, "unit_price": "100.00", "total_price": "500.00"}}', NULL, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
+	(105, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 73, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "500.00"}}', NULL, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
+	(112, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 77, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-14", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
+	(113, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 58, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
+	(114, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 77, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
+	(116, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 4, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2025-12-26", "payment_status": "unpaid"}}', NULL, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
+	(117, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 2, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "200.00", "total_price": "200000.00"}}', NULL, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
+	(118, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 4, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "200000.00"}}', NULL, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
+	(119, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 5, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-02", "payment_status": "partial"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
+	(120, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 3, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "50.00", "total_price": "50000.00"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
+	(121, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 4, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "60.00", "total_price": "60000.00"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
+	(122, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 5, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "110000.00"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
+	(123, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 6, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2025-12-26", "payment_status": "partial"}}', NULL, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
+	(124, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 5, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "100.00", "total_price": "100000.00"}}', NULL, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
+	(125, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 6, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100000.00"}}', NULL, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
+	(126, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 7, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-07", "payment_status": "paid"}}', NULL, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
+	(127, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 6, 'App\\Models\\User', 1, '{"attributes": {"quantity": 100, "unit_price": "100.00", "total_price": "10000.00"}}', NULL, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
+	(128, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 7, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
+	(129, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 8, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-03", "payment_status": "unpaid"}}', NULL, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
+	(130, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 7, 'App\\Models\\User', 1, '{"attributes": {"quantity": 100, "unit_price": "100.00", "total_price": "10000.00"}}', NULL, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
+	(131, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 8, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
+	(132, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 9, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-10", "payment_status": "paid"}}', NULL, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
+	(133, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 8, 'App\\Models\\User', 1, '{"attributes": {"quantity": 50, "unit_price": "100.00", "total_price": "5000.00"}}', NULL, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
+	(134, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 9, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "5000.00"}}', NULL, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
+	(135, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 10, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-07", "payment_status": "partial"}}', NULL, '2025-12-03 19:14:52', '2025-12-03 19:14:52'),
+	(136, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 9, 'App\\Models\\User', 1, '{"attributes": {"quantity": 100, "unit_price": "100.00", "total_price": "10000.00"}}', NULL, '2025-12-03 19:14:52', '2025-12-03 19:14:52'),
+	(137, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 10, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-03 19:14:52', '2025-12-03 19:14:52'),
+	(138, 'notification', 'تم قراءة الإشعار', 'App\\Models\\Notification', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"read_at": null}, "attributes": {"read_at": "2025-12-03 22:46:02"}}', NULL, '2025-12-03 19:46:02', '2025-12-03 19:46:02'),
+	(139, 'notification', 'تم قراءة الإشعار', 'App\\Models\\Notification', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"message": "لا توجد كمية كافية في المخزون لهذا المنتج: بندول", "read_at": null}, "attributes": {"message": "لا توجد كمية كافية في المخزون لهذا المنتج: بندول", "read_at": "2025-12-03 22:46:57"}}', NULL, '2025-12-03 19:46:57', '2025-12-03 19:46:57'),
+	(140, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 78, 'App\\Models\\User', 1, '{"attributes": {"paid": "0.00", "discount": "0.00", "invoice_date": "2026-01-10", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20'),
+	(141, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 59, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20'),
+	(142, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 78, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20'),
+	(145, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 14, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-17", "total_amount": "0.00"}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
+	(146, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 12, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 10}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
+	(147, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 13, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 10}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
+	(148, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 14, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 10}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
+	(149, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 14, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "1600.00"}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
+	(150, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 15, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-26", "total_amount": "0.00"}}', NULL, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
+	(151, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 15, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 100}}', NULL, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
+	(152, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 15, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
+	(153, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 4, 'App\\Models\\User', 1, '{"old": {"payment_status": "unpaid"}, "attributes": {"payment_status": "paid"}}', NULL, '2025-12-08 10:36:47', '2025-12-08 10:36:47'),
+	(154, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 16, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-17", "total_amount": "0.00"}}', NULL, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
+	(155, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 16, 'App\\Models\\User', 1, '{"attributes": {"reason": "منتهي", "quantity": 100}}', NULL, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
+	(156, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 16, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
+	(157, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 17, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-11", "total_amount": "0.00"}}', NULL, '2025-12-08 11:03:48', '2025-12-08 11:03:48'),
+	(158, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 17, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 50}}', NULL, '2025-12-08 11:03:48', '2025-12-08 11:03:48'),
+	(159, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 17, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "5000.00"}}', NULL, '2025-12-08 11:03:48', '2025-12-08 11:03:48'),
+	(160, 'sales_representative', 'إضافة مندوب جديد', 'App\\Models\\SalesRepresentative', 'created', 1, 'App\\Models\\User', 1, '{"attributes": {"name": "محمد حمدي", "email": "dawa@phrma.com", "phone": "77884455", "address": "عدن"}}', NULL, '2025-12-08 14:32:59', '2025-12-08 14:32:59'),
+	(161, 'sales_representative', 'تعديل بيانات المندوب', 'App\\Models\\SalesRepresentative', 'updated', 1, 'App\\Models\\User', 1, '{"old": {"name": "محمد حمدي", "address": "عدن"}, "attributes": {"name": "محمد", "address": "عدن الشعب"}}', NULL, '2025-12-08 14:49:50', '2025-12-08 14:49:50'),
+	(162, 'sales_representative', 'حذف المندوب', 'App\\Models\\SalesRepresentative', 'deleted', 1, 'App\\Models\\User', 1, '{"old": {"name": "محمد", "email": "dawa@phrma.com", "phone": "77884455", "address": "عدن الشعب"}}', NULL, '2025-12-08 14:50:06', '2025-12-08 14:50:06'),
+	(163, 'sales_representative', 'إضافة مندوب جديد', 'App\\Models\\SalesRepresentative', 'created', 2, 'App\\Models\\User', 1, '{"attributes": {"name": "محمد حمدي", "email": "dawa@phrma.com", "phone": "77884455", "address": "عدن الشعب"}}', NULL, '2025-12-08 14:54:19', '2025-12-08 14:54:19'),
+	(164, 'product', 'تعديل بيانات المنتج', 'App\\Models\\Product', 'updated', 1, 'App\\Models\\User', 1, '{"old": {"barcode": null}, "attributes": {"barcode": "34565465"}}', NULL, '2025-12-08 20:15:34', '2025-12-08 20:15:34'),
+	(165, 'product', 'تعديل بيانات المنتج', 'App\\Models\\Product', 'updated', 2, 'App\\Models\\User', 1, '{"old": {"barcode": "224445588"}, "attributes": {"barcode": null}}', NULL, '2025-12-08 20:20:16', '2025-12-08 20:20:16'),
+	(166, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 66, 'App\\Models\\User', 1, '{"old": {"paid": "300.00", "payment_status": "partial"}, "attributes": {"paid": null, "payment_status": "paid"}}', NULL, '2025-12-09 10:50:17', '2025-12-09 10:50:17'),
+	(167, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 68, 'App\\Models\\User', 1, '{"old": {"payment_status": "unpaid"}, "attributes": {"payment_status": "paid"}}', NULL, '2025-12-09 10:53:10', '2025-12-09 10:53:10');
 
 -- Dumping structure for table pharmacy_system.adjustments
 CREATE TABLE IF NOT EXISTS `adjustments` (
@@ -83,6 +186,10 @@ CREATE TABLE IF NOT EXISTS `batches` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table pharmacy_system.batches: ~3 rows (approximately)
+INSERT INTO `batches` (`id`, `product_id`, `supplier_id`, `batch_no`, `expiry_date`, `purchase_price_per_base`, `sale_price_per_base`, `initial_quantity`, `current_quantity`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, '5544', '2027-07-29', 80.00, 100.00, 1550, 400, '2025-10-29 05:27:57', '2025-12-08 11:03:48'),
+	(2, 2, 1, 'BATCH-6930B2D28A5FE', '2025-12-30', 200.00, NULL, 3000, 2990, '2025-12-03 18:59:46', '2025-12-07 19:22:38'),
+	(3, 1, 1, 'BATCH-6930B4B80347F', '2026-01-10', 50.00, NULL, 1000, 988, '2025-12-03 19:07:52', '2025-12-08 10:59:59');
 
 -- Dumping structure for table pharmacy_system.cache
 CREATE TABLE IF NOT EXISTS `cache` (
@@ -92,6 +199,9 @@ CREATE TABLE IF NOT EXISTS `cache` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.cache: ~1 rows (approximately)
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+	('pms-cache-spatie.permission.cache', 'a:3:{s:5:"alias";a:5:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:12:"display_name";s:1:"d";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:44:{i:0;a:5:{s:1:"a";i:1;s:1:"b";s:12:"create batch";s:1:"c";s:25:"اضافة الدفعات";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:10:"view batch";s:1:"c";s:21:"عرض الدفعات";s:1:"d";s:3:"web";}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:12:"update batch";s:1:"c";s:25:"تحديث الدفعات";s:1:"d";s:3:"web";}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:12:"delete batch";s:1:"c";s:21:"حذف الدفعات";s:1:"d";s:3:"web";}i:4;a:5:{s:1:"a";i:5;s:1:"b";s:15:"create category";s:1:"c";s:25:"اضافة الاقسام";s:1:"d";s:3:"web";s:1:"r";a:2:{i:0;i:2;i:1;i:3;}}i:5;a:5:{s:1:"a";i:6;s:1:"b";s:13:"view category";s:1:"c";s:21:"عرض الاقسام";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:3;}}i:6;a:4:{s:1:"a";i:7;s:1:"b";s:15:"update category";s:1:"c";s:25:"تحديث الاقسام";s:1:"d";s:3:"web";}i:7;a:4:{s:1:"a";i:8;s:1:"b";s:15:"delete category";s:1:"c";s:21:"حذف الاقسام";s:1:"d";s:3:"web";}i:8;a:5:{s:1:"a";i:9;s:1:"b";s:14:"create invoice";s:1:"c";s:27:"اضافة الفواتير";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:9;a:4:{s:1:"a";i:10;s:1:"b";s:12:"view invoice";s:1:"c";s:23:"عرض الفواتير";s:1:"d";s:3:"web";}i:10;a:4:{s:1:"a";i:11;s:1:"b";s:14:"update invoice";s:1:"c";s:27:"تحديث الفواتير";s:1:"d";s:3:"web";}i:11;a:4:{s:1:"a";i:12;s:1:"b";s:14:"delete invoice";s:1:"c";s:23:"حذف الفواتير";s:1:"d";s:3:"web";}i:12;a:5:{s:1:"a";i:13;s:1:"b";s:19:"create manufacturer";s:1:"c";s:40:"اضافة الشركات المصنعة";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:13;a:4:{s:1:"a";i:14;s:1:"b";s:17:"view manufacturer";s:1:"c";s:36:"عرض الشركات المصنعة";s:1:"d";s:3:"web";}i:14;a:4:{s:1:"a";i:15;s:1:"b";s:19:"update manufacturer";s:1:"c";s:40:"تحديث الشركات المصنعة";s:1:"d";s:3:"web";}i:15;a:4:{s:1:"a";i:16;s:1:"b";s:19:"delete manufacturer";s:1:"c";s:36:"حذف الشركات المصنعة";s:1:"d";s:3:"web";}i:16;a:5:{s:1:"a";i:17;s:1:"b";s:13:"create return";s:1:"c";s:29:"اضافة المرتجعات";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:17;a:4:{s:1:"a";i:18;s:1:"b";s:11:"view return";s:1:"c";s:25:"عرض المرتجعات";s:1:"d";s:3:"web";}i:18;a:4:{s:1:"a";i:19;s:1:"b";s:13:"update return";s:1:"c";s:29:"تحديث المرتجعات";s:1:"d";s:3:"web";}i:19;a:4:{s:1:"a";i:20;s:1:"b";s:13:"delete return";s:1:"c";s:25:"حذف المرتجعات";s:1:"d";s:3:"web";}i:20;a:4:{s:1:"a";i:21;s:1:"b";s:14:"create product";s:1:"c";s:27:"اضافة المنتجات";s:1:"d";s:3:"web";}i:21;a:4:{s:1:"a";i:22;s:1:"b";s:12:"view product";s:1:"c";s:23:"عرض المنتجات";s:1:"d";s:3:"web";}i:22;a:4:{s:1:"a";i:23;s:1:"b";s:14:"update product";s:1:"c";s:27:"تحديث المنتجات";s:1:"d";s:3:"web";}i:23;a:4:{s:1:"a";i:24;s:1:"b";s:14:"delete product";s:1:"c";s:23:"حذف المنتجات";s:1:"d";s:3:"web";}i:24;a:4:{s:1:"a";i:25;s:1:"b";s:15:"create purchase";s:1:"c";s:29:"اضافة المشتريات";s:1:"d";s:3:"web";}i:25;a:4:{s:1:"a";i:26;s:1:"b";s:13:"view purchase";s:1:"c";s:25:"عرض المشتريات";s:1:"d";s:3:"web";}i:26;a:4:{s:1:"a";i:27;s:1:"b";s:15:"update purchase";s:1:"c";s:29:"تحديث المشتريات";s:1:"d";s:3:"web";}i:27;a:4:{s:1:"a";i:28;s:1:"b";s:15:"delete purchase";s:1:"c";s:25:"حذف المشتريات";s:1:"d";s:3:"web";}i:28;a:4:{s:1:"a";i:29;s:1:"b";s:11:"create role";s:1:"c";s:25:"اضافة الادوار";s:1:"d";s:3:"web";}i:29;a:4:{s:1:"a";i:30;s:1:"b";s:9:"view role";s:1:"c";s:21:"عرض الادوار";s:1:"d";s:3:"web";}i:30;a:4:{s:1:"a";i:31;s:1:"b";s:11:"update role";s:1:"c";s:25:"تحديث الادوار";s:1:"d";s:3:"web";}i:31;a:4:{s:1:"a";i:32;s:1:"b";s:11:"delete role";s:1:"c";s:21:"حذف الادوار";s:1:"d";s:3:"web";}i:32;a:4:{s:1:"a";i:33;s:1:"b";s:15:"create supplier";s:1:"c";s:27:"اضافة المزودين";s:1:"d";s:3:"web";}i:33;a:4:{s:1:"a";i:34;s:1:"b";s:13:"view supplier";s:1:"c";s:23:"عرض المزودين";s:1:"d";s:3:"web";}i:34;a:4:{s:1:"a";i:35;s:1:"b";s:15:"update supplier";s:1:"c";s:27:"تحديث المزودين";s:1:"d";s:3:"web";}i:35;a:4:{s:1:"a";i:36;s:1:"b";s:15:"delete supplier";s:1:"c";s:23:"حذف المزودين";s:1:"d";s:3:"web";}i:36;a:4:{s:1:"a";i:37;s:1:"b";s:11:"create unit";s:1:"c";s:25:"اضافة الوحدات";s:1:"d";s:3:"web";}i:37;a:4:{s:1:"a";i:38;s:1:"b";s:9:"view unit";s:1:"c";s:21:"عرض الوحدات";s:1:"d";s:3:"web";}i:38;a:4:{s:1:"a";i:39;s:1:"b";s:11:"update unit";s:1:"c";s:25:"تحديث الوحدات";s:1:"d";s:3:"web";}i:39;a:4:{s:1:"a";i:40;s:1:"b";s:11:"delete unit";s:1:"c";s:21:"حذف الوحدات";s:1:"d";s:3:"web";}i:40;a:4:{s:1:"a";i:41;s:1:"b";s:11:"create user";s:1:"c";s:31:"اضافة المستخدمين";s:1:"d";s:3:"web";}i:41;a:4:{s:1:"a";i:42;s:1:"b";s:9:"view user";s:1:"c";s:27:"عرض المستخدمين";s:1:"d";s:3:"web";}i:42;a:4:{s:1:"a";i:43;s:1:"b";s:11:"update user";s:1:"c";s:31:"تحديث المستخدمين";s:1:"d";s:3:"web";}i:43;a:4:{s:1:"a";i:44;s:1:"b";s:11:"delete user";s:1:"c";s:27:"حذف المستخدمين";s:1:"d";s:3:"web";}}s:5:"roles";a:2:{i:0;a:3:{s:1:"a";i:2;s:1:"b";s:8:"مشرف";s:1:"d";s:3:"web";}i:1;a:3:{s:1:"a";i:3;s:1:"b";s:21:"مدخل بيانات";s:1:"d";s:3:"web";}}}', 1765576172);
 
 -- Dumping structure for table pharmacy_system.cache_locks
 CREATE TABLE IF NOT EXISTS `cache_locks` (
@@ -113,6 +223,10 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.categories: ~2 rows (approximately)
+INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+	(1, 'أدوية الزكام', 'دواء الزكام', '2025-10-26 17:30:11', '2025-10-27 11:09:42'),
+	(2, 'ادوية الحمى', NULL, '2025-10-27 11:09:15', '2025-10-27 11:09:15');
 
 -- Dumping structure for table pharmacy_system.customers
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -126,6 +240,9 @@ CREATE TABLE IF NOT EXISTS `customers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.customers: ~1 rows (approximately)
+INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `address`, `created_at`, `updated_at`) VALUES
+	(1, 'محمد ', 'mohammed.salem701@gmail.com', '736903345', 'Aden', '2025-12-02 11:15:34', '2025-12-02 11:20:37');
 
 -- Dumping structure for table pharmacy_system.customer_accounts
 CREATE TABLE IF NOT EXISTS `customer_accounts` (
@@ -139,6 +256,9 @@ CREATE TABLE IF NOT EXISTS `customer_accounts` (
   CONSTRAINT `customer_accounts_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.customer_accounts: ~1 rows (approximately)
+INSERT INTO `customer_accounts` (`id`, `customer_id`, `balance`, `created_at`, `updated_at`) VALUES
+	(2, 1, 1200.00, '2025-12-03 17:24:18', '2025-12-03 17:55:05');
 
 -- Dumping structure for table pharmacy_system.customer_account_transactions
 CREATE TABLE IF NOT EXISTS `customer_account_transactions` (
@@ -157,6 +277,11 @@ CREATE TABLE IF NOT EXISTS `customer_account_transactions` (
   CONSTRAINT `customer_account_transactions_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.customer_account_transactions: ~3 rows (approximately)
+INSERT INTO `customer_account_transactions` (`id`, `customer_account_id`, `type`, `invoice_id`, `amount`, `description`, `created_at`, `updated_at`) VALUES
+	(5, 2, 'dept', 69, 300.00, NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
+	(6, 2, 'dept', 71, 200.00, NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
+	(7, NULL, 'debt', 78, 100.00, NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20');
 
 -- Dumping structure for table pharmacy_system.examinations
 CREATE TABLE IF NOT EXISTS `examinations` (
@@ -174,6 +299,9 @@ CREATE TABLE IF NOT EXISTS `examinations` (
   CONSTRAINT `examinations_unit_id_foreign` FOREIGN KEY (`unit_id`) REFERENCES `examination_units` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.examinations: ~1 rows (approximately)
+INSERT INTO `examinations` (`id`, `scientific_name`, `normal_ratio`, `department_id`, `unit_id`, `created_at`, `updated_at`) VALUES
+	(1, 'فحص متخصص', '50', 1, 1, '2025-12-11 19:10:33', '2025-12-11 19:10:33');
 
 -- Dumping structure for table pharmacy_system.examination_departments
 CREATE TABLE IF NOT EXISTS `examination_departments` (
@@ -184,6 +312,9 @@ CREATE TABLE IF NOT EXISTS `examination_departments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.examination_departments: ~1 rows (approximately)
+INSERT INTO `examination_departments` (`id`, `name`, `created_at`, `updated_at`) VALUES
+	(1, 'فحص الدم', '2025-12-11 19:07:11', '2025-12-11 19:07:11');
 
 -- Dumping structure for table pharmacy_system.examination_prescriptions
 CREATE TABLE IF NOT EXISTS `examination_prescriptions` (
@@ -196,6 +327,10 @@ CREATE TABLE IF NOT EXISTS `examination_prescriptions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.examination_prescriptions: ~2 rows (approximately)
+INSERT INTO `examination_prescriptions` (`id`, `patient_name`, `age`, `gender`, `created_at`, `updated_at`) VALUES
+	(1, 'علوي صالح احمد', 35, 'male', '2025-12-11 19:11:31', '2025-12-11 19:11:31'),
+	(2, 'مجيدة فيصل', 44, 'female', '2025-12-11 19:19:37', '2025-12-11 19:19:37');
 
 -- Dumping structure for table pharmacy_system.examination_prescription_items
 CREATE TABLE IF NOT EXISTS `examination_prescription_items` (
@@ -212,6 +347,10 @@ CREATE TABLE IF NOT EXISTS `examination_prescription_items` (
   CONSTRAINT `examination_prescription_items_examination_id_foreign` FOREIGN KEY (`examination_id`) REFERENCES `examinations` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table pharmacy_system.examination_prescription_items: ~2 rows (approximately)
+INSERT INTO `examination_prescription_items` (`id`, `examination_prescription_id`, `examination_id`, `patient_ratio`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, '40', '2025-12-11 19:11:31', '2025-12-11 19:11:31'),
+	(2, 2, 1, '45', '2025-12-11 19:19:37', '2025-12-11 19:19:37');
 
 -- Dumping structure for table pharmacy_system.examination_units
 CREATE TABLE IF NOT EXISTS `examination_units` (
@@ -221,6 +360,10 @@ CREATE TABLE IF NOT EXISTS `examination_units` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table pharmacy_system.examination_units: ~1 rows (approximately)
+INSERT INTO `examination_units` (`id`, `name`, `created_at`, `updated_at`) VALUES
+	(1, 'وحدة فحص', '2025-12-11 19:09:08', '2025-12-11 19:09:08');
 
 -- Dumping structure for table pharmacy_system.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
