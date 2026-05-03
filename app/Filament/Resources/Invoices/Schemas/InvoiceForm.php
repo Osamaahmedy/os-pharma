@@ -20,7 +20,7 @@ class InvoiceForm
         return $schema
             ->components([
                 TextInput::make('total_amount')
-                    ->disabled()
+                    ->readOnly()
                     ->numeric()
                     ->label(__('fields.total_amount')),
                 TextInput::make('discount')
@@ -70,7 +70,7 @@ class InvoiceForm
                             ->options(fn () => Product::orderBy('name')->pluck('name', 'id'))
                             ->reactive()
                             ->required()
-                            ->afterStateUpdated(fn ($set, $state) => 
+                            ->afterStateUpdated(fn ($set, $state) =>
                                 $set('remaining_quantity', Batch::where('product_id', $state)?->sum('current_quantity'))),
 
                         Select::make('unit_id')

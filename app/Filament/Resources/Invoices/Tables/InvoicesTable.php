@@ -3,12 +3,10 @@
 namespace App\Filament\Resources\Invoices\Tables;
 
 use App\Models\User;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
+use App\Models\Invoice;
+use App\Services\PrintService;
 use Filament\Forms\Components\DatePicker;
-use Filament\Support\Icons\Heroicon;
+use Filament\Actions\BulkAction;
 use Filament\Tables\Columns\Summarizers\Range;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
@@ -16,6 +14,13 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\Action;
+
+
 
 class InvoicesTable
 {
@@ -48,10 +53,10 @@ class InvoicesTable
                     ->formatStateUsing(fn ($state) => __('fields.payment.'.$state))
                     ->label(__('fields.payment.status'))
                     ->color(fn (string $state): string => match ($state) {
-                        'paid' => 'success',
-                        'unpaid' => 'danger',
+                        'paid'    => 'success',
+                        'unpaid'  => 'danger',
                         'partial' => 'warning',
-                        default => 'secondary',
+                        default   => 'secondary',
                     }),
                 TextColumn::make('invoice_date')
                     ->date('d M Y')
@@ -59,7 +64,6 @@ class InvoicesTable
                     ->label(__('fields.invoice_date'))
                     ->summarize(Range::make()->minimalDateTimeDifference()->label(__('fields.date_range'))),
                 TextColumn::make('createdBy.name')
-                    ->numeric()
                     ->sortable()
                     ->label(__('fields.created_by')),
                 TextColumn::make('created_at')
@@ -84,14 +88,14 @@ class InvoicesTable
                     ->query(function (Builder $query, $data) {
                         return $query
                             ->when($data['from'], fn (Builder $q, $date) => $q->whereDate('invoice_date', '>=', $date))
-                            ->when($data['to'], fn (Builder $q, $date) => $q->whereDate('invoice_date', '<=', $date));
+                            ->when($data['to'],   fn (Builder $q, $date) => $q->whereDate('invoice_date', '<=', $date));
                     }),
 
                 SelectFilter::make('payment_status')
                     ->label(__('fields.payment.status'))
                     ->options([
-                        'paid' => __('fields.payment.paid'),
-                        'unpaid' => __('fields.payment.unpaid'),
+                        'paid'    => __('fields.payment.paid'),
+                        'unpaid'  => __('fields.payment.unpaid'),
                         'partial' => __('fields.payment.partial'),
                     ]),
 
@@ -99,14 +103,23 @@ class InvoicesTable
                     ->label(__('fields.created_by'))
                     ->options(User::pluck('name', 'id')),
             ])
-            ->recordActions([
+            ->actions([
                 ViewAction::make(),
-                // EditAction::make(),
+                EditAction::make(),
+
+               Action::make('print')
+    ->label('طباعة')
+    ->icon('heroicon-o-printer')
+    ->color('gray')
+    ->url(fn ($record) => route('print.invoice', $record->id))
+    ->openUrlInNewTab(),
             ])
-            ->toolbarActions([
-                // BulkActionGroup::make([
-                //     DeleteBulkAction::make(),
-                // ]),
-            ]);
+            ->bulkActions([
+    BulkActionGroup::make([
+        DeleteBulkAction::make(),
+
+
+    ]),
+]);
     }
 }

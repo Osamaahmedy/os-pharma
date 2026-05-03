@@ -3,8 +3,7 @@
 namespace App\Filament\Resources\Invoices\Pages;
 
 use App\Filament\Resources\Invoices\InvoiceResource;
-use Filament\Actions\Action;
-use Filament\Actions\EditAction;
+use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewInvoice extends ViewRecord
@@ -14,13 +13,14 @@ class ViewInvoice extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            // EditAction::make(),
-            Action::make('print')
-                ->label('طباعة')
+            Actions\EditAction::make(),
+
+            Actions\Action::make('print')
+                ->label('طباعة الفاتورة')
                 ->icon('heroicon-o-printer')
-                ->iconButton()
                 ->color('gray')
-                ->alpineClickHandler('window.print()'),
+                ->url(fn (): string => route('print.invoice', $this->record->id))
+                ->openUrlInNewTab(),
         ];
     }
 }
