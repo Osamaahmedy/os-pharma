@@ -31,7 +31,6 @@ class EditInvoice extends EditRecord
         return $data;
     }
 
-    // ── قبل الحفظ: احفظ الأيتمز جانباً وامسحها من بيانات الفاتورة ──
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $this->invoiceItems = $data['items'] ?? [];
@@ -39,7 +38,6 @@ class EditInvoice extends EditRecord
         return $data;
     }
 
-    // ── بعد الحفظ: حدّث الأيتمز ──
    protected function afterSave(): void
 {
     $this->record->items()->delete();
@@ -49,7 +47,6 @@ class EditInvoice extends EditRecord
         $unitPrice  = (float) ($item['unit_price']  ?? 0);
         $basePrice  = (float) ($item['base_price']  ?? 0);
 
-        // احسب total_price بدل ما تعتمد على القيمة القادمة من الفورم
         $totalPrice = $quantity * $unitPrice;
 
         $this->record->items()->create([

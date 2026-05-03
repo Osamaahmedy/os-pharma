@@ -7,3 +7,4 @@ Route::middleware(['auth'])->prefix('print')->name('print.')->group(function () 
     Route::get('/invoice/{invoice}',  [InvoicePrintController::class, 'show'])->name('invoice');
     Route::get('/invoices/bulk',      [InvoicePrintController::class, 'bulk'])->name('invoice.bulk');
 });
+Route::redirect('/', '/admin');

@@ -8,32 +8,22 @@ echo       Laravel Development Server
 echo  ==========================================
 echo.
 
-:: Start PHP-CGI
-echo  [1/2] Starting PHP-CGI on port 9000...
-start "" php-cgi -b 127.0.0.1:9000
-echo        Done!
-
-:: Start Nginx
-echo  [2/2] Starting Nginx...
-cd C:\nginx
-start "" nginx
-echo        Done!
+:: Run php artisan serve in background and capture output
+echo  [1/1] Starting Laravel development server...
+start "" cmd /k "php artisan serve"
 
 echo.
 echo  ==========================================
-echo   Servers started successfully!
-echo   Opening http://localhost in 10 seconds...
+echo   Server starting on http://127.0.0.1:8000
+echo   Opening browser in 3 seconds...
 echo  ==========================================
 echo.
 
-:: Countdown Timer
-for /L %%i in (10,-1,1) do (
-    echo   Opening browser in %%i seconds...
-    timeout /t 1 /nobreak >nul
-)
+:: Wait for server to boot up
+timeout /t 3 /nobreak >nul
 
 :: Open browser
-start http://localhost
+start http://127.0.0.1:8000
 
 echo.
 echo   Browser opened! Happy coding!

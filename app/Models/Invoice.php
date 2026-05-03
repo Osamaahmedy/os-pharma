@@ -27,7 +27,23 @@ class Invoice extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
+protected static function booted(): void
+{
+    static::creating(function (self $invoice) {
+        if (empty($invoice->created_by)) {
+            $invoice->created_by = auth()->id();
+        }
+        if (empty($invoice->invoice_no)) {
+            $invoice->invoice_no = 'TEMP-' . uniqid();
+        }
+    });
 
+    static::created(function (self $invoice) {
+        $invoice->updateQuietly([
+            'invoice_no' => sprintf('INV-%s-%05d', now()->format('Y'), $invoice->id),
+        ]);
+    });
+}
     // Spatie activity logger
     public function getActivitylogOptions(): LogOptions
     {
