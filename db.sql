@@ -1,556 +1,584 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               8.4.3 - MySQL Community Server - GPL
--- Server OS:                    Win64
--- HeidiSQL Version:             12.8.0.6908
--- --------------------------------------------------------
+-- phpMyAdmin SQL Dump
+-- version 5.2.1deb3
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: May 03, 2026 at 04:13 PM
+-- Server version: 8.0.44-0ubuntu0.24.04.2
+-- PHP Version: 8.3.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Database: `pharma`
+--
 
--- Dumping database structure for pharmacy_system
-CREATE DATABASE IF NOT EXISTS `pharmacy_system` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `pharmacy_system`;
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.activity_log
-CREATE TABLE IF NOT EXISTS `activity_log` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `activity_log`
+--
+
+CREATE TABLE `activity_log` (
+  `id` bigint UNSIGNED NOT NULL,
   `log_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `subject_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `event` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `subject_id` bigint unsigned DEFAULT NULL,
+  `subject_id` bigint UNSIGNED DEFAULT NULL,
   `causer_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `causer_id` bigint unsigned DEFAULT NULL,
+  `causer_id` bigint UNSIGNED DEFAULT NULL,
   `properties` json DEFAULT NULL,
   `batch_uuid` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `subject` (`subject_type`,`subject_id`),
-  KEY `causer` (`causer_type`,`causer_id`),
-  KEY `activity_log_log_name_index` (`log_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.activity_log: ~101 rows (approximately)
+--
+-- Dumping data for table `activity_log`
+--
+
 INSERT INTO `activity_log` (`id`, `log_name`, `description`, `subject_type`, `event`, `subject_id`, `causer_type`, `causer_id`, `properties`, `batch_uuid`, `created_at`, `updated_at`) VALUES
-	(1, 'default', 'انشاء فاتورة', 'App\\Models\\Invoice', NULL, 31, 'App\\Models\\User', 1, '[]', NULL, '2025-11-30 19:42:07', '2025-11-30 19:42:07'),
-	(2, 'user', 'User has been created', 'App\\Models\\User', 'created', 3, 'App\\Models\\User', 1, '{"attributes": {"id": 3, "name": "محمد", "email": "mohammed.salem701@gmail.com", "password": "$2y$12$RfUoTjyD10Ijy4V5TjnZKeAF2uiw85V69ZoS942Bqi7FvjH5vOIOC", "created_at": "2025-12-01T14:23:30.000000Z", "updated_at": "2025-12-01T14:23:30.000000Z", "remember_token": null, "email_verified_at": null}}', NULL, '2025-12-01 11:23:30', '2025-12-01 11:23:30'),
-	(3, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"id": 3, "name": "محمد", "email": "mohammed.salem701@gmail.com", "password": "$2y$12$RfUoTjyD10Ijy4V5TjnZKeAF2uiw85V69ZoS942Bqi7FvjH5vOIOC", "created_at": "2025-12-01T14:23:30.000000Z", "updated_at": "2025-12-01T14:23:30.000000Z", "remember_token": null, "email_verified_at": null}, "attributes": {"id": 3, "name": "محمد سالم", "email": "mohammed.salem701@gmail.com", "password": "$2y$12$RfUoTjyD10Ijy4V5TjnZKeAF2uiw85V69ZoS942Bqi7FvjH5vOIOC", "created_at": "2025-12-01T14:23:30.000000Z", "updated_at": "2025-12-01T14:25:01.000000Z", "remember_token": null, "email_verified_at": null}}', NULL, '2025-12-01 11:25:01', '2025-12-01 11:25:01'),
-	(4, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '[]', NULL, '2025-12-01 11:30:28', '2025-12-01 11:30:28'),
-	(5, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد"}, "attributes": {"name": "محمد سالم"}}', NULL, '2025-12-01 11:37:15', '2025-12-01 11:37:15'),
-	(6, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم"}, "attributes": {"name": "محمد"}}', NULL, '2025-12-01 12:20:59', '2025-12-01 12:20:59'),
-	(7, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد"}, "attributes": {"name": "محمد سالم"}}', NULL, '2025-12-01 12:21:40', '2025-12-01 12:21:40'),
-	(8, 'user', 'User has been updated', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم"}, "attributes": {"name": "محمد "}}', NULL, '2025-12-01 12:26:01', '2025-12-01 12:26:01'),
-	(9, 'user', 'تعديل بيانات المستخدم', 'App\\Models\\User', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد "}, "attributes": {"name": "محمد سالم"}}', NULL, '2025-12-01 12:30:30', '2025-12-01 12:30:30'),
-	(10, 'user', 'حذف المستخدم', 'App\\Models\\User', 'deleted', 3, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم", "email": "mohammed.salem701@gmail.com"}}', NULL, '2025-12-01 12:30:44', '2025-12-01 12:30:44'),
-	(11, 'user', 'إضافة مستخدم جديد', 'App\\Models\\User', 'created', 4, 'App\\Models\\User', 1, '{"attributes": {"name": "محمد سالم", "email": "mohammed.salem701@gmail.com"}}', NULL, '2025-12-01 12:31:32', '2025-12-01 12:31:32'),
-	(12, 'customer', 'تعديل بيانات العميل', 'App\\Models\\Customer', 'updated', 1, 'App\\Models\\User', 1, '{"old": {"name": "محمد سالم", "phone": "736903344", "address": "ADen"}, "attributes": {"name": "محمد ", "phone": "736903345", "address": "Aden"}}', NULL, '2025-12-02 11:20:37', '2025-12-02 11:20:37'),
-	(21, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 36, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-31", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
-	(22, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 26, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
-	(23, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 36, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
-	(42, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 43, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-09", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
-	(43, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 33, 'App\\Models\\User', 1, '{"attributes": {"quantity": 5, "unit_price": "100.00", "total_price": "500.00"}}', NULL, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
-	(44, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 43, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "500.00"}}', NULL, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
-	(61, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 52, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2026-01-03", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
-	(62, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 42, 'App\\Models\\User', 1, '{"attributes": {"quantity": 2, "unit_price": "100.00", "total_price": "200.00"}}', NULL, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
-	(63, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 52, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "200.00"}}', NULL, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
-	(79, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 65, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-16", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
-	(80, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 46, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
-	(81, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 65, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
-	(82, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 66, 'App\\Models\\User', 1, '{"attributes": {"paid": "300.00", "discount": "0.00", "invoice_date": "2025-12-09", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
-	(83, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 47, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
-	(84, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 66, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
-	(85, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 67, 'App\\Models\\User', 1, '{"attributes": {"paid": "300.00", "discount": "0.00", "invoice_date": "2025-12-17", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
-	(86, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 48, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
-	(87, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 67, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
-	(88, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 68, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "100.00", "invoice_date": "2025-12-18", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
-	(89, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 49, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
-	(90, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 68, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
-	(91, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 69, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "100.00", "invoice_date": "2026-01-06", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
-	(92, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 50, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
-	(93, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 69, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
-	(94, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 70, 'App\\Models\\User', 1, '{"attributes": {"paid": "100.00", "discount": "100.00", "invoice_date": "2025-12-23", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:53:55', '2025-12-03 17:53:55'),
-	(95, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 51, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:53:56', '2025-12-03 17:53:56'),
-	(96, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 70, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:53:56', '2025-12-03 17:53:56'),
-	(97, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 71, 'App\\Models\\User', 1, '{"attributes": {"paid": "100.00", "discount": "100.00", "invoice_date": "2025-12-30", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
-	(98, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 52, 'App\\Models\\User', 1, '{"attributes": {"quantity": 4, "unit_price": "100.00", "total_price": "400.00"}}', NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
-	(99, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 71, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "400.00"}}', NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
-	(100, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 72, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "300.00", "invoice_date": "2025-12-17", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
-	(101, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 53, 'App\\Models\\User', 1, '{"attributes": {"quantity": 5, "unit_price": "100.00", "total_price": "500.00"}}', NULL, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
-	(102, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 72, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "500.00"}}', NULL, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
-	(103, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 73, 'App\\Models\\User', 1, '{"attributes": {"paid": "100.00", "discount": "300.00", "invoice_date": "2025-12-09", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
-	(104, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 54, 'App\\Models\\User', 1, '{"attributes": {"quantity": 5, "unit_price": "100.00", "total_price": "500.00"}}', NULL, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
-	(105, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 73, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "500.00"}}', NULL, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
-	(112, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 77, 'App\\Models\\User', 1, '{"attributes": {"paid": null, "discount": "0.00", "invoice_date": "2025-12-14", "total_amount": "0.00", "payment_status": "unpaid"}}', NULL, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
-	(113, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 58, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
-	(114, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 77, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
-	(116, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 4, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2025-12-26", "payment_status": "unpaid"}}', NULL, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
-	(117, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 2, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "200.00", "total_price": "200000.00"}}', NULL, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
-	(118, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 4, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "200000.00"}}', NULL, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
-	(119, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 5, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-02", "payment_status": "partial"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(120, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 3, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "50.00", "total_price": "50000.00"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(121, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 4, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "60.00", "total_price": "60000.00"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(122, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 5, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "110000.00"}}', NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(123, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 6, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2025-12-26", "payment_status": "partial"}}', NULL, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
-	(124, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 5, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1000, "unit_price": "100.00", "total_price": "100000.00"}}', NULL, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
-	(125, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 6, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100000.00"}}', NULL, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
-	(126, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 7, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-07", "payment_status": "paid"}}', NULL, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
-	(127, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 6, 'App\\Models\\User', 1, '{"attributes": {"quantity": 100, "unit_price": "100.00", "total_price": "10000.00"}}', NULL, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
-	(128, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 7, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
-	(129, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 8, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-03", "payment_status": "unpaid"}}', NULL, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
-	(130, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 7, 'App\\Models\\User', 1, '{"attributes": {"quantity": 100, "unit_price": "100.00", "total_price": "10000.00"}}', NULL, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
-	(131, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 8, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
-	(132, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 9, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-10", "payment_status": "paid"}}', NULL, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
-	(133, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 8, 'App\\Models\\User', 1, '{"attributes": {"quantity": 50, "unit_price": "100.00", "total_price": "5000.00"}}', NULL, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
-	(134, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 9, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "5000.00"}}', NULL, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
-	(135, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 10, 'App\\Models\\User', 1, '{"attributes": {"total_amount": "0.00", "purchase_date": "2026-01-07", "payment_status": "partial"}}', NULL, '2025-12-03 19:14:52', '2025-12-03 19:14:52'),
-	(136, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 9, 'App\\Models\\User', 1, '{"attributes": {"quantity": 100, "unit_price": "100.00", "total_price": "10000.00"}}', NULL, '2025-12-03 19:14:52', '2025-12-03 19:14:52'),
-	(137, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 10, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-03 19:14:52', '2025-12-03 19:14:52'),
-	(138, 'notification', 'تم قراءة الإشعار', 'App\\Models\\Notification', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"read_at": null}, "attributes": {"read_at": "2025-12-03 22:46:02"}}', NULL, '2025-12-03 19:46:02', '2025-12-03 19:46:02'),
-	(139, 'notification', 'تم قراءة الإشعار', 'App\\Models\\Notification', 'updated', 3, 'App\\Models\\User', 1, '{"old": {"message": "لا توجد كمية كافية في المخزون لهذا المنتج: بندول", "read_at": null}, "attributes": {"message": "لا توجد كمية كافية في المخزون لهذا المنتج: بندول", "read_at": "2025-12-03 22:46:57"}}', NULL, '2025-12-03 19:46:57', '2025-12-03 19:46:57'),
-	(140, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 78, 'App\\Models\\User', 1, '{"attributes": {"paid": "0.00", "discount": "0.00", "invoice_date": "2026-01-10", "total_amount": "0.00", "payment_status": "partial"}}', NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20'),
-	(141, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 59, 'App\\Models\\User', 1, '{"attributes": {"quantity": 1, "unit_price": "100.00", "total_price": "100.00"}}', NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20'),
-	(142, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 78, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "100.00"}}', NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20'),
-	(145, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 14, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-17", "total_amount": "0.00"}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(146, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 12, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 10}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(147, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 13, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 10}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(148, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 14, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 10}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(149, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 14, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "1600.00"}}', NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(150, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 15, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-26", "total_amount": "0.00"}}', NULL, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
-	(151, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 15, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 100}}', NULL, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
-	(152, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 15, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
-	(153, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 4, 'App\\Models\\User', 1, '{"old": {"payment_status": "unpaid"}, "attributes": {"payment_status": "paid"}}', NULL, '2025-12-08 10:36:47', '2025-12-08 10:36:47'),
-	(154, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 16, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-17", "total_amount": "0.00"}}', NULL, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
-	(155, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 16, 'App\\Models\\User', 1, '{"attributes": {"reason": "منتهي", "quantity": 100}}', NULL, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
-	(156, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 16, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "10000.00"}}', NULL, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
-	(157, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 17, 'App\\Models\\User', 1, '{"attributes": {"return_date": "2025-12-11", "total_amount": "0.00"}}', NULL, '2025-12-08 11:03:48', '2025-12-08 11:03:48'),
-	(158, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 17, 'App\\Models\\User', 1, '{"attributes": {"reason": null, "quantity": 50}}', NULL, '2025-12-08 11:03:48', '2025-12-08 11:03:48'),
-	(159, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 17, 'App\\Models\\User', 1, '{"old": {"total_amount": 0}, "attributes": {"total_amount": "5000.00"}}', NULL, '2025-12-08 11:03:48', '2025-12-08 11:03:48'),
-	(160, 'sales_representative', 'إضافة مندوب جديد', 'App\\Models\\SalesRepresentative', 'created', 1, 'App\\Models\\User', 1, '{"attributes": {"name": "محمد حمدي", "email": "dawa@phrma.com", "phone": "77884455", "address": "عدن"}}', NULL, '2025-12-08 14:32:59', '2025-12-08 14:32:59'),
-	(161, 'sales_representative', 'تعديل بيانات المندوب', 'App\\Models\\SalesRepresentative', 'updated', 1, 'App\\Models\\User', 1, '{"old": {"name": "محمد حمدي", "address": "عدن"}, "attributes": {"name": "محمد", "address": "عدن الشعب"}}', NULL, '2025-12-08 14:49:50', '2025-12-08 14:49:50'),
-	(162, 'sales_representative', 'حذف المندوب', 'App\\Models\\SalesRepresentative', 'deleted', 1, 'App\\Models\\User', 1, '{"old": {"name": "محمد", "email": "dawa@phrma.com", "phone": "77884455", "address": "عدن الشعب"}}', NULL, '2025-12-08 14:50:06', '2025-12-08 14:50:06'),
-	(163, 'sales_representative', 'إضافة مندوب جديد', 'App\\Models\\SalesRepresentative', 'created', 2, 'App\\Models\\User', 1, '{"attributes": {"name": "محمد حمدي", "email": "dawa@phrma.com", "phone": "77884455", "address": "عدن الشعب"}}', NULL, '2025-12-08 14:54:19', '2025-12-08 14:54:19'),
-	(164, 'product', 'تعديل بيانات المنتج', 'App\\Models\\Product', 'updated', 1, 'App\\Models\\User', 1, '{"old": {"barcode": null}, "attributes": {"barcode": "34565465"}}', NULL, '2025-12-08 20:15:34', '2025-12-08 20:15:34'),
-	(165, 'product', 'تعديل بيانات المنتج', 'App\\Models\\Product', 'updated', 2, 'App\\Models\\User', 1, '{"old": {"barcode": "224445588"}, "attributes": {"barcode": null}}', NULL, '2025-12-08 20:20:16', '2025-12-08 20:20:16'),
-	(166, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 66, 'App\\Models\\User', 1, '{"old": {"paid": "300.00", "payment_status": "partial"}, "attributes": {"paid": null, "payment_status": "paid"}}', NULL, '2025-12-09 10:50:17', '2025-12-09 10:50:17'),
-	(167, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 68, 'App\\Models\\User', 1, '{"old": {"payment_status": "unpaid"}, "attributes": {"payment_status": "paid"}}', NULL, '2025-12-09 10:53:10', '2025-12-09 10:53:10');
+(1, 'manufacturer', 'إضافة شركة مصنعة جديدة', 'App\\Models\\Manufacturer', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"تكامل فارما\"}}', NULL, '2025-12-13 09:28:40', '2025-12-13 09:28:40'),
+(2, 'category', 'إضافة قسم جديد', 'App\\Models\\Category', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"شراب\", \"description\": null}}', NULL, '2025-12-13 09:28:51', '2025-12-13 09:28:51'),
+(3, 'supplier', 'إضافة مزود جديد', 'App\\Models\\Supplier', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"علي صلاح\", \"email\": null, \"phone\": null, \"address\": null}}', NULL, '2025-12-13 09:29:11', '2025-12-13 09:29:11'),
+(4, 'product', 'إضافة منتج جديد', 'App\\Models\\Product', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"برستا مول\", \"barcode\": \"54548\", \"is_active\": 1, \"description\": null, \"generic_name\": \"par\", \"category.name\": \"شراب\", \"reorder_level\": 0}}', NULL, '2025-12-13 09:30:09', '2025-12-13 09:30:09'),
+(5, 'unit', 'إضافة وحدة جديدة', 'App\\Models\\Unit', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"علبة\", \"abbreviation\": \"علبة\"}}', NULL, '2025-12-13 09:30:56', '2025-12-13 09:30:56'),
+(6, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"total_amount\": \"0.00\", \"purchase_date\": \"2025-12-13\", \"payment_status\": \"unpaid\"}}', NULL, '2025-12-13 09:36:07', '2025-12-13 09:36:07'),
+(7, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 4, \"unit_price\": \"44.00\", \"total_price\": \"176.00\"}}', NULL, '2025-12-13 09:36:07', '2025-12-13 09:36:07'),
+(8, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 1, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"176.00\"}}', NULL, '2025-12-13 09:36:07', '2025-12-13 09:36:07'),
+(9, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"return_date\": \"2025-12-13\", \"total_amount\": \"0.00\"}}', NULL, '2025-12-13 09:37:27', '2025-12-13 09:37:27'),
+(10, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"reason\": \"2\", \"quantity\": 2}}', NULL, '2025-12-13 09:37:27', '2025-12-13 09:37:27'),
+(11, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 1, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"88.00\"}}', NULL, '2025-12-13 09:37:27', '2025-12-13 09:37:27'),
+(12, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"return_date\": \"2025-12-13\", \"total_amount\": \"0.00\"}}', NULL, '2025-12-13 09:51:22', '2025-12-13 09:51:22'),
+(13, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"reason\": null, \"quantity\": 5}}', NULL, '2025-12-13 09:51:22', '2025-12-13 09:51:22'),
+(14, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 2, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"220.00\"}}', NULL, '2025-12-13 09:51:22', '2025-12-13 09:51:22'),
+(15, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"total_amount\": \"0.00\", \"purchase_date\": \"2025-12-13\", \"payment_status\": \"partial\"}}', NULL, '2025-12-13 09:55:07', '2025-12-13 09:55:07'),
+(16, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 454, \"unit_price\": \"55.00\", \"total_price\": \"24970.00\"}}', NULL, '2025-12-13 09:55:07', '2025-12-13 09:55:07'),
+(17, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 2, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"24970.00\"}}', NULL, '2025-12-13 09:55:07', '2025-12-13 09:55:07'),
+(20, 'unit', 'إضافة وحدة جديدة', 'App\\Models\\Unit', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"درزن\", \"abbreviation\": \"6\"}}', NULL, '2025-12-13 10:00:56', '2025-12-13 10:00:56'),
+(27, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 7, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"55.00\", \"discount\": \"0.00\", \"invoice_date\": \"2025-12-13\", \"total_amount\": \"0.00\", \"payment_status\": \"partial\"}}', NULL, '2025-12-13 10:09:10', '2025-12-13 10:09:10'),
+(28, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 1, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"50.00\", \"total_price\": \"50.00\"}}', NULL, '2025-12-13 10:09:10', '2025-12-13 10:09:10'),
+(29, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 7, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"50.00\"}}', NULL, '2025-12-13 10:09:10', '2025-12-13 10:09:10'),
+(30, 'user', 'إضافة مستخدم جديد', 'App\\Models\\User', 'created', 5, NULL, NULL, '{\"attributes\": {\"name\": \"Admin\", \"email\": \"admin@admin.com\"}}', NULL, '2026-03-07 10:22:53', '2026-03-07 10:22:53'),
+(31, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 8, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-03-07\", \"total_amount\": \"0.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-03-07 10:24:14', '2026-03-07 10:24:14'),
+(32, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 65, \"unit_price\": \"50.00\", \"total_price\": \"3250.00\"}}', NULL, '2026-03-07 10:24:14', '2026-03-07 10:24:14'),
+(33, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 8, 'App\\Models\\User', 1, '{\"old\": {\"paid\": null, \"total_amount\": 0}, \"attributes\": {\"paid\": \"0.00\", \"total_amount\": \"3250.00\"}}', NULL, '2026-03-07 10:24:14', '2026-03-07 10:24:14'),
+(34, 'category', 'إضافة قسم جديد', 'App\\Models\\Category', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"حبه\", \"description\": \"ي\"}}', NULL, '2026-03-07 10:25:11', '2026-03-07 10:25:11'),
+(35, 'category', 'تعديل بيانات القسم', 'App\\Models\\Category', 'updated', 2, 'App\\Models\\User', 1, '{\"old\": {\"description\": \"ي\"}, \"attributes\": {\"description\": \"ممم\\n\"}}', NULL, '2026-03-07 10:25:30', '2026-03-07 10:25:30'),
+(36, 'manufacturer', 'إضافة شركة مصنعة جديدة', 'App\\Models\\Manufacturer', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"عوض\"}}', NULL, '2026-03-07 10:25:47', '2026-03-07 10:25:47'),
+(37, 'manufacturer', 'حذف الشركة المصنعة', 'App\\Models\\Manufacturer', 'deleted', 2, 'App\\Models\\User', 1, '{\"old\": {\"name\": \"عوض\"}}', NULL, '2026-03-07 10:25:52', '2026-03-07 10:25:52'),
+(38, 'product', 'إضافة منتج جديد', 'App\\Models\\Product', 'created', 2, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"Osama Ahmed\", \"barcode\": \"54565\", \"is_active\": 1, \"description\": \"ث\", \"generic_name\": \"ثث\", \"category.name\": \"حبه\", \"reorder_level\": 4}}', NULL, '2026-03-07 10:26:26', '2026-03-07 10:26:26'),
+(43, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 3, 'App\\Models\\User', 1, '{\"attributes\": {\"total_amount\": \"0.00\", \"purchase_date\": \"2026-03-07\", \"payment_status\": \"partial\"}}', NULL, '2026-03-07 10:32:00', '2026-03-07 10:32:00'),
+(44, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 3, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 50, \"unit_price\": \"5.00\", \"total_price\": \"250.00\"}}', NULL, '2026-03-07 10:32:00', '2026-03-07 10:32:00'),
+(45, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 3, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"250.00\"}}', NULL, '2026-03-07 10:32:00', '2026-03-07 10:32:00'),
+(46, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 4, 'App\\Models\\User', 1, '{\"attributes\": {\"total_amount\": \"0.00\", \"purchase_date\": \"2026-03-07\", \"payment_status\": \"partial\"}}', NULL, '2026-03-07 10:33:11', '2026-03-07 10:33:11'),
+(47, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 4, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 50, \"unit_price\": \"5.00\", \"total_price\": \"250.00\"}}', NULL, '2026-03-07 10:33:11', '2026-03-07 10:33:11'),
+(48, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 4, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"250.00\"}}', NULL, '2026-03-07 10:33:11', '2026-03-07 10:33:11'),
+(51, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 14, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"500.00\", \"invoice_date\": \"2026-05-02\", \"total_amount\": \"0.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(52, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 5, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 70, \"unit_price\": \"50.00\", \"total_price\": \"3500.00\"}}', NULL, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(53, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 6, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 10, \"unit_price\": \"55.00\", \"total_price\": \"550.00\"}}', NULL, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(54, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 7, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"50.00\", \"total_price\": \"50.00\"}}', NULL, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(55, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 8, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"55.00\", \"total_price\": \"55.00\"}}', NULL, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(56, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 14, 'App\\Models\\User', 1, '{\"old\": {\"paid\": null, \"total_amount\": 0}, \"attributes\": {\"paid\": \"0.00\", \"total_amount\": \"4155.00\"}}', NULL, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(57, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 14, 'App\\Models\\User', 1, '{\"old\": {\"paid\": \"0.00\", \"payment_status\": \"unpaid\"}, \"attributes\": {\"paid\": \"50.00\", \"payment_status\": \"partial\"}}', NULL, '2026-05-02 13:38:18', '2026-05-02 13:38:18'),
+(58, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 14, 'App\\Models\\User', 1, '{\"old\": {\"paid\": \"50.00\"}, \"attributes\": {\"paid\": \"500.00\"}}', NULL, '2026-05-02 13:38:29', '2026-05-02 13:38:29'),
+(59, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 15, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"5.00\", \"invoice_date\": \"2026-05-07\", \"total_amount\": \"0.00\", \"payment_status\": \"partial\"}}', NULL, '2026-05-02 13:43:15', '2026-05-02 13:43:15'),
+(60, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 9, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"55.00\", \"total_price\": \"55.00\"}}', NULL, '2026-05-02 13:43:15', '2026-05-02 13:43:15'),
+(61, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 10, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"55.00\", \"total_price\": \"55.00\"}}', NULL, '2026-05-02 13:43:15', '2026-05-02 13:43:15'),
+(62, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 15, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"110.00\"}}', NULL, '2026-05-02 13:43:15', '2026-05-02 13:43:15'),
+(63, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 7, 'App\\Models\\User', 1, '{\"old\": {\"paid\": \"55.00\"}, \"attributes\": {\"paid\": \"555.00\"}}', NULL, '2026-05-02 13:44:18', '2026-05-02 13:44:18'),
+(64, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 15, 'App\\Models\\User', 1, '{\"old\": {\"paid\": \"0.00\"}, \"attributes\": {\"paid\": \"4.00\"}}', NULL, '2026-05-02 13:46:27', '2026-05-02 13:46:27'),
+(65, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 15, 'App\\Models\\User', 1, '{\"old\": [], \"attributes\": []}', NULL, '2026-05-02 13:48:15', '2026-05-02 13:48:15'),
+(66, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 11, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"55.00\", \"total_price\": \"55.00\"}}', NULL, '2026-05-02 13:48:15', '2026-05-02 13:48:15'),
+(67, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 12, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"55.00\", \"total_price\": \"55.00\"}}', NULL, '2026-05-02 13:48:15', '2026-05-02 13:48:15'),
+(68, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 15, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"110.00\"}, \"attributes\": {\"total_amount\": \"605.00\"}}', NULL, '2026-05-02 14:24:37', '2026-05-02 14:24:37'),
+(69, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 13, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"555.00\", \"total_price\": \"555.00\"}}', NULL, '2026-05-02 14:24:37', '2026-05-02 14:24:37'),
+(70, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 14, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"55.00\", \"total_price\": \"55.00\"}}', NULL, '2026-05-02 14:24:37', '2026-05-02 14:24:37'),
+(71, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 15, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"605.00\"}, \"attributes\": {\"total_amount\": \"1106.00\"}}', NULL, '2026-05-02 14:24:46', '2026-05-02 14:24:46'),
+(72, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 15, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"555.00\", \"total_price\": \"555.00\"}}', NULL, '2026-05-02 14:24:46', '2026-05-02 14:24:46'),
+(73, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 16, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"556.00\", \"total_price\": \"556.00\"}}', NULL, '2026-05-02 14:24:46', '2026-05-02 14:24:46'),
+(74, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 15, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"1106.00\"}, \"attributes\": {\"total_amount\": \"2218.00\"}}', NULL, '2026-05-02 14:25:07', '2026-05-02 14:25:07'),
+(75, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 17, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"555.00\", \"total_price\": \"555.00\"}}', NULL, '2026-05-02 14:25:07', '2026-05-02 14:25:07'),
+(76, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 18, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 3, \"unit_price\": \"556.00\", \"total_price\": \"1668.00\"}}', NULL, '2026-05-02 14:25:07', '2026-05-02 14:25:07'),
+(77, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 15, 'App\\Models\\User', 1, '{\"old\": {\"paid\": \"4.00\"}, \"attributes\": {\"paid\": \"4666666.00\"}}', NULL, '2026-05-02 14:25:22', '2026-05-02 14:25:22'),
+(78, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 19, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"555.00\", \"total_price\": \"555.00\"}}', NULL, '2026-05-02 14:25:22', '2026-05-02 14:25:22'),
+(79, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 20, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 3, \"unit_price\": \"556.00\", \"total_price\": \"1668.00\"}}', NULL, '2026-05-02 14:25:22', '2026-05-02 14:25:22'),
+(82, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 5, 'App\\Models\\User', 1, '{\"attributes\": {\"return_date\": \"2026-05-02\", \"total_amount\": \"0.00\"}}', NULL, '2026-05-02 14:34:09', '2026-05-02 14:34:09'),
+(83, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 5, 'App\\Models\\User', 1, '{\"attributes\": {\"reason\": null, \"quantity\": 1}}', NULL, '2026-05-02 14:34:09', '2026-05-02 14:34:09'),
+(84, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 5, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"555.00\"}}', NULL, '2026-05-02 14:34:09', '2026-05-02 14:34:09'),
+(85, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 6, 'App\\Models\\User', 1, '{\"attributes\": {\"return_date\": \"2026-05-02\", \"total_amount\": \"0.00\"}}', NULL, '2026-05-02 14:35:33', '2026-05-02 14:35:33'),
+(86, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 6, 'App\\Models\\User', 1, '{\"attributes\": {\"reason\": null, \"quantity\": 2}}', NULL, '2026-05-02 14:35:33', '2026-05-02 14:35:33'),
+(87, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 6, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"1110.00\"}}', NULL, '2026-05-02 14:35:33', '2026-05-02 14:35:33'),
+(88, 'product_return', 'إضافة مرتجع جديد', 'App\\Models\\ProductReturn', 'created', 7, 'App\\Models\\User', 1, '{\"attributes\": {\"return_date\": \"2026-05-07\", \"total_amount\": \"0.00\"}}', NULL, '2026-05-03 05:16:05', '2026-05-03 05:16:05'),
+(89, 'returned_item', 'إضافة عنصر جديد', 'App\\Models\\ReturnItem', 'created', 7, 'App\\Models\\User', 1, '{\"attributes\": {\"reason\": null, \"quantity\": 50}}', NULL, '2026-05-03 05:16:05', '2026-05-03 05:16:05'),
+(90, 'product_return', 'تعديل بيانات المرتجع', 'App\\Models\\ProductReturn', 'updated', 7, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"250.00\"}}', NULL, '2026-05-03 05:16:05', '2026-05-03 05:16:05'),
+(91, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 16, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"35.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:20:03', '2026-05-03 05:20:03'),
+(92, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 17, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"0.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:26:08', '2026-05-03 05:26:08'),
+(93, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 18, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"0.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:26:30', '2026-05-03 05:26:30'),
+(94, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 19, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"4250.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:27:28', '2026-05-03 05:27:28'),
+(95, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 20, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"0.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:32:47', '2026-05-03 05:32:47'),
+(96, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 21, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"5.00\", \"total_price\": \"5.00\"}}', NULL, '2026-05-03 05:32:47', '2026-05-03 05:32:47'),
+(97, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 21, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"200.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:36:47', '2026-05-03 05:36:47'),
+(98, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 22, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 40, \"unit_price\": \"5.00\", \"total_price\": \"200.00\"}}', NULL, '2026-05-03 05:36:47', '2026-05-03 05:36:47'),
+(99, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 22, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"0.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:37:15', '2026-05-03 05:37:15'),
+(100, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 23, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"5.00\", \"total_price\": \"5.00\"}}', NULL, '2026-05-03 05:37:15', '2026-05-03 05:37:15'),
+(101, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 23, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"8250.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:37:50', '2026-05-03 05:37:50'),
+(102, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 24, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 150, \"unit_price\": \"55.00\", \"total_price\": \"8250.00\"}}', NULL, '2026-05-03 05:37:50', '2026-05-03 05:37:50'),
+(103, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 24, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"100.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:39:26', '2026-05-03 05:39:26'),
+(104, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 25, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 2, \"unit_price\": \"50.00\", \"total_price\": \"100.00\"}}', NULL, '2026-05-03 05:39:26', '2026-05-03 05:39:26'),
+(105, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 25, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"5.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:43:44', '2026-05-03 05:43:44'),
+(106, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 26, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"5.00\", \"total_price\": \"5.00\"}}', NULL, '2026-05-03 05:43:44', '2026-05-03 05:43:44'),
+(107, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 26, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"5.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:44:02', '2026-05-03 05:44:02'),
+(108, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 27, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"5.00\", \"total_price\": \"5.00\"}}', NULL, '2026-05-03 05:44:02', '2026-05-03 05:44:02'),
+(109, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 27, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"70.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:44:25', '2026-05-03 05:44:25'),
+(110, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 28, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 14, \"unit_price\": \"5.00\", \"total_price\": \"70.00\"}}', NULL, '2026-05-03 05:44:25', '2026-05-03 05:44:25'),
+(111, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 28, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"15850.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:51:58', '2026-05-03 05:51:58'),
+(112, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 29, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 317, \"unit_price\": \"50.00\", \"total_price\": \"15850.00\"}}', NULL, '2026-05-03 05:51:58', '2026-05-03 05:51:58'),
+(113, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 5, 'App\\Models\\User', 1, '{\"attributes\": {\"total_amount\": \"0.00\", \"purchase_date\": \"2026-05-03\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:56:18', '2026-05-03 05:56:18'),
+(114, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 5, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 50, \"unit_price\": \"5.00\", \"total_price\": \"250.00\"}}', NULL, '2026-05-03 05:56:18', '2026-05-03 05:56:18'),
+(115, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 5, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"250.00\"}}', NULL, '2026-05-03 05:56:18', '2026-05-03 05:56:18'),
+(116, 'purchase', 'إضافة عملية شراء جديدة', 'App\\Models\\Purchase', 'created', 6, 'App\\Models\\User', 1, '{\"attributes\": {\"total_amount\": \"0.00\", \"purchase_date\": \"2026-06-05\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:57:20', '2026-05-03 05:57:20'),
+(117, 'purchase_item', 'إضافة عنصر مشترى جديد', 'App\\Models\\PurchaseItem', 'created', 6, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 50, \"unit_price\": \"5.00\", \"total_price\": \"250.00\"}}', NULL, '2026-05-03 05:57:20', '2026-05-03 05:57:20'),
+(118, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 6, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": 0}, \"attributes\": {\"total_amount\": \"250.00\"}}', NULL, '2026-05-03 05:57:20', '2026-05-03 05:57:20'),
+(119, 'manufacturer', 'إضافة شركة مصنعة جديدة', 'App\\Models\\Manufacturer', 'created', 3, 'App\\Models\\User', 1, '{\"attributes\": {\"name\": \"ش\"}}', NULL, '2026-05-03 05:57:30', '2026-05-03 05:57:30'),
+(120, 'invoice', 'إضافة فاتورة جديدة', 'App\\Models\\Invoice', 'created', 29, 'App\\Models\\User', 1, '{\"attributes\": {\"paid\": \"0.00\", \"discount\": \"0.00\", \"invoice_date\": \"2026-05-03\", \"total_amount\": \"80.00\", \"payment_status\": \"unpaid\"}}', NULL, '2026-05-03 05:58:46', '2026-05-03 05:58:46'),
+(121, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 30, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 05:58:46', '2026-05-03 05:58:46'),
+(122, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 31, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"5.00\", \"total_price\": \"5.00\"}}', NULL, '2026-05-03 05:58:46', '2026-05-03 05:58:46'),
+(123, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 32, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"50.00\", \"total_price\": \"50.00\"}}', NULL, '2026-05-03 05:58:46', '2026-05-03 05:58:46'),
+(124, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"80.00\"}, \"attributes\": {\"total_amount\": \"850.00\"}}', NULL, '2026-05-03 05:59:00', '2026-05-03 05:59:00'),
+(125, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 33, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 05:59:00', '2026-05-03 05:59:00'),
+(126, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 34, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 155, \"unit_price\": \"5.00\", \"total_price\": \"775.00\"}}', NULL, '2026-05-03 05:59:00', '2026-05-03 05:59:00'),
+(127, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 35, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"50.00\", \"total_price\": \"50.00\"}}', NULL, '2026-05-03 05:59:00', '2026-05-03 05:59:00'),
+(128, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": [], \"attributes\": []}', NULL, '2026-05-03 05:59:01', '2026-05-03 05:59:01'),
+(129, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 36, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 05:59:01', '2026-05-03 05:59:01'),
+(130, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 37, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 155, \"unit_price\": \"5.00\", \"total_price\": \"775.00\"}}', NULL, '2026-05-03 05:59:01', '2026-05-03 05:59:01'),
+(131, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 38, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1, \"unit_price\": \"50.00\", \"total_price\": \"50.00\"}}', NULL, '2026-05-03 05:59:01', '2026-05-03 05:59:01'),
+(132, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"850.00\"}, \"attributes\": {\"total_amount\": \"8050.00\"}}', NULL, '2026-05-03 06:00:47', '2026-05-03 06:00:47'),
+(133, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 39, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:00:47', '2026-05-03 06:00:47'),
+(134, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 40, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 155, \"unit_price\": \"5.00\", \"total_price\": \"775.00\"}}', NULL, '2026-05-03 06:00:47', '2026-05-03 06:00:47'),
+(135, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 41, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 145, \"unit_price\": \"50.00\", \"total_price\": \"7250.00\"}}', NULL, '2026-05-03 06:00:47', '2026-05-03 06:00:47'),
+(136, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": [], \"attributes\": []}', NULL, '2026-05-03 06:00:49', '2026-05-03 06:00:49'),
+(137, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 42, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:00:49', '2026-05-03 06:00:49'),
+(138, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 43, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 155, \"unit_price\": \"5.00\", \"total_price\": \"775.00\"}}', NULL, '2026-05-03 06:00:49', '2026-05-03 06:00:49'),
+(139, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 44, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 145, \"unit_price\": \"50.00\", \"total_price\": \"7250.00\"}}', NULL, '2026-05-03 06:00:49', '2026-05-03 06:00:49'),
+(140, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"8050.00\"}, \"attributes\": {\"total_amount\": \"73550.00\"}}', NULL, '2026-05-03 06:01:12', '2026-05-03 06:01:12'),
+(141, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 45, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:01:12', '2026-05-03 06:01:12'),
+(142, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 46, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 155, \"unit_price\": \"5.00\", \"total_price\": \"775.00\"}}', NULL, '2026-05-03 06:01:13', '2026-05-03 06:01:13'),
+(143, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 47, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1455, \"unit_price\": \"50.00\", \"total_price\": \"72750.00\"}}', NULL, '2026-05-03 06:01:13', '2026-05-03 06:01:13'),
+(144, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"73550.00\"}, \"attributes\": {\"total_amount\": \"80555.00\"}}', NULL, '2026-05-03 06:01:49', '2026-05-03 06:01:49'),
+(145, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 48, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:01:49', '2026-05-03 06:01:49'),
+(146, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 49, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1556, \"unit_price\": \"5.00\", \"total_price\": \"7780.00\"}}', NULL, '2026-05-03 06:01:49', '2026-05-03 06:01:49'),
+(147, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 50, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1455, \"unit_price\": \"50.00\", \"total_price\": \"72750.00\"}}', NULL, '2026-05-03 06:01:49', '2026-05-03 06:01:49'),
+(148, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": [], \"attributes\": []}', NULL, '2026-05-03 06:01:51', '2026-05-03 06:01:51'),
+(149, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 51, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:01:51', '2026-05-03 06:01:51'),
+(150, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 52, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1556, \"unit_price\": \"5.00\", \"total_price\": \"7780.00\"}}', NULL, '2026-05-03 06:01:51', '2026-05-03 06:01:51'),
+(151, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 53, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1455, \"unit_price\": \"50.00\", \"total_price\": \"72750.00\"}}', NULL, '2026-05-03 06:01:51', '2026-05-03 06:01:51'),
+(152, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"80555.00\"}, \"attributes\": {\"total_amount\": \"2580555.00\"}}', NULL, '2026-05-03 06:03:47', '2026-05-03 06:03:47'),
+(153, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 54, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:03:47', '2026-05-03 06:03:47'),
+(154, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 55, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1556, \"unit_price\": \"5.00\", \"total_price\": \"7780.00\"}}', NULL, '2026-05-03 06:03:47', '2026-05-03 06:03:47'),
+(155, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 56, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 51455, \"unit_price\": \"50.00\", \"total_price\": \"2572750.00\"}}', NULL, '2026-05-03 06:03:47', '2026-05-03 06:03:47'),
+(156, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": [], \"attributes\": []}', NULL, '2026-05-03 06:03:48', '2026-05-03 06:03:48'),
+(157, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 57, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:03:48', '2026-05-03 06:03:48'),
+(158, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 58, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 1556, \"unit_price\": \"5.00\", \"total_price\": \"7780.00\"}}', NULL, '2026-05-03 06:03:48', '2026-05-03 06:03:48'),
+(159, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 59, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 51455, \"unit_price\": \"50.00\", \"total_price\": \"2572750.00\"}}', NULL, '2026-05-03 06:03:48', '2026-05-03 06:03:48'),
+(160, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": {\"total_amount\": \"2580555.00\"}, \"attributes\": {\"total_amount\": \"2650055.00\"}}', NULL, '2026-05-03 06:03:55', '2026-05-03 06:03:55'),
+(161, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 60, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:03:55', '2026-05-03 06:03:55'),
+(162, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 61, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 15456, \"unit_price\": \"5.00\", \"total_price\": \"77280.00\"}}', NULL, '2026-05-03 06:03:55', '2026-05-03 06:03:55'),
+(163, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 62, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 51455, \"unit_price\": \"50.00\", \"total_price\": \"2572750.00\"}}', NULL, '2026-05-03 06:03:55', '2026-05-03 06:03:55'),
+(164, 'invoice', 'تعديل بيانات الفاتورة', 'App\\Models\\Invoice', 'updated', 29, 'App\\Models\\User', 1, '{\"old\": [], \"attributes\": []}', NULL, '2026-05-03 06:03:56', '2026-05-03 06:03:56'),
+(165, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 63, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 5, \"unit_price\": \"5.00\", \"total_price\": \"25.00\"}}', NULL, '2026-05-03 06:03:56', '2026-05-03 06:03:56'),
+(166, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 64, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 15456, \"unit_price\": \"5.00\", \"total_price\": \"77280.00\"}}', NULL, '2026-05-03 06:03:56', '2026-05-03 06:03:56'),
+(167, 'invoice_item', 'إضافة عنصر فاتورة جديد', 'App\\Models\\InvoiceItem', 'created', 65, 'App\\Models\\User', 1, '{\"attributes\": {\"quantity\": 51455, \"unit_price\": \"50.00\", \"total_price\": \"2572750.00\"}}', NULL, '2026-05-03 06:03:56', '2026-05-03 06:03:56'),
+(168, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 4, 'App\\Models\\User', 1, '{\"old\": {\"payment_status\": \"partial\"}, \"attributes\": {\"payment_status\": \"paid\"}}', NULL, '2026-05-03 06:04:35', '2026-05-03 06:04:35'),
+(169, 'purchase', 'تعديل بيانات عملية الشراء', 'App\\Models\\Purchase', 'updated', 5, 'App\\Models\\User', 1, '{\"old\": {\"payment_status\": \"unpaid\"}, \"attributes\": {\"payment_status\": \"paid\"}}', NULL, '2026-05-03 06:04:53', '2026-05-03 06:04:53');
 
--- Dumping structure for table pharmacy_system.adjustments
-CREATE TABLE IF NOT EXISTS `adjustments` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL,
-  `batch_id` bigint unsigned DEFAULT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adjustments`
+--
+
+CREATE TABLE `adjustments` (
+  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `batch_id` bigint UNSIGNED DEFAULT NULL,
   `old_quantity` int NOT NULL,
   `new_quantity` int NOT NULL,
   `reason` text COLLATE utf8mb4_unicode_ci,
-  `created_by` bigint unsigned NOT NULL,
+  `created_by` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `adjustments_product_id_foreign` (`product_id`),
-  KEY `adjustments_batch_id_foreign` (`batch_id`),
-  KEY `adjustments_created_by_foreign` (`created_by`),
-  CONSTRAINT `adjustments_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `adjustments_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `adjustments_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.adjustments: ~0 rows (approximately)
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.batches
-CREATE TABLE IF NOT EXISTS `batches` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL,
-  `supplier_id` bigint unsigned DEFAULT NULL,
+--
+-- Table structure for table `batches`
+--
+
+CREATE TABLE `batches` (
+  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `supplier_id` bigint UNSIGNED DEFAULT NULL,
   `batch_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiry_date` date DEFAULT NULL,
   `purchase_price_per_base` decimal(10,2) NOT NULL,
   `sale_price_per_base` decimal(10,2) DEFAULT NULL,
   `initial_quantity` int NOT NULL,
-  `current_quantity` int NOT NULL DEFAULT (0),
+  `current_quantity` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `batches_product_id_foreign` (`product_id`),
-  KEY `batches_supplier_id_foreign` (`supplier_id`),
-  CONSTRAINT `batches_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `batches_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.batches: ~3 rows (approximately)
+--
+-- Dumping data for table `batches`
+--
+
 INSERT INTO `batches` (`id`, `product_id`, `supplier_id`, `batch_no`, `expiry_date`, `purchase_price_per_base`, `sale_price_per_base`, `initial_quantity`, `current_quantity`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, '5544', '2027-07-29', 80.00, 100.00, 1550, 400, '2025-10-29 05:27:57', '2025-12-08 11:03:48'),
-	(2, 2, 1, 'BATCH-6930B2D28A5FE', '2025-12-30', 200.00, NULL, 3000, 2990, '2025-12-03 18:59:46', '2025-12-07 19:22:38'),
-	(3, 1, 1, 'BATCH-6930B4B80347F', '2026-01-10', 50.00, NULL, 1000, 988, '2025-12-03 19:07:52', '2025-12-08 10:59:59');
+(1, 1, 1, 'BATCH-693D5DB7365BD', '2025-12-13', 44.00, NULL, 4, 0, '2025-12-13 09:36:07', '2025-12-13 09:51:22'),
+(2, 1, 1, 'BATCH-693D622BA390F', '2025-12-04', 55.00, NULL, 454, 0, '2025-12-13 09:55:07', '2026-05-03 05:51:58'),
+(3, 2, 1, 'BATCH-69AC28D0BEAE2', '2026-03-07', 5.00, NULL, 100, 0, '2026-03-07 10:32:00', '2026-05-03 06:03:56'),
+(4, 2, 1, 'BATCH-69F70DB2913D8', '2026-03-07', 5.00, NULL, 50, 44, '2026-05-03 05:56:18', '2026-05-03 05:58:46'),
+(5, 1, NULL, 'BATCH-69F70DF045F03', '2026-03-07', 5.00, NULL, 50, 49, '2026-05-03 05:57:20', '2026-05-03 06:03:56');
 
--- Dumping structure for table pharmacy_system.cache
-CREATE TABLE IF NOT EXISTS `cache` (
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache`
+--
+
+CREATE TABLE `cache` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL,
-  PRIMARY KEY (`key`)
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.cache: ~1 rows (approximately)
-INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-	('pms-cache-spatie.permission.cache', 'a:3:{s:5:"alias";a:5:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:12:"display_name";s:1:"d";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:44:{i:0;a:5:{s:1:"a";i:1;s:1:"b";s:12:"create batch";s:1:"c";s:25:"اضافة الدفعات";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:10:"view batch";s:1:"c";s:21:"عرض الدفعات";s:1:"d";s:3:"web";}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:12:"update batch";s:1:"c";s:25:"تحديث الدفعات";s:1:"d";s:3:"web";}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:12:"delete batch";s:1:"c";s:21:"حذف الدفعات";s:1:"d";s:3:"web";}i:4;a:5:{s:1:"a";i:5;s:1:"b";s:15:"create category";s:1:"c";s:25:"اضافة الاقسام";s:1:"d";s:3:"web";s:1:"r";a:2:{i:0;i:2;i:1;i:3;}}i:5;a:5:{s:1:"a";i:6;s:1:"b";s:13:"view category";s:1:"c";s:21:"عرض الاقسام";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:3;}}i:6;a:4:{s:1:"a";i:7;s:1:"b";s:15:"update category";s:1:"c";s:25:"تحديث الاقسام";s:1:"d";s:3:"web";}i:7;a:4:{s:1:"a";i:8;s:1:"b";s:15:"delete category";s:1:"c";s:21:"حذف الاقسام";s:1:"d";s:3:"web";}i:8;a:5:{s:1:"a";i:9;s:1:"b";s:14:"create invoice";s:1:"c";s:27:"اضافة الفواتير";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:9;a:4:{s:1:"a";i:10;s:1:"b";s:12:"view invoice";s:1:"c";s:23:"عرض الفواتير";s:1:"d";s:3:"web";}i:10;a:4:{s:1:"a";i:11;s:1:"b";s:14:"update invoice";s:1:"c";s:27:"تحديث الفواتير";s:1:"d";s:3:"web";}i:11;a:4:{s:1:"a";i:12;s:1:"b";s:14:"delete invoice";s:1:"c";s:23:"حذف الفواتير";s:1:"d";s:3:"web";}i:12;a:5:{s:1:"a";i:13;s:1:"b";s:19:"create manufacturer";s:1:"c";s:40:"اضافة الشركات المصنعة";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:13;a:4:{s:1:"a";i:14;s:1:"b";s:17:"view manufacturer";s:1:"c";s:36:"عرض الشركات المصنعة";s:1:"d";s:3:"web";}i:14;a:4:{s:1:"a";i:15;s:1:"b";s:19:"update manufacturer";s:1:"c";s:40:"تحديث الشركات المصنعة";s:1:"d";s:3:"web";}i:15;a:4:{s:1:"a";i:16;s:1:"b";s:19:"delete manufacturer";s:1:"c";s:36:"حذف الشركات المصنعة";s:1:"d";s:3:"web";}i:16;a:5:{s:1:"a";i:17;s:1:"b";s:13:"create return";s:1:"c";s:29:"اضافة المرتجعات";s:1:"d";s:3:"web";s:1:"r";a:1:{i:0;i:2;}}i:17;a:4:{s:1:"a";i:18;s:1:"b";s:11:"view return";s:1:"c";s:25:"عرض المرتجعات";s:1:"d";s:3:"web";}i:18;a:4:{s:1:"a";i:19;s:1:"b";s:13:"update return";s:1:"c";s:29:"تحديث المرتجعات";s:1:"d";s:3:"web";}i:19;a:4:{s:1:"a";i:20;s:1:"b";s:13:"delete return";s:1:"c";s:25:"حذف المرتجعات";s:1:"d";s:3:"web";}i:20;a:4:{s:1:"a";i:21;s:1:"b";s:14:"create product";s:1:"c";s:27:"اضافة المنتجات";s:1:"d";s:3:"web";}i:21;a:4:{s:1:"a";i:22;s:1:"b";s:12:"view product";s:1:"c";s:23:"عرض المنتجات";s:1:"d";s:3:"web";}i:22;a:4:{s:1:"a";i:23;s:1:"b";s:14:"update product";s:1:"c";s:27:"تحديث المنتجات";s:1:"d";s:3:"web";}i:23;a:4:{s:1:"a";i:24;s:1:"b";s:14:"delete product";s:1:"c";s:23:"حذف المنتجات";s:1:"d";s:3:"web";}i:24;a:4:{s:1:"a";i:25;s:1:"b";s:15:"create purchase";s:1:"c";s:29:"اضافة المشتريات";s:1:"d";s:3:"web";}i:25;a:4:{s:1:"a";i:26;s:1:"b";s:13:"view purchase";s:1:"c";s:25:"عرض المشتريات";s:1:"d";s:3:"web";}i:26;a:4:{s:1:"a";i:27;s:1:"b";s:15:"update purchase";s:1:"c";s:29:"تحديث المشتريات";s:1:"d";s:3:"web";}i:27;a:4:{s:1:"a";i:28;s:1:"b";s:15:"delete purchase";s:1:"c";s:25:"حذف المشتريات";s:1:"d";s:3:"web";}i:28;a:4:{s:1:"a";i:29;s:1:"b";s:11:"create role";s:1:"c";s:25:"اضافة الادوار";s:1:"d";s:3:"web";}i:29;a:4:{s:1:"a";i:30;s:1:"b";s:9:"view role";s:1:"c";s:21:"عرض الادوار";s:1:"d";s:3:"web";}i:30;a:4:{s:1:"a";i:31;s:1:"b";s:11:"update role";s:1:"c";s:25:"تحديث الادوار";s:1:"d";s:3:"web";}i:31;a:4:{s:1:"a";i:32;s:1:"b";s:11:"delete role";s:1:"c";s:21:"حذف الادوار";s:1:"d";s:3:"web";}i:32;a:4:{s:1:"a";i:33;s:1:"b";s:15:"create supplier";s:1:"c";s:27:"اضافة المزودين";s:1:"d";s:3:"web";}i:33;a:4:{s:1:"a";i:34;s:1:"b";s:13:"view supplier";s:1:"c";s:23:"عرض المزودين";s:1:"d";s:3:"web";}i:34;a:4:{s:1:"a";i:35;s:1:"b";s:15:"update supplier";s:1:"c";s:27:"تحديث المزودين";s:1:"d";s:3:"web";}i:35;a:4:{s:1:"a";i:36;s:1:"b";s:15:"delete supplier";s:1:"c";s:23:"حذف المزودين";s:1:"d";s:3:"web";}i:36;a:4:{s:1:"a";i:37;s:1:"b";s:11:"create unit";s:1:"c";s:25:"اضافة الوحدات";s:1:"d";s:3:"web";}i:37;a:4:{s:1:"a";i:38;s:1:"b";s:9:"view unit";s:1:"c";s:21:"عرض الوحدات";s:1:"d";s:3:"web";}i:38;a:4:{s:1:"a";i:39;s:1:"b";s:11:"update unit";s:1:"c";s:25:"تحديث الوحدات";s:1:"d";s:3:"web";}i:39;a:4:{s:1:"a";i:40;s:1:"b";s:11:"delete unit";s:1:"c";s:21:"حذف الوحدات";s:1:"d";s:3:"web";}i:40;a:4:{s:1:"a";i:41;s:1:"b";s:11:"create user";s:1:"c";s:31:"اضافة المستخدمين";s:1:"d";s:3:"web";}i:41;a:4:{s:1:"a";i:42;s:1:"b";s:9:"view user";s:1:"c";s:27:"عرض المستخدمين";s:1:"d";s:3:"web";}i:42;a:4:{s:1:"a";i:43;s:1:"b";s:11:"update user";s:1:"c";s:31:"تحديث المستخدمين";s:1:"d";s:3:"web";}i:43;a:4:{s:1:"a";i:44;s:1:"b";s:11:"delete user";s:1:"c";s:27:"حذف المستخدمين";s:1:"d";s:3:"web";}}s:5:"roles";a:2:{i:0;a:3:{s:1:"a";i:2;s:1:"b";s:8:"مشرف";s:1:"d";s:3:"web";}i:1;a:3:{s:1:"a";i:3;s:1:"b";s:21:"مدخل بيانات";s:1:"d";s:3:"web";}}}', 1765576172);
+--
+-- Dumping data for table `cache`
+--
 
--- Dumping structure for table pharmacy_system.cache_locks
-CREATE TABLE IF NOT EXISTS `cache_locks` (
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('laravel-cache-livewire-rate-limiter:16d36dff9abd246c67dfac3e63b993a169af77e6', 'i:1;', 1777795834),
+('laravel-cache-livewire-rate-limiter:16d36dff9abd246c67dfac3e63b993a169af77e6:timer', 'i:1777795834;', 1777795834),
+('laravel-cache-spatie.permission.cache', 'a:3:{s:5:\"alias\";a:0:{}s:11:\"permissions\";a:0:{}s:5:\"roles\";a:0:{}}', 1777822959);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL,
-  PRIMARY KEY (`key`)
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.cache_locks: ~0 rows (approximately)
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.categories
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.categories: ~2 rows (approximately)
+--
+-- Dumping data for table `categories`
+--
+
 INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-	(1, 'أدوية الزكام', 'دواء الزكام', '2025-10-26 17:30:11', '2025-10-27 11:09:42'),
-	(2, 'ادوية الحمى', NULL, '2025-10-27 11:09:15', '2025-10-27 11:09:15');
+(1, 'شراب', NULL, '2025-12-13 09:28:51', '2025-12-13 09:28:51'),
+(2, 'حبه', 'ممم\n', '2026-03-07 10:25:11', '2026-03-07 10:25:30');
 
--- Dumping structure for table pharmacy_system.customers
-CREATE TABLE IF NOT EXISTS `customers` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.customers: ~1 rows (approximately)
-INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `address`, `created_at`, `updated_at`) VALUES
-	(1, 'محمد ', 'mohammed.salem701@gmail.com', '736903345', 'Aden', '2025-12-02 11:15:34', '2025-12-02 11:20:37');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.customer_accounts
-CREATE TABLE IF NOT EXISTS `customer_accounts` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `customer_id` bigint unsigned NOT NULL,
+--
+-- Table structure for table `customer_accounts`
+--
+
+CREATE TABLE `customer_accounts` (
+  `id` bigint UNSIGNED NOT NULL,
+  `customer_id` bigint UNSIGNED NOT NULL,
   `balance` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `customer_accounts_customer_id_foreign` (`customer_id`),
-  CONSTRAINT `customer_accounts_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.customer_accounts: ~1 rows (approximately)
-INSERT INTO `customer_accounts` (`id`, `customer_id`, `balance`, `created_at`, `updated_at`) VALUES
-	(2, 1, 1200.00, '2025-12-03 17:24:18', '2025-12-03 17:55:05');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.customer_account_transactions
-CREATE TABLE IF NOT EXISTS `customer_account_transactions` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `customer_account_id` bigint unsigned DEFAULT NULL,
+--
+-- Table structure for table `customer_account_transactions`
+--
+
+CREATE TABLE `customer_account_transactions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `customer_account_id` bigint UNSIGNED DEFAULT NULL,
+  `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `invoice_id` bigint unsigned NOT NULL,
+  `invoice_id` bigint UNSIGNED NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `customer_account_transactions_customer_account_id_foreign` (`customer_account_id`),
-  KEY `customer_account_transactions_invoice_id_foreign` (`invoice_id`),
-  CONSTRAINT `customer_account_transactions_customer_account_id_foreign` FOREIGN KEY (`customer_account_id`) REFERENCES `customer_accounts` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `customer_account_transactions_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.customer_account_transactions: ~3 rows (approximately)
-INSERT INTO `customer_account_transactions` (`id`, `customer_account_id`, `type`, `invoice_id`, `amount`, `description`, `created_at`, `updated_at`) VALUES
-	(5, 2, 'dept', 69, 300.00, NULL, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
-	(6, 2, 'dept', 71, 200.00, NULL, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
-	(7, NULL, 'debt', 78, 100.00, NULL, '2025-12-05 18:07:20', '2025-12-05 18:07:20');
+--
+-- Dumping data for table `customer_account_transactions`
+--
 
--- Dumping structure for table pharmacy_system.examinations
-CREATE TABLE IF NOT EXISTS `examinations` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+INSERT INTO `customer_account_transactions` (`id`, `customer_account_id`, `customer_name`, `type`, `invoice_id`, `amount`, `description`, `created_at`, `updated_at`) VALUES
+(2, NULL, 'اسامه', 'debt', 8, 50.00, NULL, '2026-03-07 10:24:14', '2026-03-07 10:28:50'),
+(3, NULL, 'r', 'debt', 14, 3600.00, NULL, '2026-05-02 13:34:55', '2026-05-02 14:37:03'),
+(4, NULL, 'و', 'debt', 15, 105.00, NULL, '2026-05-02 13:43:15', '2026-05-02 13:43:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examinations`
+--
+
+CREATE TABLE `examinations` (
+  `id` bigint UNSIGNED NOT NULL,
   `scientific_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `normal_ratio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `department_id` bigint unsigned NOT NULL,
-  `unit_id` bigint unsigned NOT NULL,
+  `department_id` bigint UNSIGNED NOT NULL,
+  `unit_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `examinations_department_id_foreign` (`department_id`),
-  KEY `examinations_unit_id_foreign` (`unit_id`),
-  CONSTRAINT `examinations_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `examination_departments` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `examinations_unit_id_foreign` FOREIGN KEY (`unit_id`) REFERENCES `examination_units` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.examinations: ~1 rows (approximately)
-INSERT INTO `examinations` (`id`, `scientific_name`, `normal_ratio`, `department_id`, `unit_id`, `created_at`, `updated_at`) VALUES
-	(1, 'فحص متخصص', '50', 1, 1, '2025-12-11 19:10:33', '2025-12-11 19:10:33');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.examination_departments
-CREATE TABLE IF NOT EXISTS `examination_departments` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `examination_departments`
+--
+
+CREATE TABLE `examination_departments` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.examination_departments: ~1 rows (approximately)
-INSERT INTO `examination_departments` (`id`, `name`, `created_at`, `updated_at`) VALUES
-	(1, 'فحص الدم', '2025-12-11 19:07:11', '2025-12-11 19:07:11');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.examination_prescriptions
-CREATE TABLE IF NOT EXISTS `examination_prescriptions` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `examination_prescriptions`
+--
+
+CREATE TABLE `examination_prescriptions` (
+  `id` bigint UNSIGNED NOT NULL,
   `patient_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` int NOT NULL,
   `gender` enum('male','female') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.examination_prescriptions: ~2 rows (approximately)
-INSERT INTO `examination_prescriptions` (`id`, `patient_name`, `age`, `gender`, `created_at`, `updated_at`) VALUES
-	(1, 'علوي صالح احمد', 35, 'male', '2025-12-11 19:11:31', '2025-12-11 19:11:31'),
-	(2, 'مجيدة فيصل', 44, 'female', '2025-12-11 19:19:37', '2025-12-11 19:19:37');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.examination_prescription_items
-CREATE TABLE IF NOT EXISTS `examination_prescription_items` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `examination_prescription_id` bigint unsigned NOT NULL,
-  `examination_id` bigint unsigned NOT NULL,
+--
+-- Table structure for table `examination_prescription_items`
+--
+
+CREATE TABLE `examination_prescription_items` (
+  `id` bigint UNSIGNED NOT NULL,
+  `examination_prescription_id` bigint UNSIGNED NOT NULL,
+  `examination_id` bigint UNSIGNED NOT NULL,
   `patient_ratio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `examination_prescription_id_foreign` (`examination_prescription_id`),
-  KEY `examination_prescription_items_examination_id_foreign` (`examination_id`),
-  CONSTRAINT `examination_prescription_id_foreign` FOREIGN KEY (`examination_prescription_id`) REFERENCES `examination_prescriptions` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `examination_prescription_items_examination_id_foreign` FOREIGN KEY (`examination_id`) REFERENCES `examinations` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.examination_prescription_items: ~2 rows (approximately)
-INSERT INTO `examination_prescription_items` (`id`, `examination_prescription_id`, `examination_id`, `patient_ratio`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, '40', '2025-12-11 19:11:31', '2025-12-11 19:11:31'),
-	(2, 2, 1, '45', '2025-12-11 19:19:37', '2025-12-11 19:19:37');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.examination_units
-CREATE TABLE IF NOT EXISTS `examination_units` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `examination_units`
+--
+
+CREATE TABLE `examination_units` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.examination_units: ~1 rows (approximately)
-INSERT INTO `examination_units` (`id`, `name`, `created_at`, `updated_at`) VALUES
-	(1, 'وحدة فحص', '2025-12-11 19:09:08', '2025-12-11 19:09:08');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.failed_jobs
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint UNSIGNED NOT NULL,
   `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.failed_jobs: ~0 rows (approximately)
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.invoices
-CREATE TABLE IF NOT EXISTS `invoices` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` bigint UNSIGNED NOT NULL,
   `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
-  `discount` decimal(10,2) NOT NULL,
-  `paid` decimal(10,2) DEFAULT NULL,
-  `payment_status` enum('paid','unpaid','partial') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
+  `discount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `paid` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
   `invoice_date` date NOT NULL,
   `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `note` text COLLATE utf8mb4_unicode_ci,
-  `created_by` bigint unsigned NOT NULL,
+  `created_by` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `invoices_invoice_no_unique` (`invoice_no`),
-  KEY `invoices_created_by_foreign` (`created_by`),
-  CONSTRAINT `invoices_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.invoices: ~29 rows (approximately)
+--
+-- Dumping data for table `invoices`
+--
+
 INSERT INTO `invoices` (`id`, `invoice_no`, `total_amount`, `discount`, `paid`, `payment_status`, `invoice_date`, `customer_name`, `note`, `created_by`, `created_at`, `updated_at`) VALUES
-	(1, '5453', 10000.00, 10.00, 1000.00, 'unpaid', '2025-10-30', NULL, NULL, 1, '2025-10-29 08:39:23', '2025-10-29 08:39:23'),
-	(2, '20251029143830-609', 0.00, 10.00, 0.00, 'unpaid', '2025-10-22', NULL, NULL, 1, '2025-10-29 11:38:30', '2025-10-29 11:38:30'),
-	(5, '20251029202149-491', 5.00, 55.00, 0.00, 'unpaid', '2025-10-28', NULL, NULL, 1, '2025-10-29 17:21:49', '2025-10-29 17:21:49'),
-	(7, 'INV20251030-001', 1000.00, 100.00, 1000.00, 'paid', '2025-10-30', NULL, NULL, 1, '2025-10-30 11:15:50', '2025-10-30 11:15:50'),
-	(9, 'INV20251030-002', 1000.00, 0.00, 1000.00, 'paid', '2025-10-30', NULL, NULL, 1, '2025-10-30 11:25:35', '2025-10-30 11:25:35'),
-	(10, 'INV20251030-003', 1000.00, 0.00, 354.00, 'unpaid', '2025-10-30', NULL, NULL, 1, '2025-10-30 11:35:41', '2025-10-30 11:35:41'),
-	(14, 'INV20251030-004', 100.00, 0.00, 0.00, 'unpaid', '2025-10-30', NULL, NULL, 1, '2025-10-30 12:22:28', '2025-10-30 12:22:28'),
-	(20, 'INV20251030-005', 10.00, 0.00, 10.00, 'paid', '2025-10-31', NULL, NULL, 1, '2025-10-30 19:39:46', '2025-10-30 19:39:46'),
-	(21, 'INV20251030-006', 2.00, 0.00, 2.00, 'paid', '2025-10-31', NULL, NULL, 1, '2025-10-30 19:43:20', '2025-10-30 19:43:20'),
-	(24, 'INV-20251103-00001', 100.00, 0.00, 0.00, 'unpaid', '2025-11-11', NULL, NULL, 1, '2025-11-03 04:01:57', '2025-11-03 04:01:57'),
-	(25, 'INV-20251103-00002', 1200.00, 0.00, 0.00, 'unpaid', '2025-11-10', NULL, NULL, 1, '2025-11-03 04:03:07', '2025-11-03 04:03:07'),
-	(28, 'INV-20251103-00003', 1200.00, 0.00, 0.00, 'unpaid', '2025-11-04', NULL, NULL, 1, '2025-11-03 04:12:22', '2025-11-03 04:12:22'),
-	(29, 'INV-20251103-00004', 1200.00, 0.00, 0.00, 'unpaid', '2025-11-16', NULL, NULL, 1, '2025-11-03 04:37:18', '2025-11-03 04:37:18'),
-	(30, 'INV-20251129-00001', 200.00, 0.00, 0.00, 'unpaid', '2025-12-03', NULL, NULL, 1, '2025-11-29 18:22:08', '2025-11-29 18:22:08'),
-	(31, 'INV-20251130-00001', 100.00, 0.00, NULL, 'paid', '2025-12-23', NULL, NULL, 1, '2025-11-30 19:42:07', '2025-11-30 19:42:07'),
-	(36, 'INV-20251203-00001', 100.00, 0.00, NULL, 'unpaid', '2025-12-31', NULL, NULL, 1, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
-	(43, 'INV-20251203-00002', 500.00, 0.00, NULL, 'unpaid', '2025-12-09', NULL, NULL, 1, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
-	(52, 'INV-20251203-00003', 200.00, 0.00, NULL, 'unpaid', '2026-01-03', NULL, NULL, 1, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
-	(65, 'INV-20251203-00004', 100.00, 0.00, NULL, 'unpaid', '2025-12-16', NULL, NULL, 1, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
-	(66, 'INV-20251203-00005', 400.00, 0.00, NULL, 'paid', '2025-12-09', NULL, NULL, 1, '2025-12-03 17:46:15', '2025-12-09 10:50:16'),
-	(67, 'INV-20251203-00006', 400.00, 0.00, 300.00, 'partial', '2025-12-17', NULL, NULL, 1, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
-	(68, 'INV-20251203-00007', 400.00, 100.00, NULL, 'paid', '2025-12-18', NULL, NULL, 1, '2025-12-03 17:50:26', '2025-12-09 10:53:10'),
-	(69, 'INV-20251203-00008', 400.00, 100.00, NULL, 'unpaid', '2026-01-06', NULL, NULL, 1, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
-	(70, 'INV-20251203-00009', 400.00, 100.00, 100.00, 'partial', '2025-12-23', NULL, NULL, 1, '2025-12-03 17:53:55', '2025-12-03 17:53:56'),
-	(71, 'INV-20251203-00010', 400.00, 100.00, 100.00, 'partial', '2025-12-30', NULL, NULL, 1, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
-	(72, 'INV-20251203-00011', 500.00, 300.00, NULL, 'unpaid', '2025-12-17', NULL, NULL, 1, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
-	(73, 'INV-20251203-00012', 500.00, 300.00, 100.00, 'partial', '2025-12-09', NULL, NULL, 1, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
-	(77, 'INV-20251203-00013', 100.00, 0.00, NULL, 'unpaid', '2025-12-14', NULL, NULL, 1, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
-	(78, 'INV-20251205-00001', 100.00, 0.00, 0.00, 'partial', '2026-01-10', NULL, 'ترك عندنا جوال', 1, '2025-12-05 18:07:20', '2025-12-05 18:07:20');
+(7, 'INV-20251213-00001', 50.00, 0.00, 555.00, 'partial', '2025-12-13', 'اسامه', NULL, 1, '2025-12-13 10:09:10', '2026-05-02 13:44:18'),
+(8, 'INV-20260307-00001', 3250.00, 0.00, 0.00, 'unpaid', '2026-03-07', 'اسامه', '5', 1, '2026-03-07 10:24:14', '2026-03-07 10:24:14'),
+(14, 'INV-20260502-00001', 4155.00, 500.00, 500.00, 'partial', '2026-05-02', 'r', 'wd', 1, '2026-05-02 13:34:55', '2026-05-02 13:38:29'),
+(15, 'INV-20260502-00002', 2218.00, 5.00, 4666666.00, 'partial', '2026-05-07', 'و', 'ن', 1, '2026-05-02 13:43:15', '2026-05-02 14:25:22'),
+(16, 'INV-2026-05-0003', 35.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:20:03', '2026-05-03 05:20:03'),
+(17, 'INV-2026-00017', 0.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:26:08', '2026-05-03 05:26:08'),
+(18, 'INV-2026-00018', 0.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:26:30', '2026-05-03 05:26:30'),
+(19, 'INV-2026-00019', 4250.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:27:28', '2026-05-03 05:27:28'),
+(20, 'INV-2026-00020', 0.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:32:47', '2026-05-03 05:32:47'),
+(21, 'INV-2026-00021', 200.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:36:47', '2026-05-03 05:36:47'),
+(22, 'INV-2026-00022', 0.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:37:15', '2026-05-03 05:37:15'),
+(23, 'INV-2026-00023', 8250.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:37:50', '2026-05-03 05:37:50'),
+(24, 'INV-2026-00024', 100.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:39:26', '2026-05-03 05:39:26'),
+(25, 'INV-2026-00025', 5.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:43:44', '2026-05-03 05:43:44'),
+(26, 'INV-2026-00026', 5.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:44:02', '2026-05-03 05:44:02'),
+(27, 'INV-2026-00027', 70.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:44:25', '2026-05-03 05:44:25'),
+(28, 'INV-2026-00028', 15850.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:51:58', '2026-05-03 05:51:58'),
+(29, 'INV-2026-00029', 2650055.00, 0.00, 0.00, 'unpaid', '2026-05-03', NULL, NULL, 1, '2026-05-03 05:58:46', '2026-05-03 06:03:56');
 
--- Dumping structure for table pharmacy_system.invoice_items
-CREATE TABLE IF NOT EXISTS `invoice_items` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `invoice_id` bigint unsigned NOT NULL,
-  `product_id` bigint unsigned NOT NULL,
-  `unit_id` bigint unsigned NOT NULL,
-  `batch_id` bigint unsigned DEFAULT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_items`
+--
+
+CREATE TABLE `invoice_items` (
+  `id` bigint UNSIGNED NOT NULL,
+  `invoice_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `unit_id` bigint UNSIGNED NOT NULL,
   `quantity` int NOT NULL,
-  `quantity_base` decimal(10,2) NOT NULL,
+  `quantity_base` int NOT NULL,
+  `unit_price` decimal(10,2) DEFAULT NULL,
   `base_price` decimal(10,2) DEFAULT NULL,
-  `unit_price` decimal(10,2) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `invoice_items_invoice_id_foreign` (`invoice_id`),
-  KEY `invoice_items_product_id_foreign` (`product_id`),
-  KEY `invoice_items_batch_id_foreign` (`batch_id`),
-  KEY `FK_invoice_items_units` (`unit_id`),
-  CONSTRAINT `FK_invoice_items_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `invoice_items_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `invoice_items_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `invoice_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.invoice_items: ~28 rows (approximately)
-INSERT INTO `invoice_items` (`id`, `invoice_id`, `product_id`, `unit_id`, `batch_id`, `quantity`, `quantity_base`, `base_price`, `unit_price`, `total_price`, `created_at`, `updated_at`) VALUES
-	(1, 5, 1, 3, NULL, 1, 0.00, NULL, 5.00, 5.00, '2025-10-29 17:21:49', '2025-10-29 17:21:49'),
-	(3, 7, 1, 3, NULL, 100, 0.00, NULL, 10.00, 1000.00, '2025-10-30 11:15:50', '2025-10-30 11:15:50'),
-	(4, 9, 1, 4, NULL, 1, 0.00, NULL, 1000.00, 1000.00, '2025-10-30 11:25:35', '2025-10-30 11:25:35'),
-	(5, 10, 1, 3, NULL, 10, 0.00, NULL, 100.00, 1000.00, '2025-10-30 11:35:41', '2025-10-30 11:35:41'),
-	(9, 14, 1, 3, NULL, 10, 120.00, NULL, 10.00, 100.00, '2025-10-30 12:22:28', '2025-10-30 12:22:28'),
-	(15, 20, 1, 3, NULL, 1, 12.00, NULL, 10.00, 10.00, '2025-10-30 19:39:46', '2025-10-30 19:39:46'),
-	(16, 21, 1, 4, NULL, 1, 240.00, NULL, 2.00, 2.00, '2025-10-30 19:43:20', '2025-10-30 19:43:20'),
-	(17, 24, 1, 3, NULL, 1, 12.00, 100.00, 100.00, 100.00, '2025-11-03 04:01:57', '2025-11-03 04:01:57'),
-	(18, 25, 1, 4, NULL, 1, 240.00, NULL, 1200.00, 1200.00, '2025-11-03 04:03:07', '2025-11-03 04:03:07'),
-	(19, 28, 1, 4, NULL, 1, 240.00, 100.00, 1200.00, 1200.00, '2025-11-03 04:12:22', '2025-11-03 04:12:22'),
-	(20, 29, 1, 4, NULL, 1, 12.00, 100.00, 1200.00, 1200.00, '2025-11-03 04:37:18', '2025-11-03 04:37:18'),
-	(21, 30, 1, 3, NULL, 1, 2.00, 100.00, 100.00, 100.00, '2025-11-29 18:22:08', '2025-11-29 18:22:08'),
-	(22, 30, 1, 3, NULL, 1, 2.00, 100.00, 100.00, 100.00, '2025-11-29 18:22:08', '2025-11-29 18:22:08'),
-	(23, 31, 1, 3, NULL, 1, 2.00, 100.00, 100.00, 100.00, '2025-11-30 19:42:07', '2025-11-30 19:42:07'),
-	(26, 36, 1, 3, NULL, 1, 2.00, 100.00, 100.00, 100.00, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
-	(33, 43, 1, 3, NULL, 5, 10.00, 100.00, 100.00, 500.00, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
-	(42, 52, 1, 3, NULL, 2, 4.00, 100.00, 100.00, 200.00, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
-	(46, 65, 1, 3, NULL, 1, 2.00, 100.00, 100.00, 100.00, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
-	(47, 66, 1, 3, NULL, 4, 8.00, 100.00, 100.00, 400.00, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
-	(48, 67, 1, 3, NULL, 4, 8.00, 100.00, 100.00, 400.00, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
-	(49, 68, 1, 3, NULL, 4, 8.00, 100.00, 100.00, 400.00, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
-	(50, 69, 1, 3, NULL, 4, 8.00, 100.00, 100.00, 400.00, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
-	(51, 70, 1, 3, NULL, 4, 8.00, 100.00, 100.00, 400.00, '2025-12-03 17:53:56', '2025-12-03 17:53:56'),
-	(52, 71, 1, 3, NULL, 4, 8.00, 100.00, 100.00, 400.00, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
-	(53, 72, 1, 3, NULL, 5, 10.00, 100.00, 100.00, 500.00, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
-	(54, 73, 1, 3, NULL, 5, 10.00, 100.00, 100.00, 500.00, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
-	(58, 77, 1, 3, NULL, 1, 2.00, 100.00, 100.00, 100.00, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
-	(59, 78, 1, 3, NULL, 1, 2.00, 100.00, 100.00, 100.00, '2025-12-05 18:07:20', '2025-12-05 18:07:20');
+--
+-- Dumping data for table `invoice_items`
+--
 
--- Dumping structure for table pharmacy_system.invoice_item_batches
-CREATE TABLE IF NOT EXISTS `invoice_item_batches` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `invoice_item_id` bigint unsigned NOT NULL,
-  `batch_id` bigint unsigned NOT NULL,
-  `quantity` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `invoice_item_batches_invoice_item_id_foreign` (`invoice_item_id`),
-  KEY `invoice_item_batches_batch_id_foreign` (`batch_id`),
-  CONSTRAINT `invoice_item_batches_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `invoice_item_batches_invoice_item_id_foreign` FOREIGN KEY (`invoice_item_id`) REFERENCES `invoice_items` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `invoice_items` (`id`, `invoice_id`, `product_id`, `unit_id`, `quantity`, `quantity_base`, `unit_price`, `base_price`, `total_price`, `created_at`, `updated_at`) VALUES
+(2, 8, 1, 1, 65, 65, 50.00, NULL, 3250.00, '2026-03-07 10:24:14', '2026-03-07 10:24:14'),
+(19, 15, 2, 4, 1, 12, 555.00, 5.00, 555.00, '2026-05-02 14:25:22', '2026-05-02 14:25:22'),
+(20, 15, 2, 4, 3, 12, 556.00, 5.00, 1668.00, '2026-05-02 14:25:22', '2026-05-02 14:25:22'),
+(21, 20, 2, 3, 1, 0, 5.00, 5.00, 5.00, '2026-05-03 05:32:47', '2026-05-03 05:32:47'),
+(22, 21, 2, 3, 40, 0, 5.00, 5.00, 200.00, '2026-05-03 05:36:47', '2026-05-03 05:36:47'),
+(23, 22, 2, 3, 1, 0, 5.00, 5.00, 5.00, '2026-05-03 05:37:15', '2026-05-03 05:37:15'),
+(24, 23, 2, 4, 150, 0, 55.00, 5.00, 8250.00, '2026-05-03 05:37:50', '2026-05-03 05:37:50'),
+(25, 24, 1, 1, 2, 0, 50.00, 0.00, 100.00, '2026-05-03 05:39:26', '2026-05-03 05:39:26'),
+(26, 25, 2, 3, 1, 0, 5.00, 5.00, 5.00, '2026-05-03 05:43:44', '2026-05-03 05:43:44'),
+(27, 26, 2, 3, 1, 0, 5.00, 5.00, 5.00, '2026-05-03 05:44:02', '2026-05-03 05:44:02'),
+(28, 27, 2, 3, 14, 0, 5.00, 5.00, 70.00, '2026-05-03 05:44:25', '2026-05-03 05:44:25'),
+(29, 28, 1, 1, 317, 317, 50.00, 0.00, 15850.00, '2026-05-03 05:51:58', '2026-05-03 05:51:58'),
+(63, 29, 2, 3, 5, 5, 5.00, 5.00, 25.00, '2026-05-03 06:03:56', '2026-05-03 06:03:56'),
+(64, 29, 2, 3, 15456, 1, 5.00, 5.00, 77280.00, '2026-05-03 06:03:56', '2026-05-03 06:03:56'),
+(65, 29, 1, 1, 51455, 1, 50.00, 0.00, 2572750.00, '2026-05-03 06:03:56', '2026-05-03 06:03:56');
 
--- Dumping data for table pharmacy_system.invoice_item_batches: ~23 rows (approximately)
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_item_batches`
+--
+
+CREATE TABLE `invoice_item_batches` (
+  `id` bigint UNSIGNED NOT NULL,
+  `invoice_item_id` bigint UNSIGNED NOT NULL,
+  `batch_id` bigint UNSIGNED NOT NULL,
+  `quantity` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoice_item_batches`
+--
+
 INSERT INTO `invoice_item_batches` (`id`, `invoice_item_id`, `batch_id`, `quantity`) VALUES
-	(1, 15, 1, 12),
-	(2, 16, 1, 240),
-	(3, 17, 1, 12),
-	(4, 18, 1, 240),
-	(5, 19, 1, 240),
-	(6, 20, 1, 12),
-	(7, 21, 1, 2),
-	(8, 22, 1, 2),
-	(9, 23, 1, 2),
-	(12, 26, 1, 2),
-	(19, 33, 1, 10),
-	(28, 42, 1, 4),
-	(32, 46, 1, 2),
-	(33, 47, 1, 8),
-	(34, 48, 1, 8),
-	(35, 49, 1, 8),
-	(36, 50, 1, 8),
-	(37, 51, 1, 8),
-	(38, 52, 1, 8),
-	(39, 53, 1, 10),
-	(40, 54, 1, 10),
-	(44, 58, 1, 2),
-	(45, 59, 3, 2);
+(2, 2, 2, 65);
 
--- Dumping structure for table pharmacy_system.jobs
-CREATE TABLE IF NOT EXISTS `jobs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint UNSIGNED NOT NULL,
   `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attempts` tinyint unsigned NOT NULL,
-  `reserved_at` int unsigned DEFAULT NULL,
-  `available_at` int unsigned NOT NULL,
-  `created_at` int unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jobs_queue_index` (`queue`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `attempts` tinyint UNSIGNED NOT NULL,
+  `reserved_at` int UNSIGNED DEFAULT NULL,
+  `available_at` int UNSIGNED NOT NULL,
+  `created_at` int UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.jobs: ~6 rows (approximately)
-INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `available_at`, `created_at`) VALUES
-	(1, 'default', '{"uuid":"e8cf1369-8b0e-46d1-9d6c-fe420ac53bdf","displayName":"Filament\\\\Notifications\\\\DatabaseNotification","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Notifications\\\\SendQueuedNotifications","command":"O:48:\\"Illuminate\\\\Notifications\\\\SendQueuedNotifications\\":3:{s:11:\\"notifiables\\";O:45:\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\":5:{s:5:\\"class\\";s:15:\\"App\\\\Models\\\\User\\";s:2:\\"id\\";a:1:{i:0;i:1;}s:9:\\"relations\\";a:0:{}s:10:\\"connection\\";s:5:\\"mysql\\";s:15:\\"collectionClass\\";N;}s:12:\\"notification\\";O:43:\\"Filament\\\\Notifications\\\\DatabaseNotification\\":2:{s:4:\\"data\\";a:11:{s:7:\\"actions\\";a:0:{}s:4:\\"body\\";N;s:5:\\"color\\";N;s:8:\\"duration\\";s:10:\\"persistent\\";s:4:\\"icon\\";N;s:9:\\"iconColor\\";N;s:6:\\"status\\";N;s:5:\\"title\\";s:18:\\"Saved successfully\\";s:4:\\"view\\";N;s:8:\\"viewData\\";a:0:{}s:6:\\"format\\";s:8:\\"filament\\";}s:2:\\"id\\";s:36:\\"117b223e-eb32-49c7-9718-a0ee8482987b\\";}s:8:\\"channels\\";a:1:{i:0;s:8:\\"database\\";}}"},"createdAt":1764608643,"delay":null}', 0, NULL, 1764608643, 1764608643),
-	(2, 'default', '{"uuid":"c8b19465-024e-4954-9620-af69a1035577","displayName":"Filament\\\\Notifications\\\\DatabaseNotification","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Notifications\\\\SendQueuedNotifications","command":"O:48:\\"Illuminate\\\\Notifications\\\\SendQueuedNotifications\\":3:{s:11:\\"notifiables\\";O:45:\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\":5:{s:5:\\"class\\";s:15:\\"App\\\\Models\\\\User\\";s:2:\\"id\\";a:1:{i:0;i:1;}s:9:\\"relations\\";a:0:{}s:10:\\"connection\\";s:5:\\"mysql\\";s:15:\\"collectionClass\\";N;}s:12:\\"notification\\";O:43:\\"Filament\\\\Notifications\\\\DatabaseNotification\\":2:{s:4:\\"data\\";a:11:{s:7:\\"actions\\";a:0:{}s:4:\\"body\\";N;s:5:\\"color\\";N;s:8:\\"duration\\";s:10:\\"persistent\\";s:4:\\"icon\\";N;s:9:\\"iconColor\\";N;s:6:\\"status\\";N;s:5:\\"title\\";s:18:\\"Saved successfully\\";s:4:\\"view\\";N;s:8:\\"viewData\\";a:0:{}s:6:\\"format\\";s:8:\\"filament\\";}s:2:\\"id\\";s:36:\\"073a69d6-a97d-40c8-9fd7-c2e25d2cf283\\";}s:8:\\"channels\\";a:1:{i:0;s:8:\\"database\\";}}"},"createdAt":1764608669,"delay":null}', 0, NULL, 1764608669, 1764608669),
-	(3, 'default', '{"uuid":"ebd43c34-5302-47b7-8b8d-e30014f7aa7a","displayName":"Filament\\\\Notifications\\\\DatabaseNotification","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Notifications\\\\SendQueuedNotifications","command":"O:48:\\"Illuminate\\\\Notifications\\\\SendQueuedNotifications\\":3:{s:11:\\"notifiables\\";O:45:\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\":5:{s:5:\\"class\\";s:15:\\"App\\\\Models\\\\User\\";s:2:\\"id\\";a:1:{i:0;i:1;}s:9:\\"relations\\";a:0:{}s:10:\\"connection\\";s:5:\\"mysql\\";s:15:\\"collectionClass\\";N;}s:12:\\"notification\\";O:43:\\"Filament\\\\Notifications\\\\DatabaseNotification\\":2:{s:4:\\"data\\";a:11:{s:7:\\"actions\\";a:0:{}s:4:\\"body\\";N;s:5:\\"color\\";N;s:8:\\"duration\\";s:10:\\"persistent\\";s:4:\\"icon\\";N;s:9:\\"iconColor\\";N;s:6:\\"status\\";N;s:5:\\"title\\";s:18:\\"Saved successfully\\";s:4:\\"view\\";N;s:8:\\"viewData\\";a:0:{}s:6:\\"format\\";s:8:\\"filament\\";}s:2:\\"id\\";s:36:\\"f2ee5971-6933-4f24-9110-513af724931f\\";}s:8:\\"channels\\";a:1:{i:0;s:8:\\"database\\";}}"},"createdAt":1764608670,"delay":null}', 0, NULL, 1764608670, 1764608670),
-	(4, 'default', '{"uuid":"33214072-fa31-43bb-bac8-9e600926871a","displayName":"Filament\\\\Notifications\\\\DatabaseNotification","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Notifications\\\\SendQueuedNotifications","command":"O:48:\\"Illuminate\\\\Notifications\\\\SendQueuedNotifications\\":3:{s:11:\\"notifiables\\";O:45:\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\":5:{s:5:\\"class\\";s:15:\\"App\\\\Models\\\\User\\";s:2:\\"id\\";a:1:{i:0;i:1;}s:9:\\"relations\\";a:0:{}s:10:\\"connection\\";s:5:\\"mysql\\";s:15:\\"collectionClass\\";N;}s:12:\\"notification\\";O:43:\\"Filament\\\\Notifications\\\\DatabaseNotification\\":2:{s:4:\\"data\\";a:11:{s:7:\\"actions\\";a:0:{}s:4:\\"body\\";N;s:5:\\"color\\";N;s:8:\\"duration\\";s:10:\\"persistent\\";s:4:\\"icon\\";N;s:9:\\"iconColor\\";N;s:6:\\"status\\";N;s:5:\\"title\\";s:18:\\"Saved successfully\\";s:4:\\"view\\";N;s:8:\\"viewData\\";a:0:{}s:6:\\"format\\";s:8:\\"filament\\";}s:2:\\"id\\";s:36:\\"cc59785b-b5b4-43dd-bc8c-98b9be30cfe9\\";}s:8:\\"channels\\";a:1:{i:0;s:8:\\"database\\";}}"},"createdAt":1764608676,"delay":null}', 0, NULL, 1764608676, 1764608676),
-	(5, 'default', '{"uuid":"cf7037ab-b357-4b7e-80ea-3b147fb50574","displayName":"Filament\\\\Notifications\\\\DatabaseNotification","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Notifications\\\\SendQueuedNotifications","command":"O:48:\\"Illuminate\\\\Notifications\\\\SendQueuedNotifications\\":3:{s:11:\\"notifiables\\";O:45:\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\":5:{s:5:\\"class\\";s:15:\\"App\\\\Models\\\\User\\";s:2:\\"id\\";a:1:{i:0;i:1;}s:9:\\"relations\\";a:0:{}s:10:\\"connection\\";s:5:\\"mysql\\";s:15:\\"collectionClass\\";N;}s:12:\\"notification\\";O:43:\\"Filament\\\\Notifications\\\\DatabaseNotification\\":2:{s:4:\\"data\\";a:11:{s:7:\\"actions\\";a:0:{}s:4:\\"body\\";N;s:5:\\"color\\";N;s:8:\\"duration\\";s:10:\\"persistent\\";s:4:\\"icon\\";N;s:9:\\"iconColor\\";N;s:6:\\"status\\";N;s:5:\\"title\\";s:18:\\"Saved successfully\\";s:4:\\"view\\";N;s:8:\\"viewData\\";a:0:{}s:6:\\"format\\";s:8:\\"filament\\";}s:2:\\"id\\";s:36:\\"1916c2ce-f63b-4a55-b00b-20803be35566\\";}s:8:\\"channels\\";a:1:{i:0;s:8:\\"database\\";}}"},"createdAt":1764608724,"delay":null}', 0, NULL, 1764608724, 1764608724),
-	(6, 'default', '{"uuid":"816a82d7-f688-41eb-b647-d5a805d39a8c","displayName":"Filament\\\\Notifications\\\\DatabaseNotification","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Notifications\\\\SendQueuedNotifications","command":"O:48:\\"Illuminate\\\\Notifications\\\\SendQueuedNotifications\\":3:{s:11:\\"notifiables\\";O:45:\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\":5:{s:5:\\"class\\";s:15:\\"App\\\\Models\\\\User\\";s:2:\\"id\\";a:1:{i:0;i:1;}s:9:\\"relations\\";a:0:{}s:10:\\"connection\\";s:5:\\"mysql\\";s:15:\\"collectionClass\\";N;}s:12:\\"notification\\";O:43:\\"Filament\\\\Notifications\\\\DatabaseNotification\\":2:{s:4:\\"data\\";a:11:{s:7:\\"actions\\";a:0:{}s:4:\\"body\\";N;s:5:\\"color\\";N;s:8:\\"duration\\";s:10:\\"persistent\\";s:4:\\"icon\\";N;s:9:\\"iconColor\\";N;s:6:\\"status\\";N;s:5:\\"title\\";s:18:\\"Saved successfully\\";s:4:\\"view\\";N;s:8:\\"viewData\\";a:0:{}s:6:\\"format\\";s:8:\\"filament\\";}s:2:\\"id\\";s:36:\\"f63565cc-5056-4f81-8516-80732cd03480\\";}s:8:\\"channels\\";a:1:{i:0;s:8:\\"database\\";}}"},"createdAt":1764608731,"delay":null}', 0, NULL, 1764608731, 1764608731);
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.job_batches
-CREATE TABLE IF NOT EXISTS `job_batches` (
+--
+-- Table structure for table `job_batches`
+--
+
+CREATE TABLE `job_batches` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_jobs` int NOT NULL,
@@ -560,207 +588,162 @@ CREATE TABLE IF NOT EXISTS `job_batches` (
   `options` mediumtext COLLATE utf8mb4_unicode_ci,
   `cancelled_at` int DEFAULT NULL,
   `created_at` int NOT NULL,
-  `finished_at` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `finished_at` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.job_batches: ~0 rows (approximately)
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.manufacturers
-CREATE TABLE IF NOT EXISTS `manufacturers` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `manufacturers`
+--
+
+CREATE TABLE `manufacturers` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.manufacturers: ~1 rows (approximately)
+--
+-- Dumping data for table `manufacturers`
+--
+
 INSERT INTO `manufacturers` (`id`, `name`, `created_at`, `updated_at`) VALUES
-	(1, 'Pharma', '2025-10-26 17:40:24', '2025-10-26 17:40:24');
+(1, 'تكامل فارما', '2025-12-13 09:28:40', '2025-12-13 09:28:40'),
+(3, 'ش', '2026-05-03 05:57:30', '2026-05-03 05:57:30');
 
--- Dumping structure for table pharmacy_system.migrations
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.migrations: ~36 rows (approximately)
+--
+-- Dumping data for table `migrations`
+--
+
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-	(1, '0001_01_01_000000_create_users_table', 1),
-	(2, '0001_01_01_000001_create_cache_table', 1),
-	(3, '0001_01_01_000002_create_jobs_table', 1),
-	(4, '2025_10_23_192952_create_suppliers_table', 1),
-	(5, '2025_10_23_193002_create_manufacturers_table', 1),
-	(6, '2025_10_23_193106_create_categories_table', 1),
-	(7, '2025_10_23_193135_create_products_table', 1),
-	(8, '2025_10_23_193200_create_units_table', 1),
-	(9, '2025_10_23_193210_create_product_units_table', 1),
-	(10, '2025_10_23_193240_create_batches_table', 1),
-	(11, '2025_10_23_193307_create_purchases_table', 1),
-	(12, '2025_10_23_193327_create_purchase_items_table', 1),
-	(13, '2025_10_23_193351_create_invoices_table', 1),
-	(14, '2025_10_23_193410_create_invoice_items_table', 1),
-	(15, '2025_10_23_193514_create_product_returns_table', 1),
-	(16, '2025_10_23_193536_create_return_items_table', 1),
-	(17, '2025_10_23_193615_create_adjustments_table', 1),
-	(18, '2025_10_23_193643_create_stock_movments_table', 1),
-	(19, '2025_10_23_193643_create_stock_movements_table', 2),
-	(20, '2025_10_30_210154_create_invoice_item_batches_table', 2),
-	(23, '2025_11_28_230855_create_notifications_table', 3),
-	(24, '2025_11_29_152608_create_permission_tables', 3),
-	(25, '2025_11_30_143857_create_activity_log_table', 4),
-	(26, '2025_11_30_143858_add_event_column_to_activity_log_table', 4),
-	(27, '2025_11_30_143859_add_batch_uuid_column_to_activity_log_table', 4),
-	(28, '2025_12_02_121839_create_customers_table', 5),
-	(29, '2025_12_02_232516_create_customer_accounts_table', 6),
-	(30, '2025_12_02_232555_create_customer_account_transactions_table', 6),
-	(31, '2025_12_03_212413_create_supplier_accounts_table', 7),
-	(32, '2025_12_03_212424_create_supplier_account_transactions_table', 7),
-	(33, '2025_12_08_141431_create_sales_representatives_table', 8),
-	(43, '2025_12_05_191003_create_examination_departments_table', 9),
-	(44, '2025_12_05_192108_create_examination_units_table', 9),
-	(45, '2025_12_05_192109_create_examinations_table', 9),
-	(46, '2025_12_05_193836_create_examination_prescriptions_table', 9),
-	(47, '2025_12_05_193932_create_examination_prescription_items_table', 9);
+(1, '0001_01_01_000000_create_users_table', 1),
+(2, '0001_01_01_000001_create_cache_table', 1),
+(3, '0001_01_01_000002_create_jobs_table', 1),
+(4, '2025_10_23_192952_create_suppliers_table', 1),
+(5, '2025_10_23_193002_create_manufacturers_table', 1),
+(6, '2025_10_23_193106_create_categories_table', 1),
+(7, '2025_10_23_193135_create_products_table', 1),
+(8, '2025_10_23_193200_create_units_table', 1),
+(9, '2025_10_23_193210_create_product_units_table', 1),
+(10, '2025_10_23_193240_create_batches_table', 1),
+(11, '2025_10_23_193307_create_purchases_table', 1),
+(12, '2025_10_23_193327_create_purchase_items_table', 1),
+(13, '2025_10_23_193351_create_invoices_table', 1),
+(14, '2025_10_23_193410_create_invoice_items_table', 1),
+(15, '2025_10_23_193514_create_product_returns_table', 1),
+(16, '2025_10_23_193536_create_return_items_table', 1),
+(17, '2025_10_23_193615_create_adjustments_table', 1),
+(18, '2025_10_23_193643_create_stock_movements_table', 1),
+(19, '2025_10_30_210154_create_invoice_item_batches_table', 1),
+(20, '2025_11_28_230855_create_notifications_table', 1),
+(21, '2025_11_29_152608_create_permission_tables', 1),
+(22, '2025_11_30_143857_create_activity_log_table', 1),
+(23, '2025_11_30_143858_add_event_column_to_activity_log_table', 1),
+(24, '2025_11_30_143859_add_batch_uuid_column_to_activity_log_table', 1),
+(25, '2025_12_02_121839_create_customers_table', 1),
+(26, '2025_12_02_232516_create_customer_accounts_table', 1),
+(27, '2025_12_02_232555_create_customer_account_transactions_table', 1),
+(28, '2025_12_03_212413_create_supplier_accounts_table', 1),
+(29, '2025_12_03_212424_create_supplier_account_transactions_table', 1),
+(30, '2025_12_05_191003_create_examination_departments_table', 1),
+(31, '2025_12_05_192108_create_examination_units_table', 1),
+(32, '2025_12_05_192109_create_examinations_table', 1),
+(33, '2025_12_05_193836_create_examination_prescriptions_table', 1),
+(34, '2025_12_05_193932_create_examination_prescription_items_table', 1),
+(35, '2025_12_08_141431_create_sales_representatives_table', 1),
+(36, '2025_12_13_123502_add_conversion_factor_to_product_units', 2),
+(37, '2025_12_13_124720_fix_product_units_conversion', 3),
+(38, '2026_05_02_162901_remove_unique_from_invoice_items', 4);
 
--- Dumping structure for table pharmacy_system.model_has_permissions
-CREATE TABLE IF NOT EXISTS `model_has_permissions` (
-  `permission_id` bigint unsigned NOT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint unsigned NOT NULL,
-  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
-  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`),
-  CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
+  `model_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.model_has_permissions: ~0 rows (approximately)
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.model_has_roles
-CREATE TABLE IF NOT EXISTS `model_has_roles` (
-  `role_id` bigint unsigned NOT NULL,
+--
+-- Table structure for table `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint UNSIGNED NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint unsigned NOT NULL,
-  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
-  KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`),
-  CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+  `model_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.model_has_roles: ~1 rows (approximately)
-INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-	(3, 'App\\Models\\User', 4);
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.notifications
-CREATE TABLE IF NOT EXISTS `notifications` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` bigint UNSIGNED NOT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `read_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table pharmacy_system.notifications: ~3 rows (approximately)
-INSERT INTO `notifications` (`id`, `message`, `status`, `read_at`, `created_at`, `updated_at`) VALUES
-	(1, 'المنتج يوشك على النفاذ', '', '2025-12-03 09:12:09', '2025-12-02 11:54:16', '2025-12-03 09:12:09'),
-	(2, 'المنتج التالي قارب على الانتهاء', '', '2025-12-02 16:17:45', NULL, '2025-12-02 16:17:45'),
-	(3, 'لا توجد كمية كافية في المخزون لهذا المنتج: بندول', '', '2025-12-03 19:46:57', '2025-12-03 18:09:42', '2025-12-03 19:46:57');
-
--- Dumping structure for table pharmacy_system.password_reset_tokens
-CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`email`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.password_reset_tokens: ~0 rows (approximately)
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.permissions
-CREATE TABLE IF NOT EXISTS `permissions` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.permissions: ~62 rows (approximately)
-INSERT INTO `permissions` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`) VALUES
-	(1, 'create batch', 'اضافة الدفعات', 'web', NULL, NULL),
-	(2, 'view batch', 'عرض الدفعات', 'web', NULL, NULL),
-	(3, 'update batch', 'تحديث الدفعات', 'web', NULL, NULL),
-	(4, 'delete batch', 'حذف الدفعات', 'web', NULL, NULL),
-	(5, 'create category', 'اضافة الاقسام', 'web', NULL, NULL),
-	(6, 'view category', 'عرض الاقسام', 'web', NULL, NULL),
-	(7, 'update category', 'تحديث الاقسام', 'web', NULL, NULL),
-	(8, 'delete category', 'حذف الاقسام', 'web', NULL, NULL),
-	(9, 'create invoice', 'اضافة الفواتير', 'web', NULL, NULL),
-	(10, 'view invoice', 'عرض الفواتير', 'web', NULL, NULL),
-	(11, 'update invoice', 'تحديث الفواتير', 'web', NULL, NULL),
-	(12, 'delete invoice', 'حذف الفواتير', 'web', NULL, NULL),
-	(13, 'create manufacturer', 'اضافة الشركات المصنعة', 'web', NULL, NULL),
-	(14, 'view manufacturer', 'عرض الشركات المصنعة', 'web', NULL, NULL),
-	(15, 'update manufacturer', 'تحديث الشركات المصنعة', 'web', NULL, NULL),
-	(16, 'delete manufacturer', 'حذف الشركات المصنعة', 'web', NULL, NULL),
-	(17, 'create return', 'اضافة المرتجعات', 'web', NULL, NULL),
-	(18, 'view return', 'عرض المرتجعات', 'web', NULL, NULL),
-	(19, 'update return', 'تحديث المرتجعات', 'web', NULL, NULL),
-	(20, 'delete return', 'حذف المرتجعات', 'web', NULL, NULL),
-	(21, 'create product', 'اضافة المنتجات', 'web', NULL, NULL),
-	(22, 'view product', 'عرض المنتجات', 'web', NULL, NULL),
-	(23, 'update product', 'تحديث المنتجات', 'web', NULL, NULL),
-	(24, 'delete product', 'حذف المنتجات', 'web', NULL, NULL),
-	(25, 'create purchase', 'اضافة المشتريات', 'web', NULL, NULL),
-	(26, 'view purchase', 'عرض المشتريات', 'web', NULL, NULL),
-	(27, 'update purchase', 'تحديث المشتريات', 'web', NULL, NULL),
-	(28, 'delete purchase', 'حذف المشتريات', 'web', NULL, NULL),
-	(29, 'create role', 'اضافة الادوار', 'web', NULL, NULL),
-	(30, 'view role', 'عرض الادوار', 'web', NULL, NULL),
-	(31, 'update role', 'تحديث الادوار', 'web', NULL, NULL),
-	(32, 'delete role', 'حذف الادوار', 'web', NULL, NULL),
-	(33, 'create supplier', 'اضافة المزودين', 'web', NULL, NULL),
-	(34, 'view supplier', 'عرض المزودين', 'web', NULL, NULL),
-	(35, 'update supplier', 'تحديث المزودين', 'web', NULL, NULL),
-	(36, 'delete supplier', 'حذف المزودين', 'web', NULL, NULL),
-	(37, 'create unit', 'اضافة الوحدات', 'web', NULL, NULL),
-	(38, 'view unit', 'عرض الوحدات', 'web', NULL, NULL),
-	(39, 'update unit', 'تحديث الوحدات', 'web', NULL, NULL),
-	(40, 'delete unit', 'حذف الوحدات', 'web', NULL, NULL),
-	(41, 'create user', 'اضافة المستخدمين', 'web', NULL, NULL),
-	(42, 'view user', 'عرض المستخدمين', 'web', NULL, NULL),
-	(43, 'update user', 'تحديث المستخدمين', 'web', NULL, NULL),
-	(44, 'delete user', 'حذف المستخدمين', 'web', NULL, NULL),
-	(45, 'create customer', 'اضافة العملاء', 'web', NULL, NULL),
-	(46, 'view customer', 'عرض العملاء', 'web', NULL, NULL),
-	(47, 'update customer', 'تحديث العملاء', 'web', NULL, NULL),
-	(48, 'delete customer', 'حذف العملاء', 'web', NULL, NULL),
-	(49, 'view notification', 'عرض الإشعارات', 'web', NULL, NULL),
-	(50, 'mark notification unread', 'تمييز الإشعار مقروء', 'web', NULL, NULL),
-	(51, 'view customer account transaction', 'عرض سجل ديون العملاء', 'web', NULL, NULL),
-	(52, 'create customer account transaction', 'انشاء سجل دين للعملاء', 'web', NULL, NULL),
-	(53, 'update customer account transaction', 'تحديث سجل ديون العملاء', 'web', NULL, NULL),
-	(54, 'delete customer account transaction', 'حذف سجلات ديون العملاء', 'web', NULL, NULL),
-	(55, 'view sales representative', 'عرض مندوبي المبيعات', 'web', NULL, NULL),
-	(56, 'create sales representative', 'اضافة مندوبي مبيعات', 'web', NULL, NULL),
-	(57, 'update sales representative', 'تحديث مندوبي المبيعات', 'web', NULL, NULL),
-	(58, 'delete sales representative', 'حذف مندوبي المبيعات', 'web', NULL, NULL),
-	(59, 'view supplier account', 'عرض سجل ديون الموردين', 'web', NULL, NULL),
-	(60, 'create supplier account', 'اضافة سجل ديون الموردين', 'web', NULL, NULL),
-	(61, 'update supplier account', 'تحديث سجل ديون الموردين', 'web', NULL, NULL),
-	(62, 'delete supplier account', 'حذف سجل ديون الموردين', 'web', NULL, NULL);
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.products
-CREATE TABLE IF NOT EXISTS `products` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` bigint unsigned DEFAULT NULL,
-  `manufacturer_id` bigint unsigned DEFAULT NULL,
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint UNSIGNED NOT NULL,
+  `category_id` bigint UNSIGNED DEFAULT NULL,
+  `manufacturer_id` bigint UNSIGNED DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `generic_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `barcode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -768,410 +751,1084 @@ CREATE TABLE IF NOT EXISTS `products` (
   `reorder_level` int NOT NULL DEFAULT '0',
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `products_barcode_unique` (`barcode`),
-  KEY `products_category_id_foreign` (`category_id`),
-  KEY `products_manufacturer_id_foreign` (`manufacturer_id`),
-  CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `products_manufacturer_id_foreign` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturers` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.products: ~2 rows (approximately)
+--
+-- Dumping data for table `products`
+--
+
 INSERT INTO `products` (`id`, `category_id`, `manufacturer_id`, `name`, `generic_name`, `barcode`, `description`, `reorder_level`, `is_active`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, 'بندول', 'باراسيتامول', '34565465', NULL, 15, 1, '2025-10-26 15:18:21', '2025-12-08 20:15:34'),
-	(2, 2, 1, 'دواء الحما', 'Fever', NULL, NULL, 5, 1, '2025-11-29 17:59:59', '2025-12-08 20:20:16');
+(1, 1, 1, 'برستا مول', 'par', '54548', NULL, 0, 1, '2025-12-13 09:30:09', '2025-12-13 09:30:09'),
+(2, 2, 1, 'Osama Ahmed', 'ثث', '54565', 'ث', 4, 1, '2026-03-07 10:26:26', '2026-03-07 10:26:26');
 
--- Dumping structure for table pharmacy_system.product_returns
-CREATE TABLE IF NOT EXISTS `product_returns` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `type` enum('invoice','purchase') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `reference_id` bigint unsigned NOT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_returns`
+--
+
+CREATE TABLE `product_returns` (
+  `id` bigint UNSIGNED NOT NULL,
+  `type` enum('invoice','purchase') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reference_id` bigint UNSIGNED NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `return_date` date NOT NULL,
-  `created_by` bigint unsigned NOT NULL,
+  `created_by` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_returns_created_by_foreign` (`created_by`),
-  CONSTRAINT `product_returns_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.product_returns: ~11 rows (approximately)
+--
+-- Dumping data for table `product_returns`
+--
+
 INSERT INTO `product_returns` (`id`, `type`, `reference_id`, `total_amount`, `return_date`, `created_by`, `created_at`, `updated_at`) VALUES
-	(5, 'invoice', 1, 2200.00, '2025-11-13', 1, '2025-11-01 17:46:57', '2025-11-01 17:46:57'),
-	(6, 'invoice', 1, 2200.00, '2025-11-13', 1, '2025-11-01 17:50:28', '2025-11-01 17:50:28'),
-	(7, 'invoice', 1, 2200.00, '2025-11-13', 1, '2025-11-01 17:51:21', '2025-11-01 17:51:21'),
-	(8, 'purchase', 2, 1000.00, '2025-11-25', 1, '2025-11-29 19:03:03', '2025-11-29 19:03:03'),
-	(10, 'invoice', 30, 1000.00, '2025-11-19', 1, '2025-11-29 19:24:32', '2025-11-29 19:24:32'),
-	(11, 'invoice', 30, 1000.00, '2025-11-25', 1, '2025-11-29 19:28:00', '2025-11-29 19:28:00'),
-	(12, 'purchase', 2, 1000.00, '2025-12-03', 1, '2025-11-29 19:29:23', '2025-11-29 19:29:23'),
-	(14, 'purchase', 5, 1600.00, '2025-12-17', 1, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(15, 'purchase', 7, 10000.00, '2025-12-26', 1, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
-	(16, 'invoice', 73, 10000.00, '2025-12-17', 1, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
-	(17, 'invoice', 78, 5000.00, '2025-12-11', 1, '2025-12-08 11:03:48', '2025-12-08 11:03:48');
+(1, 'purchase', 1, 88.00, '2025-12-13', 1, '2025-12-13 09:37:27', '2025-12-13 09:37:27'),
+(2, 'purchase', 1, 220.00, '2025-12-13', 1, '2025-12-13 09:51:21', '2025-12-13 09:51:22'),
+(5, 'invoice', 15, 555.00, '2026-05-02', 1, '2026-05-02 14:34:09', '2026-05-02 14:34:09'),
+(6, 'invoice', 15, 1110.00, '2026-05-02', 1, '2026-05-02 14:35:33', '2026-05-02 14:35:33'),
+(7, 'purchase', 4, 250.00, '2026-05-07', 1, '2026-05-03 05:16:05', '2026-05-03 05:16:05');
 
--- Dumping structure for table pharmacy_system.product_units
-CREATE TABLE IF NOT EXISTS `product_units` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL,
-  `unit_id` bigint unsigned NOT NULL,
-  `conversion_factor` decimal(10,3) NOT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_units`
+--
+
+CREATE TABLE `product_units` (
+  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `unit_id` bigint UNSIGNED NOT NULL,
   `is_base` tinyint(1) NOT NULL DEFAULT '0',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_units_product_id_foreign` (`product_id`),
-  KEY `product_units_unit_id_foreign` (`unit_id`),
-  CONSTRAINT `product_units_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `product_units_unit_id_foreign` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `conversion_factor` decimal(10,4) NOT NULL DEFAULT '1.0000'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.product_units: ~4 rows (approximately)
-INSERT INTO `product_units` (`id`, `product_id`, `unit_id`, `conversion_factor`, `is_base`, `price`, `created_at`, `updated_at`) VALUES
-	(3, 1, 2, 2.000, 1, 100.00, '2025-10-29 03:44:35', '2025-10-29 03:53:20'),
-	(4, 1, 3, 12.000, 0, 1200.00, '2025-10-29 03:50:25', '2025-10-29 03:50:25'),
-	(5, 1, 4, 240.000, 0, 12000.00, '2025-10-29 03:51:19', '2025-10-29 03:51:19'),
-	(6, 2, 2, 1.000, 1, 100.00, '2025-11-29 18:20:42', '2025-11-29 18:20:42');
+--
+-- Dumping data for table `product_units`
+--
 
--- Dumping structure for table pharmacy_system.purchases
-CREATE TABLE IF NOT EXISTS `purchases` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `supplier_id` bigint unsigned DEFAULT NULL,
+INSERT INTO `product_units` (`id`, `product_id`, `unit_id`, `is_base`, `price`, `created_at`, `updated_at`, `conversion_factor`) VALUES
+(1, 1, 1, 0, 50.00, '2025-12-13 09:48:11', '2025-12-13 09:48:11', 1.0000),
+(2, 1, 2, 0, 600.00, '2025-12-13 10:01:46', '2025-12-13 10:01:46', 12.0000),
+(3, 2, 1, 1, 5.00, '2026-03-07 10:27:49', '2026-03-07 10:27:49', 1.0000),
+(4, 2, 2, 0, 55.00, '2026-03-07 10:28:23', '2026-03-07 10:28:23', 12.0000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchases`
+--
+
+CREATE TABLE `purchases` (
+  `id` bigint UNSIGNED NOT NULL,
+  `supplier_id` bigint UNSIGNED DEFAULT NULL,
   `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `total_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `payment_status` enum('paid','unpaid','partial') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
   `paid` decimal(10,2) DEFAULT NULL,
   `purchase_date` date NOT NULL,
-  `created_by` bigint unsigned NOT NULL,
+  `created_by` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `purchases_supplier_id_foreign` (`supplier_id`),
-  KEY `purchases_created_by_foreign` (`created_by`),
-  CONSTRAINT `purchases_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `purchases_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.purchases: ~8 rows (approximately)
+--
+-- Dumping data for table `purchases`
+--
+
 INSERT INTO `purchases` (`id`, `supplier_id`, `invoice_no`, `total_amount`, `payment_status`, `paid`, `purchase_date`, `created_by`, `created_at`, `updated_at`) VALUES
-	(2, 1, 'PUR-20251127-00001', 500.00, 'paid', 0.00, '2025-11-27', 1, '2025-11-27 19:14:43', '2025-11-27 19:14:43'),
-	(4, 1, 'PUR-20251203-00001', 200000.00, 'paid', NULL, '2025-12-26', 1, '2025-12-03 18:59:46', '2025-12-08 10:36:47'),
-	(5, 1, 'PUR-20251203-00002', 110000.00, 'partial', 0.00, '2026-01-02', 1, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(6, 1, 'PUR-20251203-00003', 100000.00, 'partial', 5000.00, '2025-12-26', 1, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
-	(7, 1, 'PUR-20251203-00004', 10000.00, 'paid', NULL, '2026-01-07', 1, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
-	(8, NULL, 'PUR-20251203-00005', 10000.00, 'unpaid', NULL, '2026-01-03', 1, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
-	(9, NULL, 'PUR-20251203-00006', 5000.00, 'paid', NULL, '2026-01-10', 1, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
-	(10, NULL, 'PUR-20251203-00007', 10000.00, 'partial', 500.00, '2026-01-07', 1, '2025-12-03 19:14:52', '2025-12-03 19:14:52');
+(1, 1, 'PUR-20251213-00001', 176.00, 'unpaid', NULL, '2025-12-13', 1, '2025-12-13 09:36:07', '2025-12-13 09:36:07'),
+(2, 1, 'PUR-20251213-00002', 24970.00, 'partial', 100.00, '2025-12-13', 1, '2025-12-13 09:55:07', '2025-12-13 09:55:07'),
+(3, 1, 'PUR-20260307-00001', 250.00, 'partial', 0.00, '2026-03-07', 1, '2026-03-07 10:32:00', '2026-03-07 10:32:00'),
+(4, 1, 'PUR-20260307-00002', 250.00, 'paid', 50.00, '2026-03-07', 1, '2026-03-07 10:33:11', '2026-05-03 06:04:35'),
+(5, 1, 'PUR-20260503-00001', 250.00, 'paid', NULL, '2026-05-03', 1, '2026-05-03 05:56:18', '2026-05-03 06:04:53'),
+(6, NULL, 'PUR-20260503-00002', 250.00, 'unpaid', NULL, '2026-06-05', 1, '2026-05-03 05:57:20', '2026-05-03 05:57:20');
 
--- Dumping structure for table pharmacy_system.purchase_items
-CREATE TABLE IF NOT EXISTS `purchase_items` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `purchase_id` bigint unsigned NOT NULL,
-  `product_id` bigint unsigned NOT NULL,
-  `batch_id` bigint unsigned DEFAULT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_items`
+--
+
+CREATE TABLE `purchase_items` (
+  `id` bigint UNSIGNED NOT NULL,
+  `purchase_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `batch_id` bigint UNSIGNED DEFAULT NULL,
   `quantity` int NOT NULL,
   `unit_price` decimal(10,2) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `purchase_items_purchase_id_foreign` (`purchase_id`),
-  KEY `purchase_items_product_id_foreign` (`product_id`),
-  KEY `purchase_items_batch_id_foreign` (`batch_id`),
-  CONSTRAINT `purchase_items_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `purchase_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `purchase_items_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.purchase_items: ~9 rows (approximately)
+--
+-- Dumping data for table `purchase_items`
+--
+
 INSERT INTO `purchase_items` (`id`, `purchase_id`, `product_id`, `batch_id`, `quantity`, `unit_price`, `total_price`, `created_at`, `updated_at`) VALUES
-	(1, 2, 1, 1, 5, 100.00, 500.00, '2025-11-27 19:14:43', '2025-11-27 19:14:43'),
-	(2, 4, 2, 2, 1000, 200.00, 200000.00, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
-	(3, 5, 1, 3, 1000, 50.00, 50000.00, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(4, 5, 2, 2, 1000, 60.00, 60000.00, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(5, 6, 2, 2, 1000, 100.00, 100000.00, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
-	(6, 7, 1, 1, 100, 100.00, 10000.00, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
-	(7, 8, 1, 1, 100, 100.00, 10000.00, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
-	(8, 9, 1, 1, 50, 100.00, 5000.00, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
-	(9, 10, 1, 1, 100, 100.00, 10000.00, '2025-12-03 19:14:52', '2025-12-03 19:14:52');
+(1, 1, 1, 1, 4, 44.00, 176.00, '2025-12-13 09:36:07', '2025-12-13 09:36:07'),
+(2, 2, 1, 2, 454, 55.00, 24970.00, '2025-12-13 09:55:07', '2025-12-13 09:55:07'),
+(3, 3, 2, 3, 50, 5.00, 250.00, '2026-03-07 10:32:00', '2026-03-07 10:32:00'),
+(4, 4, 2, 3, 50, 5.00, 250.00, '2026-03-07 10:33:11', '2026-03-07 10:33:11'),
+(5, 5, 2, 4, 50, 5.00, 250.00, '2026-05-03 05:56:18', '2026-05-03 05:56:18'),
+(6, 6, 1, 5, 50, 5.00, 250.00, '2026-05-03 05:57:20', '2026-05-03 05:57:20');
 
--- Dumping structure for table pharmacy_system.return_items
-CREATE TABLE IF NOT EXISTS `return_items` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `return_id` bigint unsigned NOT NULL,
-  `product_id` bigint unsigned NOT NULL,
-  `batch_id` bigint unsigned DEFAULT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return_items`
+--
+
+CREATE TABLE `return_items` (
+  `id` bigint UNSIGNED NOT NULL,
+  `return_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `batch_id` bigint UNSIGNED DEFAULT NULL,
   `quantity` int NOT NULL,
   `reason` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `return_items_return_id_foreign` (`return_id`),
-  KEY `return_items_product_id_foreign` (`product_id`),
-  KEY `return_items_batch_id_foreign` (`batch_id`),
-  CONSTRAINT `return_items_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `return_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `return_items_return_id_foreign` FOREIGN KEY (`return_id`) REFERENCES `product_returns` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.return_items: ~13 rows (approximately)
+--
+-- Dumping data for table `return_items`
+--
+
 INSERT INTO `return_items` (`id`, `return_id`, `product_id`, `batch_id`, `quantity`, `reason`, `created_at`, `updated_at`) VALUES
-	(4, 5, 1, 1, 22, 'لا يوجد', '2025-11-01 17:46:57', '2025-11-01 17:46:57'),
-	(5, 6, 1, 1, 22, 'لا يوجد', '2025-11-01 17:50:28', '2025-11-01 17:50:28'),
-	(6, 7, 1, 1, 22, 'لا يوجد', '2025-11-01 17:51:21', '2025-11-01 17:51:21'),
-	(7, 8, 1, 1, 10, NULL, '2025-11-29 19:03:03', '2025-11-29 19:03:03'),
-	(8, 10, 1, 1, 10, 'منتهي', '2025-11-29 19:24:32', '2025-11-29 19:24:32'),
-	(9, 11, 1, 1, 10, NULL, '2025-11-29 19:28:00', '2025-11-29 19:28:00'),
-	(10, 12, 1, 1, 10, NULL, '2025-11-29 19:29:23', '2025-11-29 19:29:23'),
-	(12, 14, 1, 3, 10, NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(13, 14, 2, 2, 10, NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(14, 14, 1, 1, 10, NULL, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(15, 15, 1, 3, 100, NULL, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
-	(16, 16, 1, 3, 100, 'منتهي', '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
-	(17, 17, 1, 1, 50, NULL, '2025-12-08 11:03:48', '2025-12-08 11:03:48');
+(1, 1, 1, 1, 2, '2', '2025-12-13 09:37:27', '2025-12-13 09:37:27'),
+(2, 2, 1, 1, 5, NULL, '2025-12-13 09:51:22', '2025-12-13 09:51:22'),
+(5, 5, 2, 3, 1, NULL, '2026-05-02 14:34:09', '2026-05-02 14:34:09'),
+(6, 6, 2, 3, 2, NULL, '2026-05-02 14:35:33', '2026-05-02 14:35:33'),
+(7, 7, 2, 3, 50, NULL, '2026-05-03 05:16:05', '2026-05-03 05:16:05');
 
--- Dumping structure for table pharmacy_system.roles
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table pharmacy_system.roles: ~2 rows (approximately)
-INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-	(2, 'مشرف', 'web', '2025-11-29 16:52:31', '2025-11-29 16:52:31'),
-	(3, 'مدخل بيانات', 'web', '2025-11-29 16:58:15', '2025-11-29 16:58:15');
-
--- Dumping structure for table pharmacy_system.role_has_permissions
-CREATE TABLE IF NOT EXISTS `role_has_permissions` (
-  `permission_id` bigint unsigned NOT NULL,
-  `role_id` bigint unsigned NOT NULL,
-  PRIMARY KEY (`permission_id`,`role_id`),
-  KEY `role_has_permissions_role_id_foreign` (`role_id`),
-  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.role_has_permissions: ~7 rows (approximately)
-INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
-	(1, 2),
-	(5, 2),
-	(9, 2),
-	(13, 2),
-	(17, 2),
-	(5, 3),
-	(6, 3);
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.sales_representatives
-CREATE TABLE IF NOT EXISTS `sales_representatives` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+--
+-- Table structure for table `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_representatives`
+--
+
+CREATE TABLE `sales_representatives` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `supplier_id` bigint unsigned NOT NULL,
+  `supplier_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sales_representatives_supplier_id_foreign` (`supplier_id`),
-  CONSTRAINT `sales_representatives_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.sales_representatives: ~1 rows (approximately)
-INSERT INTO `sales_representatives` (`id`, `name`, `phone`, `email`, `address`, `supplier_id`, `created_at`, `updated_at`) VALUES
-	(2, 'محمد حمدي', '77884455', 'dawa@phrma.com', 'عدن الشعب', 1, '2025-12-08 14:54:19', '2025-12-08 14:54:19');
+-- --------------------------------------------------------
 
--- Dumping structure for table pharmacy_system.sessions
-CREATE TABLE IF NOT EXISTS `sessions` (
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint unsigned DEFAULT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_agent` text COLLATE utf8mb4_unicode_ci,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_activity` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sessions_user_id_index` (`user_id`),
-  KEY `sessions_last_activity_index` (`last_activity`)
+  `last_activity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.sessions: ~1 rows (approximately)
-INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-	('TFvMM8PEmfn0467ugr9KajlaDd5vfVT3aTbEzbvb', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiaGpFQzJMRnZmbk1IQ21jREpVMW9xYVRscUpIZFNFeWN5dnNNUmpGMiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2MDoiJDJ5JDEyJERjVGxmaFRITmxtTUxiOGtCVmFKdmVaSEZ1TXFxeFNOT2JIUjI5ellYYlB5OWhhSFVkR1BDIjtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0NzoiaHR0cDovL3BoYXJtYWN5LXN5c3RlbS50ZXN0L2FkbWluL2FjdGl2aXR5LWxvZ3MiO31zOjY6InRhYmxlcyI7YToxOntzOjQwOiI3MWUxY2Y4ZGZiNDQzZGIyODUxY2M3MDVjOTU4NWVlNV9jb2x1bW5zIjthOjQ6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMToiZGVzY3JpcHRpb24iO3M6NToibGFiZWwiO3M6MTE6IkRlc2NyaXB0aW9uIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoicHJvcGVydGllcyI7czo1OiJsYWJlbCI7czoxMDoiUHJvcGVydGllcyI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjI7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTE6ImNhdXNlci5uYW1lIjtzOjU6ImxhYmVsIjtzOjQ6IlVzZXIiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTozO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJjcmVhdGVkX2F0IjtzOjU6ImxhYmVsIjtzOjI1OiLYqtin2LHZitiuINin2YTYp9i22KfZgdipIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fX19fQ==', 1765494808);
+--
+-- Dumping data for table `sessions`
+--
 
--- Dumping structure for table pharmacy_system.stock_movements
-CREATE TABLE IF NOT EXISTS `stock_movements` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL,
-  `batch_id` bigint unsigned DEFAULT NULL,
-  `movement_type` enum('return','purchase','invoice','adjustment') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('vJ1u2LMTmNNSYb3cX6xzLqpgvWasmTNMVIrzryKJ', 1, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36', 'YTo4OntzOjY6Il90b2tlbiI7czo0MDoiTzBJZHVYRmRlemF1Yms4c0tWOURGcUhidWdnU3YxY0Vla3hxcktxNyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjQyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vcHVyY2hhc2UtZGVidHMiO3M6NToicm91dGUiO3M6NDU6ImZpbGFtZW50LmFkbWluLnJlc291cmNlcy5wdXJjaGFzZS1kZWJ0cy5pbmRleCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxNzoicGFzc3dvcmRfaGFzaF93ZWIiO3M6NjA6IiQyeSQxMiRRQlhHSUxZM1RrSHdnNzV3RzNqLkJPSldTOThtZ3U1WHlKZDIxU1MublQ0b0xJS05pelhFTyI7czo2OiJ0YWJsZXMiO2E6MTQ6e3M6NDA6IjcxZTFjZjhkZmI0NDNkYjI4NTFjYzcwNWM5NTg1ZWU1X2NvbHVtbnMiO2E6NDp7aTowO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjExOiJkZXNjcmlwdGlvbiI7czo1OiJsYWJlbCI7czoxMToiRGVzY3JpcHRpb24iO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToxO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJwcm9wZXJ0aWVzIjtzOjU6ImxhYmVsIjtzOjEwOiJQcm9wZXJ0aWVzIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMToiY2F1c2VyLm5hbWUiO3M6NToibGFiZWwiO3M6NDoiVXNlciI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjM7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTA6ImNyZWF0ZWRfYXQiO3M6NToibGFiZWwiO3M6MjU6Itiq2KfYsdmK2K4g2KfZhNin2LbYp9mB2KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9fXM6NDA6ImRjYTU3ZDM5ZDUzNDJiMWI3OWU1Mzg2NDFkNWNhZmNlX2NvbHVtbnMiO2E6OTp7aTowO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEyOiJwcm9kdWN0Lm5hbWUiO3M6NToibGFiZWwiO3M6MTI6Itin2YTZhdmG2KrYrCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTM6InN1cHBsaWVyLm5hbWUiO3M6NToibGFiZWwiO3M6MTI6Itin2YTZhdmI2LHYryI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjI7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6ODoiYmF0Y2hfbm8iO3M6NToibGFiZWwiO3M6MTk6Itix2YLZhSDYp9mE2K/Zgdi52KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTozO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjExOiJleHBpcnlfZGF0ZSI7czo1OiJsYWJlbCI7czoyNzoi2KrYp9ix2YrYriDYp9mE2KfZhtiq2YfYp9ihIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoyMzoicHVyY2hhc2VfcHJpY2VfcGVyX2Jhc2UiO3M6NToibGFiZWwiO3M6NDk6Itiz2LnYsSDYp9mE2LTYsdin2KEg2YTZhNmI2K3Yr9ipINin2YTYp9iz2KfYs9mK2KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTo1O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjE2OiJpbml0aWFsX3F1YW50aXR5IjtzOjU6ImxhYmVsIjtzOjEyOiLYp9mE2YPZhdmK2KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTo2O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjE2OiJjdXJyZW50X3F1YW50aXR5IjtzOjU6ImxhYmVsIjtzOjI3OiLYp9mE2YPZhdmK2Kkg2KfZhNit2KfZhNmK2KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTo3O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJjcmVhdGVkX2F0IjtzOjU6ImxhYmVsIjtzOjEwOiJDcmVhdGVkIGF0IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MDtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MTtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO2I6MTt9aTo4O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjU6ImxhYmVsIjtzOjEwOiJVcGRhdGVkIGF0IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MDtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MTtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO2I6MTt9fXM6NDA6IjM1MzYzZDZlNTc0ODcxMzI4YjUyMzJkNDVkMGI4MGU5X2NvbHVtbnMiO2E6Mzp7aTowO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjQ6Im5hbWUiO3M6NToibGFiZWwiO3M6MTA6Itin2YTYp9iz2YUiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToxO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJjcmVhdGVkX2F0IjtzOjU6ImxhYmVsIjtzOjEwOiJDcmVhdGVkIGF0IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MDtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MTtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO2I6MTt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjU6ImxhYmVsIjtzOjEwOiJVcGRhdGVkIGF0IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MDtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MTtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO2I6MTt9fXM6NDA6Ijk1NDY2ZTBkZjY5YWI1ZGJiNjVhYTRhMTg4YTQ2NGE0X2NvbHVtbnMiO2E6Mzp7aTowO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjQ6Im5hbWUiO3M6NToibGFiZWwiO3M6MTA6Itin2YTYp9iz2YUiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToxO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJjcmVhdGVkX2F0IjtzOjU6ImxhYmVsIjtzOjEwOiJDcmVhdGVkIGF0IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MDtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MTtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO2I6MTt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjU6ImxhYmVsIjtzOjEwOiJVcGRhdGVkIGF0IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MDtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MTtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO2I6MTt9fXM6NDA6Ijc2NzZmZTkyYjQ2Mzk2NjEwOWUyYTZiNzQxNzRhMmFhX2NvbHVtbnMiO2E6Mzp7aTowO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjc6Im1lc3NhZ2UiO3M6NToibGFiZWwiO3M6MTQ6Itin2YTYsdiz2KfZhNipIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo3OiJyZWFkX2F0IjtzOjU6ImxhYmVsIjtzOjI1OiLYqtin2LHZitiuINin2YTZgtix2KfYodipIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiY3JlYXRlZF9hdCI7czo1OiJsYWJlbCI7czoyNToi2KrYp9ix2YrYriDYp9mE2KfYttin2YHYqSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO319czo0MDoiMzUzMzZhODA4Nzc4ODM0Zjg5NDE3NDcxMTJjMjY0M2VfY29sdW1ucyI7YToyOntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NDoibmFtZSI7czo1OiJsYWJlbCI7czoxMDoi2KfZhNin2LPZhSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MjQ6InBlcm1pc3Npb25zLmRpc3BsYXlfbmFtZSI7czo1OiJsYWJlbCI7czoxODoi2KfZhNi12YTYp9it2YrYp9iqIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fX1zOjQwOiI4ZmFjNmViMWNlYzI2ODAzYjNmN2ZiNDQwYTI3MTExYl9jb2x1bW5zIjthOjk6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMzoiY2F0ZWdvcnkubmFtZSI7czo1OiJsYWJlbCI7czoxMDoi2KfZhNmC2LPZhSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTc6Im1hbnVmYWN0dXJlci5uYW1lIjtzOjU6ImxhYmVsIjtzOjI3OiLYp9mE2LTYsdmD2Kkg2KfZhNmF2LXZhti52KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjQ6Im5hbWUiO3M6NToibGFiZWwiO3M6MTA6Itin2YTYp9iz2YUiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTozO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEyOiJnZW5lcmljX25hbWUiO3M6NToibGFiZWwiO3M6MjE6Itin2YTYp9iz2YUg2KfZhNi52KfZhSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjQ7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NzoiYmFyY29kZSI7czo1OiJsYWJlbCI7czoxNjoi2KfZhNio2KfYsdmD2YjYryI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjU7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTM6InJlb3JkZXJfbGV2ZWwiO3M6NToibGFiZWwiO3M6MzI6ItmF2LPYqtmI2Ykg2KXYudin2K/YqSDYp9mE2LfZhNioIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo5OiJpc19hY3RpdmUiO3M6NToibGFiZWwiO3M6Njoi2YbYtNi3IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiY3JlYXRlZF9hdCI7czo1OiJsYWJlbCI7czoxMDoiQ3JlYXRlZCBhdCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fWk6ODthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoidXBkYXRlZF9hdCI7czo1OiJsYWJlbCI7czoxMDoiVXBkYXRlZCBhdCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fX1zOjQwOiJiODRmMjc4NzcwNTIyYzc3ZmJhN2IyZDNkM2Y2MDA0Y19jb2x1bW5zIjthOjI6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMzoic3VwcGxpZXIubmFtZSI7czo1OiJsYWJlbCI7czoxMDoi2KfZhNin2LPZhSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6NzoiYmFsYW5jZSI7czo1OiJsYWJlbCI7czoxMjoi2KfZhNmF2KjZhNi6IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fX1zOjQwOiI3OWUzZDlkMGU1NmY4YTQwNzhmMDIxNDU3NDU5OWM0MF9jb2x1bW5zIjthOjY6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxOToicHVyY2hhc2UuaW52b2ljZV9ubyI7czo1OiJsYWJlbCI7czoxOToi2LHZgtmFINin2YTZhdix2KzYuSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjE7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTI6InRvdGFsX2Ftb3VudCI7czo1OiJsYWJlbCI7czoyOToi2KfZhNmF2KjZhNi6INin2YTYp9is2YXYp9mE2YoiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjExOiJyZXR1cm5fZGF0ZSI7czo1OiJsYWJlbCI7czoyNToi2KrYp9ix2YrYriDYp9mE2KfYsdis2KfYuSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjM7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTQ6ImNyZWF0ZWRCeS5uYW1lIjtzOjU6ImxhYmVsIjtzOjIyOiLYp9mP2LbZitmBINmF2YYg2YLYqNmEIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiY3JlYXRlZF9hdCI7czo1OiJsYWJlbCI7czoyNToi2KrYp9ix2YrYriDYp9mE2KfYttin2YHYqSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fWk6NTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoidXBkYXRlZF9hdCI7czo1OiJsYWJlbCI7czoxOToi2KfZkdiu2LEg2KrYudiv2YrZhCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fX1zOjQwOiI5OWY0NzQ0YmRjNzg2YjYyNmJjOGY4N2RmODVkZTFiOF9jb2x1bW5zIjthOjg6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMzoic3VwcGxpZXIubmFtZSI7czo1OiJsYWJlbCI7czoxMjoi2KfZhNmF2YjYsdivIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiaW52b2ljZV9ubyI7czo1OiJsYWJlbCI7czoyMzoi2LHZgtmFINin2YTZgdin2KrZiNix2KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEyOiJ0b3RhbF9hbW91bnQiO3M6NToibGFiZWwiO3M6Mjk6Itin2YTZhdio2YTYuiDYp9mE2KfYrNmF2KfZhNmKIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxNDoicGF5bWVudF9zdGF0dXMiO3M6NToibGFiZWwiO3M6MTk6Itit2KfZhNipINin2YTYr9mB2LkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTo0O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEzOiJwdXJjaGFzZV9kYXRlIjtzOjU6ImxhYmVsIjtzOjIzOiLYqtin2LHZitiuINin2YTYtNix2KfYoSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjU7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTQ6ImNyZWF0ZWRCeS5uYW1lIjtzOjU6ImxhYmVsIjtzOjIyOiLYp9mP2LbZitmBINmF2YYg2YLYqNmEIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiY3JlYXRlZF9hdCI7czo1OiJsYWJlbCI7czoyNToi2KrYp9ix2YrYriDYp9mE2KfYttin2YHYqSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fWk6NzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoidXBkYXRlZF9hdCI7czo1OiJsYWJlbCI7czoxOToi2KfZkdiu2LEg2KrYudiv2YrZhCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fX1zOjQwOiI4YjViYjE4OGY0ZmRhZDhkODM1YjY0ZjdmYTcxZjFlZF9jb2x1bW5zIjthOjQ6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo0OiJuYW1lIjtzOjU6ImxhYmVsIjtzOjEwOiLYp9mE2KfYs9mFIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMzoic3VwcGxpZXIubmFtZSI7czo1OiJsYWJlbCI7czoxMjoi2KfZhNmF2YjYsdivIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MjthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo1OiJwaG9uZSI7czo1OiJsYWJlbCI7czoxMjoi2KfZhNmH2KfYqtmBIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czo1OiJlbWFpbCI7czo1OiJsYWJlbCI7czo0NDoi2LnZhtmI2KfZhiDYp9mE2KjYsdmK2K8g2KfZhNin2YTZg9iq2LHZiNmG2YoiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9fXM6NDA6ImI1NmRmMjJiZTQ1OTJiN2IxZWJiNGYzNTIxNmM3OTVlX2NvbHVtbnMiO2E6NTp7aTowO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjQ6Im5hbWUiO3M6NToibGFiZWwiO3M6MTA6Itin2YTYp9iz2YUiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToxO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjU6InBob25lIjtzOjU6ImxhYmVsIjtzOjEyOiLYp9mE2YfYp9iq2YEiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjU6ImVtYWlsIjtzOjU6ImxhYmVsIjtzOjQ0OiLYudmG2YjYp9mGINin2YTYqNix2YrYryDYp9mE2KfZhNmD2KrYsdmI2YbZiiI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjM7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTA6ImNyZWF0ZWRfYXQiO3M6NToibGFiZWwiO3M6MTA6IkNyZWF0ZWQgYXQiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjowO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjoxO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7YjoxO31pOjQ7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTA6InVwZGF0ZWRfYXQiO3M6NToibGFiZWwiO3M6MTA6IlVwZGF0ZWQgYXQiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjowO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjoxO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7YjoxO319czo0MDoiYTI0ZjhlYTE1OTQ0NTQyN2VhYjQ5NGNjYzcwOTdjZDBfY29sdW1ucyI7YTo5OntpOjA7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTA6Imludm9pY2Vfbm8iO3M6NToibGFiZWwiO3M6MjM6Itix2YLZhSDYp9mE2YHYp9iq2YjYsdipIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MTthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMjoidG90YWxfYW1vdW50IjtzOjU6ImxhYmVsIjtzOjI5OiLYp9mE2YXYqNmE2Log2KfZhNin2KzZhdin2YTZiiI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjI7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6ODoiZGlzY291bnQiO3M6NToibGFiZWwiO3M6MTA6Itin2YTYrti12YUiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTozO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjQ6InBhaWQiO3M6NToibGFiZWwiO3M6MTQ6Itin2YTZhdiv2YHZiNi5IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxNDoicGF5bWVudF9zdGF0dXMiO3M6NToibGFiZWwiO3M6MTk6Itit2KfZhNipINin2YTYr9mB2LkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aTo1O2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjEyOiJpbnZvaWNlX2RhdGUiO3M6NToibGFiZWwiO3M6Mjc6Itiq2KfYsdmK2K4g2KfZhNmB2KfYqtmI2LHYqSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO31pOjY7YTo3OntzOjQ6InR5cGUiO3M6NjoiY29sdW1uIjtzOjQ6Im5hbWUiO3M6MTQ6ImNyZWF0ZWRCeS5uYW1lIjtzOjU6ImxhYmVsIjtzOjIyOiLYp9mP2LbZitmBINmF2YYg2YLYqNmEIjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6NzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoiY3JlYXRlZF9hdCI7czo1OiJsYWJlbCI7czoyNToi2KrYp9ix2YrYriDYp9mE2KfYttin2YHYqSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fWk6ODthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMDoidXBkYXRlZF9hdCI7czo1OiJsYWJlbCI7czoxOToi2KfZkdiu2LEg2KrYudiv2YrZhCI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjA7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjE7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtiOjE7fX1zOjQwOiI1MDU3NjdlMmM5ZGY4ZTkwNmVkNmNmODM5YzQ1NWIwOF9jb2x1bW5zIjthOjQ6e2k6MDthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxOToicHVyY2hhc2UuaW52b2ljZV9ubyI7czo1OiJsYWJlbCI7czoyMzoi2LHZgtmFINin2YTZgdin2KrZiNix2KkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToxO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjQ6InR5cGUiO3M6NToibGFiZWwiO3M6MTA6Itin2YTZhtmI2LkiO3M6ODoiaXNIaWRkZW4iO2I6MDtzOjk6ImlzVG9nZ2xlZCI7YjoxO3M6MTI6ImlzVG9nZ2xlYWJsZSI7YjowO3M6MjQ6ImlzVG9nZ2xlZEhpZGRlbkJ5RGVmYXVsdCI7Tjt9aToyO2E6Nzp7czo0OiJ0eXBlIjtzOjY6ImNvbHVtbiI7czo0OiJuYW1lIjtzOjY6ImFtb3VudCI7czo1OiJsYWJlbCI7czoxMjoi2KfZhNmF2KjZhNi6IjtzOjg6ImlzSGlkZGVuIjtiOjA7czo5OiJpc1RvZ2dsZWQiO2I6MTtzOjEyOiJpc1RvZ2dsZWFibGUiO2I6MDtzOjI0OiJpc1RvZ2dsZWRIaWRkZW5CeURlZmF1bHQiO047fWk6MzthOjc6e3M6NDoidHlwZSI7czo2OiJjb2x1bW4iO3M6NDoibmFtZSI7czoxMToiZGVzY3JpcHRpb24iO3M6NToibGFiZWwiO3M6MTI6ItmF2YTYp9it2LjYqSI7czo4OiJpc0hpZGRlbiI7YjowO3M6OToiaXNUb2dnbGVkIjtiOjE7czoxMjoiaXNUb2dnbGVhYmxlIjtiOjA7czoyNDoiaXNUb2dnbGVkSGlkZGVuQnlEZWZhdWx0IjtOO319fXM6ODoiZmlsYW1lbnQiO2E6MDp7fX0=', 1777799101);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_movements`
+--
+
+CREATE TABLE `stock_movements` (
+  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `batch_id` bigint UNSIGNED DEFAULT NULL,
+  `movement_type` enum('invoice','purchase','return','adjustment') COLLATE utf8mb4_unicode_ci NOT NULL,
   `reference_type` enum('invoice','purchase','product_return','adjustment') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `reference_id` bigint unsigned DEFAULT NULL,
+  `reference_id` bigint UNSIGNED DEFAULT NULL,
   `quantity` int NOT NULL,
   `direction` enum('in','out') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_by` bigint unsigned NOT NULL,
+  `created_by` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `stock_movements_product_id_foreign` (`product_id`),
-  KEY `stock_movements_batch_id_foreign` (`batch_id`),
-  KEY `stock_movements_created_by_foreign` (`created_by`),
-  KEY `stock_movements_reference_type_reference_id_index` (`reference_type`,`reference_id`),
-  CONSTRAINT `stock_movements_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `stock_movements_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `stock_movements_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.stock_movements: ~45 rows (approximately)
+--
+-- Dumping data for table `stock_movements`
+--
+
 INSERT INTO `stock_movements` (`id`, `product_id`, `batch_id`, `movement_type`, `reference_type`, `reference_id`, `quantity`, `direction`, `created_by`, `created_at`, `updated_at`) VALUES
-	(4, 1, 1, 'invoice', 'invoice', 20, 12, 'out', 1, '2025-10-30 19:39:46', '2025-10-30 19:39:46'),
-	(5, 1, 1, 'invoice', 'invoice', 21, 240, 'out', 1, '2025-10-30 19:43:20', '2025-10-30 19:43:20'),
-	(6, 1, 1, 'return', 'product_return', 1, 22, 'in', 1, '2025-11-01 17:46:57', '2025-11-01 17:46:57'),
-	(7, 1, 1, 'return', 'product_return', 6, 22, 'in', 1, '2025-11-01 17:50:28', '2025-11-01 17:50:28'),
-	(8, 1, 1, 'return', 'product_return', 7, 22, 'in', 1, '2025-11-01 17:51:21', '2025-11-01 17:51:21'),
-	(9, 1, 1, 'invoice', 'invoice', 24, 12, 'out', 1, '2025-11-03 04:01:57', '2025-11-03 04:01:57'),
-	(10, 1, 1, 'invoice', 'invoice', 25, 240, 'out', 1, '2025-11-03 04:03:07', '2025-11-03 04:03:07'),
-	(11, 1, 1, 'invoice', 'invoice', 28, 240, 'out', 1, '2025-11-03 04:12:22', '2025-11-03 04:12:22'),
-	(12, 1, 1, 'invoice', 'invoice', 29, 12, 'out', 1, '2025-11-03 04:37:18', '2025-11-03 04:37:18'),
-	(13, 1, 1, 'purchase', 'purchase', 2, 5, 'in', 1, '2025-11-27 19:14:43', '2025-11-27 19:14:43'),
-	(14, 1, 1, 'invoice', 'invoice', 30, 2, 'out', 1, '2025-11-29 18:22:08', '2025-11-29 18:22:08'),
-	(15, 1, 1, 'invoice', 'invoice', 30, 2, 'out', 1, '2025-11-29 18:22:08', '2025-11-29 18:22:08'),
-	(16, 1, 1, 'return', 'product_return', 8, 10, 'out', 1, '2025-11-29 19:03:03', '2025-11-29 19:03:03'),
-	(17, 1, 1, 'return', 'product_return', 10, 10, 'in', 1, '2025-11-29 19:24:32', '2025-11-29 19:24:32'),
-	(18, 1, 1, 'return', 'product_return', 11, 10, 'in', 1, '2025-11-29 19:28:00', '2025-11-29 19:28:00'),
-	(19, 1, 1, 'return', 'product_return', 12, 10, 'out', 1, '2025-11-29 19:29:23', '2025-11-29 19:29:23'),
-	(20, 1, 1, 'invoice', 'invoice', 31, 2, 'out', 1, '2025-11-30 19:42:07', '2025-11-30 19:42:07'),
-	(23, 1, 1, 'invoice', 'invoice', 36, 2, 'out', 1, '2025-12-03 10:58:22', '2025-12-03 10:58:22'),
-	(30, 1, 1, 'invoice', 'invoice', 43, 10, 'out', 1, '2025-12-03 17:24:18', '2025-12-03 17:24:18'),
-	(39, 1, 1, 'invoice', 'invoice', 52, 4, 'out', 1, '2025-12-03 17:32:09', '2025-12-03 17:32:09'),
-	(43, 1, 1, 'invoice', 'invoice', 65, 2, 'out', 1, '2025-12-03 17:44:58', '2025-12-03 17:44:58'),
-	(44, 1, 1, 'invoice', 'invoice', 66, 8, 'out', 1, '2025-12-03 17:46:15', '2025-12-03 17:46:15'),
-	(45, 1, 1, 'invoice', 'invoice', 67, 8, 'out', 1, '2025-12-03 17:47:38', '2025-12-03 17:47:38'),
-	(46, 1, 1, 'invoice', 'invoice', 68, 8, 'out', 1, '2025-12-03 17:50:26', '2025-12-03 17:50:26'),
-	(47, 1, 1, 'invoice', 'invoice', 69, 8, 'out', 1, '2025-12-03 17:52:54', '2025-12-03 17:52:54'),
-	(48, 1, 1, 'invoice', 'invoice', 70, 8, 'out', 1, '2025-12-03 17:53:56', '2025-12-03 17:53:56'),
-	(49, 1, 1, 'invoice', 'invoice', 71, 8, 'out', 1, '2025-12-03 17:55:05', '2025-12-03 17:55:05'),
-	(50, 1, 1, 'invoice', 'invoice', 72, 10, 'out', 1, '2025-12-03 17:55:39', '2025-12-03 17:55:39'),
-	(51, 1, 1, 'invoice', 'invoice', 73, 10, 'out', 1, '2025-12-03 17:56:28', '2025-12-03 17:56:28'),
-	(55, 1, 1, 'invoice', 'invoice', 77, 2, 'out', 1, '2025-12-03 18:09:42', '2025-12-03 18:09:42'),
-	(56, 2, NULL, 'purchase', 'purchase', 4, 1000, 'in', 1, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
-	(57, 1, NULL, 'purchase', 'purchase', 5, 1000, 'in', 1, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(58, 2, 2, 'purchase', 'purchase', 5, 1000, 'in', 1, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(59, 2, 2, 'purchase', 'purchase', 6, 1000, 'in', 1, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
-	(60, 1, 1, 'purchase', 'purchase', 7, 100, 'in', 1, '2025-12-03 19:11:59', '2025-12-03 19:11:59'),
-	(61, 1, 1, 'purchase', 'purchase', 8, 100, 'in', 1, '2025-12-03 19:13:02', '2025-12-03 19:13:02'),
-	(62, 1, 1, 'purchase', 'purchase', 9, 50, 'in', 1, '2025-12-03 19:14:02', '2025-12-03 19:14:02'),
-	(63, 1, 1, 'purchase', 'purchase', 10, 100, 'in', 1, '2025-12-03 19:14:52', '2025-12-03 19:14:52'),
-	(64, 1, 3, 'invoice', 'invoice', 78, 2, 'out', 1, '2025-12-05 18:07:20', '2025-12-05 18:07:20'),
-	(65, 1, 3, 'return', 'product_return', 14, 10, 'out', 1, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(66, 2, 2, 'return', 'product_return', 14, 10, 'out', 1, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(67, 1, 1, 'return', 'product_return', 14, 10, 'out', 1, '2025-12-07 19:22:38', '2025-12-07 19:22:38'),
-	(68, 1, 3, 'return', 'product_return', 15, 100, 'out', 1, '2025-12-07 19:36:32', '2025-12-07 19:36:32'),
-	(69, 1, 3, 'return', 'product_return', 16, 100, 'in', 1, '2025-12-08 10:59:59', '2025-12-08 10:59:59'),
-	(70, 1, 1, 'return', 'product_return', 17, 50, 'in', 1, '2025-12-08 11:03:48', '2025-12-08 11:03:48');
+(1, 1, NULL, 'purchase', 'purchase', 1, 4, 'in', 1, '2025-12-13 09:36:07', '2025-12-13 09:36:07'),
+(2, 1, 1, 'return', 'product_return', 1, 2, 'out', 1, '2025-12-13 09:37:27', '2025-12-13 09:37:27'),
+(3, 1, 1, 'return', 'product_return', 2, 5, 'out', 1, '2025-12-13 09:51:22', '2025-12-13 09:51:22'),
+(4, 1, NULL, 'purchase', 'purchase', 2, 454, 'in', 1, '2025-12-13 09:55:07', '2025-12-13 09:55:07'),
+(6, 1, 2, 'invoice', 'invoice', 7, 1, 'out', 1, '2025-12-13 10:09:10', '2025-12-13 10:09:10'),
+(7, 1, 2, 'invoice', 'invoice', 8, 65, 'out', 1, '2026-03-07 10:24:14', '2026-03-07 10:24:14'),
+(8, 2, NULL, 'purchase', 'purchase', 3, 50, 'in', 1, '2026-03-07 10:32:00', '2026-03-07 10:32:00'),
+(9, 2, 3, 'purchase', 'purchase', 4, 50, 'in', 1, '2026-03-07 10:33:11', '2026-03-07 10:33:11'),
+(11, 1, 2, 'invoice', 'invoice', 14, 70, 'out', 1, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(12, 2, 3, 'invoice', 'invoice', 14, 10, 'out', 1, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(13, 1, 2, 'invoice', 'invoice', 14, 1, 'out', 1, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(14, 2, 3, 'invoice', 'invoice', 14, 12, 'out', 1, '2026-05-02 13:34:55', '2026-05-02 13:34:55'),
+(15, 2, 3, 'invoice', 'invoice', 15, 12, 'out', 1, '2026-05-02 13:43:15', '2026-05-02 13:43:15'),
+(16, 2, 3, 'invoice', 'invoice', 15, 12, 'out', 1, '2026-05-02 13:43:15', '2026-05-02 13:43:15'),
+(18, 2, 3, 'return', 'product_return', 5, 1, 'in', 1, '2026-05-02 14:34:09', '2026-05-02 14:34:09'),
+(19, 2, 3, 'return', 'product_return', 6, 2, 'in', 1, '2026-05-02 14:35:33', '2026-05-02 14:35:33'),
+(20, 2, 3, 'return', 'product_return', 7, 50, 'out', 1, '2026-05-03 05:16:05', '2026-05-03 05:16:05'),
+(21, 2, NULL, 'purchase', 'purchase', 5, 50, 'in', 1, '2026-05-03 05:56:18', '2026-05-03 05:56:18'),
+(22, 1, NULL, 'purchase', 'purchase', 6, 50, 'in', 1, '2026-05-03 05:57:20', '2026-05-03 05:57:20');
 
--- Dumping structure for table pharmacy_system.suppliers
-CREATE TABLE IF NOT EXISTS `suppliers` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.suppliers: ~1 rows (approximately)
+--
+-- Dumping data for table `suppliers`
+--
+
 INSERT INTO `suppliers` (`id`, `name`, `phone`, `email`, `address`, `created_at`, `updated_at`) VALUES
-	(1, 'شركة ادوية', '77884455', 'dawa@phrma.com', 'القاهرة شارع الادوية', '2025-10-28 12:09:21', '2025-10-28 12:09:21');
+(1, 'علي صلاح', NULL, NULL, NULL, '2025-12-13 09:29:11', '2025-12-13 09:29:11');
 
--- Dumping structure for table pharmacy_system.supplier_accounts
-CREATE TABLE IF NOT EXISTS `supplier_accounts` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `supplier_id` bigint unsigned NOT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier_accounts`
+--
+
+CREATE TABLE `supplier_accounts` (
+  `id` bigint UNSIGNED NOT NULL,
+  `supplier_id` bigint UNSIGNED NOT NULL,
   `balance` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `supplier_accounts_supplier_id_foreign` (`supplier_id`),
-  CONSTRAINT `supplier_accounts_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.supplier_accounts: ~1 rows (approximately)
+--
+-- Dumping data for table `supplier_accounts`
+--
+
 INSERT INTO `supplier_accounts` (`id`, `supplier_id`, `balance`, `created_at`, `updated_at`) VALUES
-	(1, 1, 0.00, '2025-12-03 18:59:46', '2025-12-08 10:36:47');
+(1, 1, -51.00, '2025-12-13 09:36:07', '2026-05-03 06:04:53');
 
--- Dumping structure for table pharmacy_system.supplier_account_transactions
-CREATE TABLE IF NOT EXISTS `supplier_account_transactions` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `supplier_account_id` bigint unsigned NOT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier_account_transactions`
+--
+
+CREATE TABLE `supplier_account_transactions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `supplier_account_id` bigint UNSIGNED NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `purchase_id` bigint unsigned NOT NULL,
+  `purchase_id` bigint UNSIGNED NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `supplier_account_transactions_supplier_account_id_foreign` (`supplier_account_id`),
-  KEY `supplier_account_transactions_purchase_id_foreign` (`purchase_id`),
-  CONSTRAINT `supplier_account_transactions_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `supplier_account_transactions_supplier_account_id_foreign` FOREIGN KEY (`supplier_account_id`) REFERENCES `supplier_accounts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.supplier_account_transactions: ~7 rows (approximately)
+--
+-- Dumping data for table `supplier_account_transactions`
+--
+
 INSERT INTO `supplier_account_transactions` (`id`, `supplier_account_id`, `type`, `purchase_id`, `amount`, `description`, `created_at`, `updated_at`) VALUES
-	(1, 1, 'debt', 4, 200000.00, NULL, '2025-12-03 18:59:46', '2025-12-03 18:59:46'),
-	(2, 1, 'debt', 5, 110000.00, NULL, '2025-12-03 19:07:52', '2025-12-03 19:07:52'),
-	(3, 1, 'debt', 6, 95000.00, NULL, '2025-12-03 19:10:00', '2025-12-03 19:10:00'),
-	(4, 1, 'payment', 6, 5000.00, 'تم الدفع', '2025-12-06 18:05:28', '2025-12-06 18:05:28'),
-	(5, 1, 'payment', 5, 100000.00, 'دفع مئة الف', '2025-12-06 18:24:00', '2025-12-06 18:24:00'),
-	(6, 1, 'payment', 4, 100000.00, NULL, '2025-12-08 10:34:36', '2025-12-08 10:34:36'),
-	(8, 1, 'payment', 4, 100000.00, NULL, '2025-12-08 10:36:47', '2025-12-08 10:36:47');
+(1, 1, 'debt', 1, 176.00, NULL, '2025-12-13 09:36:07', '2025-12-13 09:36:07'),
+(2, 1, 'payment', 1, 2.00, NULL, '2025-12-13 09:38:38', '2025-12-13 09:38:38'),
+(3, 1, 'payment', 1, 55.00, NULL, '2025-12-13 09:38:58', '2025-12-13 09:38:58'),
+(4, 1, 'debt', 2, 24870.00, NULL, '2025-12-13 09:55:07', '2025-12-13 09:55:07'),
+(5, 1, 'debt', 3, 250.00, NULL, '2026-03-07 10:32:00', '2026-03-07 10:32:00'),
+(6, 1, 'debt', 4, 200.00, NULL, '2026-03-07 10:33:11', '2026-03-07 10:33:11'),
+(7, 1, 'payment', 4, 4.00, NULL, '2026-05-02 14:37:37', '2026-05-02 14:37:37'),
+(8, 1, 'payment', 4, 250.00, 'مرتجع', '2026-05-03 05:16:05', '2026-05-03 05:16:05'),
+(9, 1, 'debt', 5, 250.00, NULL, '2026-05-03 05:56:18', '2026-05-03 05:56:18'),
+(10, 1, 'payment', 4, 6.00, NULL, '2026-05-03 06:04:35', '2026-05-03 06:04:35'),
+(11, 1, 'payment', 5, 545.00, NULL, '2026-05-03 06:04:53', '2026-05-03 06:04:53');
 
--- Dumping structure for table pharmacy_system.units
-CREATE TABLE IF NOT EXISTS `units` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `units`
+--
+
+CREATE TABLE `units` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `abbreviation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.units: ~4 rows (approximately)
+--
+-- Dumping data for table `units`
+--
+
 INSERT INTO `units` (`id`, `name`, `abbreviation`, `created_at`, `updated_at`) VALUES
-	(2, 'حبة', 'ح', '2025-10-29 03:36:02', '2025-10-29 03:36:02'),
-	(3, 'باكت', 'ب', '2025-10-29 03:37:28', '2025-10-29 03:49:56'),
-	(4, 'كرتون', 'ك', '2025-10-29 03:37:47', '2025-10-29 03:50:04'),
-	(5, 'حبة', 'ح', '2025-10-29 03:38:06', '2025-10-29 03:38:06');
+(1, 'علبة', 'علبة', '2025-12-13 09:30:56', '2025-12-13 09:30:56'),
+(2, 'درزن', '6', '2025-12-13 10:00:56', '2025-12-13 10:00:56');
 
--- Dumping structure for table pharmacy_system.users
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pharmacy_system.users: ~2 rows (approximately)
+--
+-- Dumping data for table `users`
+--
+
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'Admin', 'admin@admin.com', NULL, '$2y$12$DcTlfhTHNlmMLb8kBVaJveZHFuMqqxSNObHR29zYXbPy9haHUdGPC', '8qF0aDPPxMvh6j6iPnjJjiROcaUDS4FXaIHewEcTDPobPMSNJRpPfNH6ljkP', '2025-10-26 15:03:08', '2025-10-26 15:03:08'),
-	(4, 'محمد سالم', 'mohammed.salem701@gmail.com', NULL, '$2y$12$Lu70xMmGfxdRyXGfHo6llOJJfX/J0OOmL6oUvgh5Nn9Ie/za73Vy6', NULL, '2025-12-01 12:31:32', '2025-12-01 12:31:32');
+(1, 'Admin', 'asaam4292@gmail.com', NULL, '$2y$12$QBXGILY3TkHwg75wG3j.BOJWS98mgu5XyJd21SS.nT4oLIKNizXEO', '8qF0aDPPxMvh6j6iPnjJjiROcaUDS4FXaIHewEcTDPobPMSNJRpPfNH6ljkP', '2025-10-26 12:03:08', '2025-10-26 12:03:08'),
+(4, 'محمد سالم', 'mohammed.salem701@gmail.com', NULL, '$2y$12$Lu70xMmGfxdRyXGfHo6llOJJfX/J0OOmL6oUvgh5Nn9Ie/za73Vy6', NULL, '2025-12-01 09:31:32', '2025-12-01 09:31:32'),
+(5, 'Admin', 'admin@admin.com', NULL, '$2y$12$MnqCB58ssOPRLmGw/ZhUOOyEKKrYSCg4nVzQj1BJhKmp7rZL8l7.e', NULL, '2026-03-07 10:22:53', '2026-03-07 10:22:53');
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `activity_log`
+--
+ALTER TABLE `activity_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subject` (`subject_type`,`subject_id`),
+  ADD KEY `causer` (`causer_type`,`causer_id`),
+  ADD KEY `activity_log_log_name_index` (`log_name`);
+
+--
+-- Indexes for table `adjustments`
+--
+ALTER TABLE `adjustments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adjustments_product_id_foreign` (`product_id`),
+  ADD KEY `adjustments_batch_id_foreign` (`batch_id`),
+  ADD KEY `adjustments_created_by_foreign` (`created_by`);
+
+--
+-- Indexes for table `batches`
+--
+ALTER TABLE `batches`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `batches_batch_no_unique` (`batch_no`),
+  ADD KEY `batches_product_id_foreign` (`product_id`),
+  ADD KEY `batches_supplier_id_foreign` (`supplier_id`);
+
+--
+-- Indexes for table `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer_accounts`
+--
+ALTER TABLE `customer_accounts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_accounts_customer_id_foreign` (`customer_id`);
+
+--
+-- Indexes for table `customer_account_transactions`
+--
+ALTER TABLE `customer_account_transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_account_transactions_customer_account_id_foreign` (`customer_account_id`),
+  ADD KEY `customer_account_transactions_invoice_id_foreign` (`invoice_id`);
+
+--
+-- Indexes for table `examinations`
+--
+ALTER TABLE `examinations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `examinations_department_id_foreign` (`department_id`),
+  ADD KEY `examinations_unit_id_foreign` (`unit_id`);
+
+--
+-- Indexes for table `examination_departments`
+--
+ALTER TABLE `examination_departments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `examination_prescriptions`
+--
+ALTER TABLE `examination_prescriptions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `examination_prescription_items`
+--
+ALTER TABLE `examination_prescription_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `examination_prescription_id_foreign` (`examination_prescription_id`),
+  ADD KEY `examination_prescription_items_examination_id_foreign` (`examination_id`);
+
+--
+-- Indexes for table `examination_units`
+--
+ALTER TABLE `examination_units`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `invoices_invoice_no_unique` (`invoice_no`),
+  ADD KEY `invoices_created_by_foreign` (`created_by`);
+
+--
+-- Indexes for table `invoice_items`
+--
+ALTER TABLE `invoice_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `invoice_items_product_id_foreign` (`product_id`),
+  ADD KEY `invoice_items_unit_id_foreign` (`unit_id`),
+  ADD KEY `invoice_items_invoice_id_foreign` (`invoice_id`);
+
+--
+-- Indexes for table `invoice_item_batches`
+--
+ALTER TABLE `invoice_item_batches`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `invoice_item_batches_invoice_item_id_foreign` (`invoice_item_id`),
+  ADD KEY `invoice_item_batches_batch_id_foreign` (`batch_id`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indexes for table `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `manufacturers`
+--
+ALTER TABLE `manufacturers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `products_barcode_unique` (`barcode`),
+  ADD KEY `products_category_id_foreign` (`category_id`),
+  ADD KEY `products_manufacturer_id_foreign` (`manufacturer_id`);
+
+--
+-- Indexes for table `product_returns`
+--
+ALTER TABLE `product_returns`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_returns_created_by_foreign` (`created_by`);
+
+--
+-- Indexes for table `product_units`
+--
+ALTER TABLE `product_units`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_units_product_id_foreign` (`product_id`),
+  ADD KEY `product_units_unit_id_foreign` (`unit_id`);
+
+--
+-- Indexes for table `purchases`
+--
+ALTER TABLE `purchases`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `purchases_invoice_no_unique` (`invoice_no`),
+  ADD KEY `purchases_supplier_id_foreign` (`supplier_id`),
+  ADD KEY `purchases_created_by_foreign` (`created_by`);
+
+--
+-- Indexes for table `purchase_items`
+--
+ALTER TABLE `purchase_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_items_purchase_id_foreign` (`purchase_id`),
+  ADD KEY `purchase_items_product_id_foreign` (`product_id`),
+  ADD KEY `purchase_items_batch_id_foreign` (`batch_id`);
+
+--
+-- Indexes for table `return_items`
+--
+ALTER TABLE `return_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `return_items_return_id_foreign` (`return_id`),
+  ADD KEY `return_items_product_id_foreign` (`product_id`),
+  ADD KEY `return_items_batch_id_foreign` (`batch_id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `sales_representatives`
+--
+ALTER TABLE `sales_representatives`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sales_representatives_supplier_id_foreign` (`supplier_id`);
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indexes for table `stock_movements`
+--
+ALTER TABLE `stock_movements`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `stock_movements_product_id_foreign` (`product_id`),
+  ADD KEY `stock_movements_batch_id_foreign` (`batch_id`),
+  ADD KEY `stock_movements_created_by_foreign` (`created_by`),
+  ADD KEY `stock_movements_reference_type_reference_id_index` (`reference_type`,`reference_id`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `supplier_accounts`
+--
+ALTER TABLE `supplier_accounts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `supplier_accounts_supplier_id_foreign` (`supplier_id`);
+
+--
+-- Indexes for table `supplier_account_transactions`
+--
+ALTER TABLE `supplier_account_transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `supplier_account_transactions_supplier_account_id_foreign` (`supplier_account_id`),
+  ADD KEY `supplier_account_transactions_purchase_id_foreign` (`purchase_id`);
+
+--
+-- Indexes for table `units`
+--
+ALTER TABLE `units`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `activity_log`
+--
+ALTER TABLE `activity_log`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+
+--
+-- AUTO_INCREMENT for table `adjustments`
+--
+ALTER TABLE `adjustments`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `batches`
+--
+ALTER TABLE `batches`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customer_accounts`
+--
+ALTER TABLE `customer_accounts`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customer_account_transactions`
+--
+ALTER TABLE `customer_account_transactions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `examinations`
+--
+ALTER TABLE `examinations`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `examination_departments`
+--
+ALTER TABLE `examination_departments`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `examination_prescriptions`
+--
+ALTER TABLE `examination_prescriptions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `examination_prescription_items`
+--
+ALTER TABLE `examination_prescription_items`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `examination_units`
+--
+ALTER TABLE `examination_units`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `invoice_items`
+--
+ALTER TABLE `invoice_items`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
+--
+-- AUTO_INCREMENT for table `invoice_item_batches`
+--
+ALTER TABLE `invoice_item_batches`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `manufacturers`
+--
+ALTER TABLE `manufacturers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `product_returns`
+--
+ALTER TABLE `product_returns`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `product_units`
+--
+ALTER TABLE `product_units`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `purchases`
+--
+ALTER TABLE `purchases`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `purchase_items`
+--
+ALTER TABLE `purchase_items`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `return_items`
+--
+ALTER TABLE `return_items`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sales_representatives`
+--
+ALTER TABLE `sales_representatives`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `stock_movements`
+--
+ALTER TABLE `stock_movements`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `supplier_accounts`
+--
+ALTER TABLE `supplier_accounts`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `supplier_account_transactions`
+--
+ALTER TABLE `supplier_account_transactions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `units`
+--
+ALTER TABLE `units`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `adjustments`
+--
+ALTER TABLE `adjustments`
+  ADD CONSTRAINT `adjustments_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `adjustments_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `adjustments_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `batches`
+--
+ALTER TABLE `batches`
+  ADD CONSTRAINT `batches_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `batches_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `customer_accounts`
+--
+ALTER TABLE `customer_accounts`
+  ADD CONSTRAINT `customer_accounts_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `customer_account_transactions`
+--
+ALTER TABLE `customer_account_transactions`
+  ADD CONSTRAINT `customer_account_transactions_customer_account_id_foreign` FOREIGN KEY (`customer_account_id`) REFERENCES `customer_accounts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `customer_account_transactions_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `examinations`
+--
+ALTER TABLE `examinations`
+  ADD CONSTRAINT `examinations_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `examination_departments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `examinations_unit_id_foreign` FOREIGN KEY (`unit_id`) REFERENCES `examination_units` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `examination_prescription_items`
+--
+ALTER TABLE `examination_prescription_items`
+  ADD CONSTRAINT `examination_prescription_id_foreign` FOREIGN KEY (`examination_prescription_id`) REFERENCES `examination_prescriptions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `examination_prescription_items_examination_id_foreign` FOREIGN KEY (`examination_id`) REFERENCES `examinations` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD CONSTRAINT `invoices_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `invoice_items`
+--
+ALTER TABLE `invoice_items`
+  ADD CONSTRAINT `invoice_items_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `invoice_items_unit_id_foreign` FOREIGN KEY (`unit_id`) REFERENCES `product_units` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `invoice_item_batches`
+--
+ALTER TABLE `invoice_item_batches`
+  ADD CONSTRAINT `invoice_item_batches_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `invoice_item_batches_invoice_item_id_foreign` FOREIGN KEY (`invoice_item_id`) REFERENCES `invoice_items` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `products_manufacturer_id_foreign` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturers` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `product_returns`
+--
+ALTER TABLE `product_returns`
+  ADD CONSTRAINT `product_returns_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `product_units`
+--
+ALTER TABLE `product_units`
+  ADD CONSTRAINT `product_units_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_units_unit_id_foreign` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `purchases`
+--
+ALTER TABLE `purchases`
+  ADD CONSTRAINT `purchases_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `purchases_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `purchase_items`
+--
+ALTER TABLE `purchase_items`
+  ADD CONSTRAINT `purchase_items_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `purchase_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `purchase_items_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `return_items`
+--
+ALTER TABLE `return_items`
+  ADD CONSTRAINT `return_items_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `return_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `return_items_return_id_foreign` FOREIGN KEY (`return_id`) REFERENCES `product_returns` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `sales_representatives`
+--
+ALTER TABLE `sales_representatives`
+  ADD CONSTRAINT `sales_representatives_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `stock_movements`
+--
+ALTER TABLE `stock_movements`
+  ADD CONSTRAINT `stock_movements_batch_id_foreign` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `stock_movements_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `stock_movements_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `supplier_accounts`
+--
+ALTER TABLE `supplier_accounts`
+  ADD CONSTRAINT `supplier_accounts_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `supplier_account_transactions`
+--
+ALTER TABLE `supplier_account_transactions`
+  ADD CONSTRAINT `supplier_account_transactions_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `supplier_account_transactions_supplier_account_id_foreign` FOREIGN KEY (`supplier_account_id`) REFERENCES `supplier_accounts` (`id`) ON DELETE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
