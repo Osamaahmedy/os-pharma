@@ -39,6 +39,10 @@ class ExaminationDepartmentResource extends Resource
     {
         return [];
     }
+  public static function canViewAny(): bool
+    {
+        return auth()->user()?->can('view examination unit') ?? false;
+    }
 
     public static function getPages(): array
     {

@@ -20,11 +20,16 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-        Gate::policy(Role::class, RolePolicy::class);
-        Gate::before(function ($user, $ability) {
-            return $user->id === 1;
-        });
-    }
+   public function boot(): void
+{
+    Gate::policy(Role::class, RolePolicy::class);
+
+    // ✅ بدل id === 1، استخدم الـ role
+    Gate::before(function ($user, $ability) {
+        if ($user->hasRole('admin')) {
+            return true; // admin يمر من كل شيء
+        }
+        // باقي اليوزرز يكملون للـ Policies والـ Permissions
+    });
+}
 }

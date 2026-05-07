@@ -14,7 +14,7 @@
         "mike42/escpos-php": "^4.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^4.10",
-        "spatie/laravel-permission": "^6.23",
+        "spatie/laravel-permission": "^7.4",
         "tecnickcom/tcpdf": "^6.10"
     },
     "require-dev": {

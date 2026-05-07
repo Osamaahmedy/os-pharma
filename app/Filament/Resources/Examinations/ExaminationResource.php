@@ -21,6 +21,10 @@ class ExaminationResource extends Resource
     protected static ?string $modelLabel = 'فحص';
     protected static ?string $pluralModelLabel = 'الفحوصات';
     protected static string|\UnitEnum|null $navigationGroup = 'الإعدادات الطبية';
+  public static function canViewAny(): bool
+    {
+        return auth()->user()?->can('view examination unit') ?? false;
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 

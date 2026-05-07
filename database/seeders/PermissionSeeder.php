@@ -90,6 +90,7 @@ class PermissionSeeder extends Seeder
             'create supplier account' => 'اضافة سجل ديون الموردين',
             'update supplier account' => 'تحديث سجل ديون الموردين',
             'delete supplier account' => 'حذف سجل ديون الموردين',
+            'view activity logs' => 'عرض سجل النشاطات',
         ];
 
         $permissionsInsertArr = [];

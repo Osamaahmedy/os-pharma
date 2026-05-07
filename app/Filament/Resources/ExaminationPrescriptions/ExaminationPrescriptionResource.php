@@ -55,6 +55,11 @@ class ExaminationPrescriptionResource extends Resource
     {
         return ExaminationPrescriptionsTable::configure($table);
     }
+      public static function canViewAny(): bool
+    {
+        return auth()->user()?->can('view examination unit') ?? false;
+    }
+
 
     public static function getRelations(): array
     {
