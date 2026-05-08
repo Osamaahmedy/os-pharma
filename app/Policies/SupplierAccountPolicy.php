@@ -13,21 +13,21 @@ class SupplierAccountPolicy
 
     public function view(User $user): bool
     {
-        return $user->can('view sales supplier account');
+        return $user->can('view supplier account'); // ✅ أزلنا "sales"
     }
 
     public function create(User $user): bool
     {
-        return $user->can('create sales supplier account');
+        return $user->can('create supplier account'); // ✅
     }
 
     public function update(User $user): bool
     {
-        return $user->can('update sales supplier account');
+        return $user->can('update supplier account'); // ✅
     }
 
     public function delete(User $user): bool
     {
-        return $user->can('delete sales supplier account');
+        return $user->can('delete supplier account'); // ✅
     }
 }
