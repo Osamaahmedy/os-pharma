@@ -27,4 +27,12 @@ class PurchaseItem extends Model
             ->useLogName('purchase_item')
             ->setDescriptionForEvent(fn (string $eventName) => $eventNames[$eventName] ?? "Purchase_item has been {$eventName}");
     }
+    public function product()
+{
+    return $this->belongsTo(\App\Models\Product::class);
+}
+public function batch()
+{
+    return $this->belongsTo(Batch::class);
+}
 }

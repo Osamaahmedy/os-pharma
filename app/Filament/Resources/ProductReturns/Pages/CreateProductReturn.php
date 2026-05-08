@@ -47,7 +47,7 @@ class CreateProductReturn extends CreateRecord
                     'quantity' => $item['quantity'],
                     'reason' => $item['reason'],
                 ]);
-                
+
                 $service->recordStockMovement(
                     $item['product_id'],
                     $item['batch_id'],

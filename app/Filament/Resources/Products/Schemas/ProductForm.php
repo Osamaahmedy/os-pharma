@@ -27,6 +27,7 @@ class ProductForm
                     ->label(__('fields.generic_name')),
                 TextInput::make('barcode')
                     ->unique('products', 'barcode')
+                    ->numeric()
                     ->label(__('fields.barcode')),
                 Textarea::make('description')
                     ->columnSpanFull()

@@ -6,6 +6,9 @@ use App\Policies\RolePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Permission\Models\Role;
+use App\Models\Employee;
+use App\Observers\EmployeeObserver;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
    public function boot(): void
 {
+
+        Employee::observe(EmployeeObserver::class);
     Gate::policy(Role::class, RolePolicy::class);
 
     // ✅ بدل id === 1، استخدم الـ role
