@@ -55,6 +55,6 @@ return [
 'employee_debt'         => 'سحبيات الموظف',
 'employee_debts'        => 'سحبيات الموظفين',
 'total_employee_debts'  => 'إجمالي السحبيات',
-'total_employee_payments' => 'إجمالي المدفوعات',
+'total_employee_payments' => 'إجمالي الايداعات',
 'add_transaction'       => 'إضافة عملية',
 ];

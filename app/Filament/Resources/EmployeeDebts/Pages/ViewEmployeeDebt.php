@@ -16,7 +16,6 @@ class ViewEmployeeDebt extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            // ✅ زر إضافة سريع في أعلى الصفحة أيضاً
             Action::make('add_transaction')
                 ->label(__('app.add_transaction'))
                 ->icon('heroicon-o-plus')
@@ -25,8 +24,8 @@ class ViewEmployeeDebt extends ViewRecord
                     Select::make('type')
                         ->label(__('fields.type'))
                         ->options([
-                            'withdrawal' => __('fields.withdrawal'),
-                            'payment'    => __('fields.payment'),
+                            'withdrawal' => 'سحب',
+                            'payment'    => 'إيداع',
                         ])
                         ->required(),
 
@@ -52,7 +51,6 @@ class ViewEmployeeDebt extends ViewRecord
                         $account->decrement('balance', $data['amount']);
                     }
 
-                    // ✅ تحديث الصفحة لإظهار الرصيد الجديد
                     $this->refreshFormData(['balance']);
                 }),
         ];

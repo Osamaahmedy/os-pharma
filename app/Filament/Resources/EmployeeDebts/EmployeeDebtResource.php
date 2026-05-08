@@ -51,18 +51,18 @@ class EmployeeDebtResource extends Resource
                     ->label(__('fields.employee')),
 
                 TextColumn::make('balance')
-    ->sortable()
-    ->formatStateUsing(function ($state) {
-        $amount = $state ?? 0;
-        $sign   = $amount > 0 ? '-' : ($amount < 0 ? '+' : '');
-        return $sign . number_format(abs($amount), 2, '.', ',') . ' ' . config('app.currency', 'ر.ي');
-    })
-    ->color(fn ($state) => match(true) {
-        ($state ?? 0) > 0 => 'danger',   // عليه دين
-        ($state ?? 0) < 0 => 'success',  // دفع زيادة
-        default           => 'gray',     // صفر
-    })
-    ->label(__('fields.balance')),
+                    ->sortable()
+                    ->formatStateUsing(function ($state) {
+                        $amount = $state ?? 0;
+                        $sign   = $amount > 0 ? '-' : ($amount < 0 ? '+' : '');
+                        return $sign . number_format(abs($amount), 2, '.', ',') . ' ' . config('app.currency', 'ر.ي');
+                    })
+                    ->color(fn ($state) => match(true) {
+                        ($state ?? 0) > 0 => 'danger',
+                        ($state ?? 0) < 0 => 'success',
+                        default           => 'gray',
+                    })
+                    ->label(__('fields.balance')),
             ])
             ->defaultSort('balance', 'desc')
             ->recordActions([

@@ -36,15 +36,16 @@ return [
     'total_amount'            => 'المبلغ الاجمالي',
     'discount'                => 'الخصم',
     'paid'                    => 'المدفوع',
-    'payment'                 => [            // ✅ nested array للـ payment
-        'status'            => 'حالة الدفع',
-        'paid'              => 'مدفوع',
-        'unpaid'            => 'غير مدفوع',
-        'partial'           => 'مدفوع جزئياً',
-        'payment'           => 'دفع',
-        'debt'              => 'دين',
-        'return_deduction'  => 'خصم من المرتجع',
-    ],
+    'payment_status'   => 'حالة الدفع',
+'paid_status'      => 'مدفوع',
+'unpaid'           => 'غير مدفوع',
+'partial'          => 'مدفوع جزئياً',
+'payment'          => 'إيداع',       // ✅ الآن string مباشر
+'debt'             => 'دين',
+'return_deduction' => 'خصم من المرتجع',
+
+'withdrawal'       => 'سحب',
+'deposit'          => 'إيداع',
     'invoice_date'    => 'تاريخ الفاتورة',
     'invoice_items'   => 'عناصر الفاتورة',
     'unit_price'      => 'سعر الوحدة',
@@ -78,5 +79,5 @@ return [
     'position'        => 'المنصب',
     'salary'          => 'الراتب',
     'balance'         => 'الرصيد',
-    'withdrawal'      => 'سحب',             // ✅ ترجمة نوع العملية (مستقلة عن payment nested)
+          // ✅ ترجمة نوع العملية (مستقلة عن payment nested)
 ];

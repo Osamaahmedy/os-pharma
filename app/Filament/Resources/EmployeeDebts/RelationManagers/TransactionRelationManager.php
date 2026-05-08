@@ -26,8 +26,8 @@ class TransactionRelationManager extends RelationManager
             Select::make('type')
                 ->label(__('fields.type'))
                 ->options([
-                    'withdrawal' => __('fields.withdrawal'),
-                    'payment'    => __('fields.payment'),
+                    'withdrawal' => 'سحب',
+                    'payment'    => 'إيداع',
                 ])
                 ->required()
                 ->live(),
@@ -50,7 +50,7 @@ class TransactionRelationManager extends RelationManager
     {
         return $table
             ->emptyStateHeading('لا توجد عمليات')
-            ->emptyStateDescription('أضف عملية سحب أو دفع')
+            ->emptyStateDescription('أضف عملية سحب أو إيداع')
             ->emptyStateIcon('heroicon-o-banknotes')
             ->columns([
                 TextColumn::make('created_at')
@@ -60,7 +60,11 @@ class TransactionRelationManager extends RelationManager
 
                 TextColumn::make('type')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => __('fields.' . $state))
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'withdrawal' => 'سحب',
+                        'payment'    => 'إيداع',
+                        default      => $state,
+                    })
                     ->color(fn ($state) => match ($state) {
                         'withdrawal' => 'danger',
                         'payment'    => 'success',
