@@ -59,4 +59,5 @@ return [
 'add_transaction'       => 'إضافة عملية',
 'no_transactions'    => 'لا توجد عمليات',
 'add_transaction_hint' => 'أضف عملية سحب أو إيداع',
+// 'transaction_type' => 'نوع العملية',
 ];
