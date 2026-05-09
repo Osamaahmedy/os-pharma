@@ -26,8 +26,8 @@ class TransactionRelationManager extends RelationManager
             Select::make('type')
                 ->label(__('fields.type'))
                 ->options([
-                    'withdrawal' => 'سحب',
-                    'payment'    => 'إيداع',
+                    'withdrawal' => __('fields.withdrawal'),
+                    'payment'    => __('fields.payment'),
                 ])
                 ->required()
                 ->live(),
@@ -49,8 +49,8 @@ class TransactionRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->emptyStateHeading('لا توجد عمليات')
-            ->emptyStateDescription('أضف عملية سحب أو إيداع')
+            ->emptyStateHeading(__('app.no_transactions'))
+            ->emptyStateDescription(__('app.add_transaction_hint'))
             ->emptyStateIcon('heroicon-o-banknotes')
             ->columns([
                 TextColumn::make('created_at')
@@ -61,8 +61,8 @@ class TransactionRelationManager extends RelationManager
                 TextColumn::make('type')
                     ->badge()
                     ->formatStateUsing(fn ($state) => match ($state) {
-                        'withdrawal' => 'سحب',
-                        'payment'    => 'إيداع',
+                        'withdrawal' => __('fields.withdrawal'),
+                        'payment'    => __('fields.payment.payment'),
                         default      => $state,
                     })
                     ->color(fn ($state) => match ($state) {
@@ -73,9 +73,11 @@ class TransactionRelationManager extends RelationManager
                     ->label(__('fields.type')),
 
                 TextColumn::make('amount')
-                    ->formatStateUsing(fn ($state) => number_format($state, 2, '.', ','))
-                    ->prefix(config('app.currency', 'ر.ي'))
-                    ->label(__('fields.amount')),
+                    ->formatStateUsing(
+                        fn ($state) => config('app.currency', 'ر.ي') . "\u{00A0}" . number_format((float) $state, 2, '.', ',')
+                    )
+                    ->label(__('fields.amount'))
+                    ->alignEnd(),
 
                 TextColumn::make('description')
                     ->placeholder('-')

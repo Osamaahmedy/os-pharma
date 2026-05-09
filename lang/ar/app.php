@@ -57,4 +57,6 @@ return [
 'total_employee_debts'  => 'إجمالي السحبيات',
 'total_employee_payments' => 'إجمالي الايداعات',
 'add_transaction'       => 'إضافة عملية',
+'no_transactions'    => 'لا توجد عمليات',
+'add_transaction_hint' => 'أضف عملية سحب أو إيداع',
 ];
