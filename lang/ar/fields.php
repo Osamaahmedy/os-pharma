@@ -20,7 +20,7 @@ return [
     'conversion_factor'       => 'معامل التحويل',
     'price'                   => 'السعر',
     'is_base_unit'            => 'الوحدة الاساسية',
-    'unit'                    => 'الوحدة',           // ✅ مفتاح واحد فقط
+    'unit'                    => 'الوحدة',
     'products'                => 'المنتجات',
     'product'                 => 'المنتج',
     'suppliers'               => 'الموردين',
@@ -36,16 +36,20 @@ return [
     'total_amount'            => 'المبلغ الاجمالي',
     'discount'                => 'الخصم',
     'paid'                    => 'المدفوع',
-    'payment_status'   => 'حالة الدفع',
-'paid_status'      => 'مدفوع',
-'unpaid'           => 'غير مدفوع',
-'partial'          => 'مدفوع جزئياً',
-'payment'          => 'إيداع',       // ✅ الآن string مباشر
-'debt'             => 'دين',
-'return_deduction' => 'خصم من المرتجع',
 
-'withdrawal'       => 'سحب',
-'deposit'          => 'إيداع',
+    // ── حالات الدفع وأنواع العمليات ──
+    'payment' => [
+        'status'           => 'حالة الدفع',
+        'paid'             => 'مدفوع',
+        'unpaid'           => 'غير مدفوع',
+        'partial'          => 'مدفوع جزئياً',
+        'payment'          => 'دفعة',
+        'debt'             => 'دين',
+        'return_deduction' => 'خصم من المرتجع',
+    ],
+
+    'withdrawal'      => 'سحب',
+    'deposit'         => 'إيداع',
     'invoice_date'    => 'تاريخ الفاتورة',
     'invoice_items'   => 'عناصر الفاتورة',
     'unit_price'      => 'سعر الوحدة',
@@ -54,7 +58,7 @@ return [
     'created_by'      => 'اُضيف من قبل',
     'purchase_date'   => 'تاريخ الشراء',
     'purchase_items'  => 'عناصر الشراء',
-    'type'            => 'النوع',            // ✅ مفتاح واحد فقط
+    'type'            => 'النوع',
     'reference_id'    => 'رقم المرجع',
     'return_date'     => 'تاريخ الارجاع',
     'reason'          => 'السبب',
@@ -66,18 +70,17 @@ return [
     'mark_read'       => 'تمييز مقروء',
     'customer_name'   => 'اسم العميل',
     'note'            => 'ملاحظة',
-    'amount'          => 'المبلغ',           // ✅ مفتاح واحد فقط
+    'amount'          => 'المبلغ',
     'display_name'    => 'اسم العرض',
-    'date'            => 'التاريخ',          // ✅ مفتاح واحد فقط
+    'date'            => 'التاريخ',
     'from_date'       => 'من تاريخ',
     'to_date'         => 'إلى تاريخ',
     'date_range'      => 'الفترة الزمنية',
     'available_qty'   => 'المتاح بالمخزن',
 
-    // ── الموظفون ──────────────────────────────
+    // ── الموظفون ──
     'employee'        => 'الموظف',
     'position'        => 'المنصب',
     'salary'          => 'الراتب',
     'balance'         => 'الرصيد',
-          // ✅ ترجمة نوع العملية (مستقلة عن payment nested)
 ];
