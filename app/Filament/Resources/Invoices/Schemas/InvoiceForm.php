@@ -12,6 +12,7 @@ use App\Models\ProductUnit;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
+                use App\Models\Customer;
 
 class InvoiceForm
 {
@@ -64,9 +65,20 @@ class InvoiceForm
                     ->required()
                     ->reactive()
                     ->label(__('fields.payment.status')),
-                TextInput::make('customer_name')
-                    ->disabled(fn ($get) => $get('payment_status') == 'paid')
-                    ->label(__('app.customers')),
+
+Select::make('customer_id')
+    ->label(__('fields.customer'))
+    ->options(Customer::orderBy('name')->pluck('name', 'id'))
+    ->searchable()
+    ->preload()
+    ->required()
+    ->live()
+    ->afterStateUpdated(function ($state, $set) {
+        $customer = Customer::find($state);
+        $set('customer_name', $customer?->name);
+    }),
+
+Hidden::make('customer_name'),
                 Textarea::make('note')
                     ->label(__('fields.note')),
                 DatePicker::make('invoice_date')

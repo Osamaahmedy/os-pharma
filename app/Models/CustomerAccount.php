@@ -8,7 +8,12 @@ class CustomerAccount extends Model
 {
     protected $guarded = [];
 
-    public function transactions()
+    public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function transactions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(CustomerAccountTransaction::class, 'customer_account_id');
     }

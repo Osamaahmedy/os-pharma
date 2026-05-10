@@ -12,7 +12,27 @@ class Customer extends Model
 
     protected $guarded = [];
 
-    // Spatie activity logger
+    public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(CustomerAccount::class);
+    }
+
+    public function invoices(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    // ✅ إنشاء حساب تلقائي عند إنشاء العميل
+    protected static function booted(): void
+    {
+        static::created(function (self $customer) {
+            CustomerAccount::firstOrCreate(
+                ['customer_id' => $customer->id],
+                ['balance' => 0]
+            );
+        });
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         $eventNames = [

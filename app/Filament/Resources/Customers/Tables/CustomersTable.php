@@ -14,23 +14,36 @@ class CustomersTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->with('account')) // ✅ eager load
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
                     ->label(__('fields.name')),
+
                 TextColumn::make('email')
                     ->searchable()
                     ->label(__('fields.email_address')),
+
                 TextColumn::make('phone')
                     ->searchable()
                     ->label(__('fields.phone')),
+
                 TextColumn::make('address')
                     ->searchable()
                     ->label(__('fields.address')),
+
+                // ✅ البالانس
+                TextColumn::make('account.balance')
+                    ->label('الرصيد المديون')
+                    ->sortable()
+                    ->default(0)
+                    ->formatStateUsing(fn ($state) =>
+                        number_format((float) $state, 2, '.', ',') . ' ' . config('app.currency', 'ر.ي')
+                    )
+                    ->color(fn ($state) => (float) $state > 0 ? 'danger' : 'success')
+                    ->weight('bold'),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),

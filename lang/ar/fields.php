@@ -83,4 +83,6 @@ return [
     'position'        => 'المنصب',
     'salary'          => 'الراتب',
     'balance'         => 'الرصيد',
+    'customer'        => 'العميل',
+
 ];

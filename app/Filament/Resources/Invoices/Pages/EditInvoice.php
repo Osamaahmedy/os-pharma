@@ -9,7 +9,7 @@ use App\Models\ProductUnit;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\CustomerAccount;              // ✅ أضف هذا
 class EditInvoice extends EditRecord
 {
     protected static string $resource = InvoiceResource::class;
@@ -146,33 +146,47 @@ class EditInvoice extends EditRecord
     }
 
     // ── تحديث دين العميل ──────────────────────────────────────
-    private function updateCustomerDebt(): void
-    {
-        $invoice = $this->record->fresh();
+  private function updateCustomerDebt(): void
+{
+    $invoice = $this->record->fresh();
 
-        CustomerAccountTransaction::where('invoice_id', $invoice->id)
-            ->where('type', 'debt')
-            ->delete();
+    // ✅ احذف الدين القديم واخصم من الرصيد
+    $oldDebt = CustomerAccountTransaction::where('invoice_id', $invoice->id)
+        ->where('type', 'debt')
+        ->first();
 
-        if ($invoice->payment_status === 'paid') return;
-        if (blank($invoice->customer_name)) return;
-
-        $debtAmount = match ($invoice->payment_status) {
-            'partial' => max($invoice->total_amount - (float) ($invoice->paid ?? 0), 0),
-            default   => (float) $invoice->total_amount,
-        };
-
-        if ($debtAmount <= 0) return;
-
-        CustomerAccountTransaction::create([
-            'customer_account_id' => null,
-            'invoice_id'          => $invoice->id,
-            'customer_name'       => $invoice->customer_name,
-            'amount'              => $debtAmount,
-            'type'                => 'debt',
-            'description'         => 'دين فاتورة ' . $invoice->invoice_no,
-        ]);
+    if ($oldDebt) {
+        $account = CustomerAccount::where('customer_id', $invoice->customer_id)->first();
+        $account?->decrement('balance', $oldDebt->amount);
+        $oldDebt->delete();
     }
+
+    if ($invoice->payment_status === 'paid') return;
+    if (blank($invoice->customer_name)) return;
+
+    $debtAmount = match ($invoice->payment_status) {
+        'partial' => max($invoice->total_amount - (float) ($invoice->paid ?? 0), 0),
+        default   => (float) $invoice->total_amount,
+    };
+
+    if ($debtAmount <= 0) return;
+
+    $account = CustomerAccount::firstOrCreate(
+        ['customer_id' => $invoice->customer_id],
+        ['balance'     => 0]
+    );
+
+    CustomerAccountTransaction::create([
+        'customer_account_id' => $account->id,
+        'invoice_id'          => $invoice->id,
+        'customer_name'       => $invoice->customer_name,
+        'amount'              => $debtAmount,
+        'type'                => 'debt',
+        'description'         => 'دين فاتورة ' . $invoice->invoice_no,
+    ]);
+
+    $account->increment('balance', $debtAmount);
+}
 
     protected function getHeaderActions(): array
     {

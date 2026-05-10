@@ -27,6 +27,11 @@ class CustomerResource extends Resource
     {
         return __('app.customers');
     }
+     public static function getNavigationGroup(): string
+    {
+        return __('app.sales');
+    }
+
 
     protected static ?string $model = Customer::class;
 
@@ -34,7 +39,6 @@ class CustomerResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'Customer';
 
-    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Schema $schema): Schema
     {

@@ -59,4 +59,9 @@ protected static function booted(): void
             ->useLogName('invoice')
             ->setDescriptionForEvent(fn (string $eventName) => $eventNames[$eventName] ?? "Invoice has been {$eventName}");
     }
+public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+{
+    return $this->belongsTo(Customer::class);
+}
+
 }
