@@ -12,22 +12,23 @@ use App\Models\ProductUnit;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
-                use App\Models\Customer;
+use App\Models\Customer;
 
 class InvoiceForm
 {
     private static function recalcTotal(callable $get, callable $set): void
-{
-    $items    = $get('../../items') ?: [];
-    $discount = (float) ($get('../../discount') ?? 0);
-    $sum      = 0;
+    {
+        $items    = $get('../../items') ?: [];
+        $discount = (float) ($get('../../discount') ?? 0);
+        $sum      = 0;
 
-    foreach ($items as $it) {
-        $sum += ((float) ($it['quantity'] ?? 0)) * ((float) ($it['unit_price'] ?? 0));
+        foreach ($items as $it) {
+            $sum += ((float) ($it['quantity'] ?? 0)) * ((float) ($it['unit_price'] ?? 0));
+        }
+
+        $set('../../total_amount', $sum - $discount);
     }
 
-    $set('../../total_amount', $sum - $discount);
-}
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -46,7 +47,6 @@ class InvoiceForm
                         foreach ($items as $it) {
                             $sum += (($it['quantity'] ?? 0) * ($it['unit_price'] ?? 0));
                         }
-
                         $set('total_amount', $sum - ($state ?? 0));
                     })
                     ->label(__('fields.discount')),
@@ -57,8 +57,8 @@ class InvoiceForm
                     ->disabled(fn ($get) => $get('payment_status') !== 'partial'),
                 Select::make('payment_status')
                     ->options([
-                        'paid' => __('fields.payment.paid'),
-                        'unpaid' => __('fields.payment.unpaid'),
+                        'paid'    => __('fields.payment.paid'),
+                        'unpaid'  => __('fields.payment.unpaid'),
                         'partial' => __('fields.payment.partial'),
                     ])
                     ->default('unpaid')
@@ -66,74 +66,79 @@ class InvoiceForm
                     ->reactive()
                     ->label(__('fields.payment.status')),
 
-Select::make('customer_id')
-    ->label(__('fields.customer'))
-    ->options(Customer::orderBy('name')->pluck('name', 'id'))
-    ->searchable()
-    ->preload()
-    ->required()
-    ->live()
-    ->afterStateUpdated(function ($state, $set) {
-        $customer = Customer::find($state);
-        $set('customer_name', $customer?->name);
-    }),
+                Select::make('customer_id')
+                    ->label(__('fields.customer'))
+                    ->options(fn () => Customer::orderBy('name')->pluck('name', 'id')) // ← fn() لتحميل عند الحاجة
+                    ->searchable()
+                    ->preload()  // ← يظهر مباشرة
+                    ->required()
+                    ->live()
+                    ->afterStateUpdated(function ($state, $set) {
+                        $customer = Customer::find($state);
+                        $set('customer_name', $customer?->name);
+                    }),
 
-Hidden::make('customer_name'),
+                Hidden::make('customer_name'),
+
                 Textarea::make('note')
                     ->label(__('fields.note')),
+
                 DatePicker::make('invoice_date')
-    ->required()
-    ->label(__('fields.invoice_date'))
-    ->default(today()),
+                    ->required()
+                    ->label(__('fields.invoice_date'))
+                    ->default(today()),
+
                 Repeater::make('items')
                     ->label(__('fields.invoice_items'))
                     ->columns(6)
                     ->columnSpanFull()
                     ->schema([
-                      Select::make('product_id')
-    ->label(__('fields.product'))
-    ->options(fn () => Product::orderBy('name')
-        ->get()
-        ->mapWithKeys(fn ($p) => [
-            $p->id => $p->name . ' — متاح: ' .
-                \App\Models\Batch::where('product_id', $p->id)->sum('current_quantity')
-        ])
-    )
-    ->reactive()
-    ->required()
-    ->afterStateUpdated(fn ($set, $state) =>
-        $set('remaining_quantity',
-            \App\Models\Batch::where('product_id', $state)->sum('current_quantity')
-        )
-    ),
 
-                       Select::make('unit_id')
-    ->label(__('fields.unit'))
-    ->options(function (callable $get) {
-        $units = [];
-        $productUnits = ProductUnit::with('unit')
-            ->where('product_id', $get('product_id'))
-            ->get();
-        foreach ($productUnits as $unit) {
-            $units[$unit->id] = $unit->unit->name;
-        }
-        return $units;
-    })
-    ->reactive()
-    ->required()
-    ->afterStateUpdated(function (callable $get, callable $set, $state) {
-        $units     = ProductUnit::where('product_id', $get('product_id'))->get();
-        $unitPrice = $units->where('id', $state)->first()?->price ?? 0;
-        $basePrice = $units->where('is_base', true)->first()?->price ?? 0;
-        $qty       = (float) ($get('quantity') ?? 1);
+                        Select::make('product_id')
+                            ->label(__('fields.product'))
+                            ->options(fn () => Product::orderBy('name')
+                                ->get()
+                                ->mapWithKeys(fn ($p) => [
+                                    $p->id => $p->name . ' — متاح: ' .
+                                        Batch::where('product_id', $p->id)->sum('current_quantity')
+                                ])
+                            )
+                            ->searchable() // ← بحث
+                            ->preload()    // ← يظهر مباشرة
+                            ->reactive()
+                            ->required()
+                            ->afterStateUpdated(fn ($set, $state) =>
+                                $set('remaining_quantity',
+                                    Batch::where('product_id', $state)->sum('current_quantity')
+                                )
+                            ),
 
-        $set('unit_price', $unitPrice);
-        $set('base_price', $basePrice);
-        $set('total_price', $unitPrice * $qty);
+                        Select::make('unit_id')
+                            ->label(__('fields.unit'))
+                            ->options(function (callable $get) {
+                                $productUnits = ProductUnit::with('unit')
+                                    ->where('product_id', $get('product_id'))
+                                    ->get();
+                                return $productUnits->mapWithKeys(
+                                    fn ($pu) => [$pu->id => $pu->unit->name]
+                                );
+                            })
+                            ->searchable() // ← بحث
+                            ->preload()    // ← يظهر مباشرة
+                            ->reactive()
+                            ->required()
+                            ->afterStateUpdated(function (callable $get, callable $set, $state) {
+                                $units     = ProductUnit::where('product_id', $get('product_id'))->get();
+                                $unitPrice = $units->where('id', $state)->first()?->price ?? 0;
+                                $basePrice = $units->where('is_base', true)->first()?->price ?? 0;
+                                $qty       = (float) ($get('quantity') ?? 1);
 
-        // ← أضف هذا: حدّث الإجمالي فوراً
-        self::recalcTotal($get, $set);
-    }),
+                                $set('unit_price', $unitPrice);
+                                $set('base_price', $basePrice);
+                                $set('total_price', $unitPrice * $qty);
+
+                                self::recalcTotal($get, $set);
+                            }),
 
                         Hidden::make('base_price'),
 
@@ -144,25 +149,21 @@ Hidden::make('customer_name'),
                             ->lazy()
                             ->required()
                             ->afterStateUpdated(function (callable $get, callable $set, $state) {
-                                $price = $state ?? 0;
-                                $qty = $get('quantity') ?? 0;
-                                $set('total_price', $qty * $price);
+                                $set('total_price', (float) ($state ?? 0) * (float) ($get('quantity') ?? 0));
                             }),
 
-                       TextInput::make('quantity')
-    ->label(__('fields.quantity'))
-    ->numeric()
-    ->reactive()
-    ->lazy()
-    ->required()
-    ->minValue(1)
-    ->default(1)
-    ->afterStateUpdated(function (callable $get, callable $set, $state) {
-        $qty   = (float) $state;
-        $price = (float) ($get('unit_price') ?? 0);
-        $set('total_price', $qty * $price);
-        self::recalcTotal($get, $set);
-    }),
+                        TextInput::make('quantity')
+                            ->label(__('fields.quantity'))
+                            ->numeric()
+                            ->reactive()
+                            ->lazy()
+                            ->required()
+                            ->minValue(1)
+                            ->default(1)
+                            ->afterStateUpdated(function (callable $get, callable $set, $state) {
+                                $set('total_price', (float) $state * (float) ($get('unit_price') ?? 0));
+                                self::recalcTotal($get, $set);
+                            }),
 
                         TextInput::make('remaining_quantity')
                             ->default(0)
@@ -178,15 +179,11 @@ Hidden::make('customer_name'),
                         $items = $state ?: [];
                         $sum = 0;
                         foreach ($items as $it) {
-                            $sum += (((int) $it['quantity']) * ((int) $it['unit_price']));
+                            $sum += ((float) ($it['quantity'] ?? 0)) * ((float) ($it['unit_price'] ?? 0));
                         }
-
-                        $discount = $get('discount') ?? 0;
-                        $set('total_amount', $sum - $discount);
+                        $set('total_amount', $sum - ((float) ($get('discount') ?? 0)));
                     })
                     ->addActionLabel(__('fields.add_item')),
-
             ]);
-
     }
 }

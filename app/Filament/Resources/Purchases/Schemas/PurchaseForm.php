@@ -50,13 +50,23 @@ class PurchaseForm
                     ->columnSpanFull()
                     ->schema([
                         Select::make('product_id')
-                            ->label(__('fields.product'))
-                            ->options(fn () => $products->pluck('name', 'id'))
-                            ->reactive()
-                            ->required()
-                            ->afterStateUpdated(
-                                fn (callable $get, callable $set) => $set('unit_price', $products->where('id', $get('product_id'))->first()?->units->where('pivot.is_base', 1)->first()?->pivot->price)
-                            ),
+    ->label(__('fields.product'))
+    ->options(fn () => Product::orderBy('name')->pluck('name', 'id'))
+    ->searchable()        // ← البحث أثناء الكتابة
+    ->preload()           // ← يظهر مباشرة بدون كتابة
+    ->reactive()
+    ->required()
+    ->afterStateUpdated(
+        fn (callable $get, callable $set) => $set(
+            'unit_price',
+            Product::with('units')
+                ->find($get('product_id'))
+                ?->units
+                ->where('pivot.is_base', 1)
+                ->first()
+                ?->pivot->price
+        )
+    ),
                         Select::make('batch_id')
                             ->label(__('fields.batch_no'))
                             ->options(fn (callable $get) => Batch::where('product_id', $get('product_id'))->orderBy('batch_no')->pluck('batch_no', 'id'))

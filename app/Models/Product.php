@@ -16,6 +16,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+public function productUnits()
+{
+    return $this->hasMany(ProductUnit::class);
+}
 
     public function manufacturer()
     {

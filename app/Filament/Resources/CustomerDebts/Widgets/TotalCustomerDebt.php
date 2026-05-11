@@ -16,13 +16,7 @@ class TotalCustomerDebt extends StatsOverviewWidget
         $netBalance   = CustomerAccount::sum('balance');
 
         return [
-            Stat::make(__('app.total_debt'), number_format($totalDebt, 2) . ' ' . config('app.currency', 'ر.ي'))
-                ->color('danger')
-                ->icon('heroicon-o-arrow-trending-up'),
 
-            Stat::make('إجمالي المدفوع', number_format($totalPayment, 2) . ' ' . config('app.currency', 'ر.ي'))
-                ->color('success')
-                ->icon('heroicon-o-banknotes'),
 
             Stat::make('صافي الديون المتبقية', number_format($netBalance, 2) . ' ' . config('app.currency', 'ر.ي'))
                 ->color($netBalance > 0 ? 'warning' : 'success')

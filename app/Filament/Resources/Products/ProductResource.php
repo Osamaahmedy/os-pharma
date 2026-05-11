@@ -50,12 +50,12 @@ class ProductResource extends Resource
         return ProductsTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            UnitsRelationManager::class,
-        ];
-    }
+   public static function getRelations(): array
+{
+    return [
+        RelationManagers\UnitsRelationManager::class,
+    ];
+}
 
     public static function getPages(): array
     {
